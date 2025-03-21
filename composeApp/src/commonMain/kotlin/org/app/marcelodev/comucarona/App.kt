@@ -8,7 +8,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.core.model.rememberScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
@@ -32,6 +33,7 @@ class Game1: Screen {
     @Composable
     override fun Content() {
         val navigator: Navigator = LocalNavigator.currentOrThrow
+        val viewModel = rememberScreenModel { GameViewModel() }
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -45,6 +47,10 @@ class Game1: Screen {
             }
         }
     }
+}
+
+class GameViewModel: ScreenModel {
+    var count by mutableStateOf(0)
 }
 
 class Game2: Screen {
