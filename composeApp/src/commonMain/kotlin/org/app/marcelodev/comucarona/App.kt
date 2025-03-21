@@ -1,7 +1,5 @@
 package org.app.marcelodev.comucarona
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
@@ -10,27 +8,59 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
+import androidx.lifecycle.ViewModel
+import cafe.adriel.voyager.core.screen.Screen
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import cafe.adriel.voyager.transitions.FadeTransition
 import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import comucarona.composeapp.generated.resources.Res
-import comucarona.composeapp.generated.resources.compose_multiplatform
 
 @Composable
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
+        Navigator(
+            screen = Game1(),
+        ) { navigator ->
+            FadeTransition(navigator)
+        }
+    }
+}
+
+class Game1: Screen {
+    @Composable
+    override fun Content() {
+        val navigator: Navigator = LocalNavigator.currentOrThrow
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Game 1")
+            Button(onClick = {
+                navigator.push(Game2())
+            }) {
+                Text("Click me")
             }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
-                }
+        }
+    }
+}
+
+class Game2: Screen {
+    @Composable
+    override fun Content() {
+        val navigator: Navigator = LocalNavigator.currentOrThrow
+
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text("Game 2")
+            Button(onClick = {
+                navigator.pop()
+            }) {
+                Text("Go back")
             }
         }
     }
