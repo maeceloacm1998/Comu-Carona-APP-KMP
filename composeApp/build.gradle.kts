@@ -32,7 +32,12 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
+//            implementation(libs.kotlinx.coroutines.android)
+        }
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
         commonMain.dependencies {
             // Voyager
@@ -42,9 +47,21 @@ kotlin {
             implementation(libs.voyager.koin)
 
             // Koin
-            implementation(libs.koin.core)
             implementation(libs.koin.compose.viewmodel)
-            api(libs.koin.annotations)
+
+            // Ktor
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
+            implementation(libs.ktor.client.logging)
+
+            // COROUTINES
+//            implementation(libs.ktor.client.core)
+//            implementation(libs.kotlinx.coroutines.core)
+
+            // SHARED PREFERENCES ( Multiplatform Settings )
+            implementation(libs.multiplatform.settings)
+            implementation(libs.multiplatform.settings.coroutines)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
@@ -56,32 +73,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
         }
     }
-
-    // KSP Common sourceSet
-    sourceSets.named("commonMain").configure {
-        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
-    }
-}
-
-// KSP Tasks
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-    add("kspAndroid", libs.koin.ksp.compiler)
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-}
-
-// KSP Metadata Trigger
-project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
-    if(name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-}
-
-ksp {
-    arg("KOIN_CONFIG_CHECK","true")
-    arg("KOIN_LOG_TIMES","true")
 }
 
 android {
