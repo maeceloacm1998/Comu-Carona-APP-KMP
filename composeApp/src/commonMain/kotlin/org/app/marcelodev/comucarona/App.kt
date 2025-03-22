@@ -3,13 +3,11 @@ package org.app.marcelodev.comucarona
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
@@ -23,20 +21,21 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.app.marcelodev.comucarona.service.sharedpreferences.SharedPreferencesBuilder
+import org.app.marcelodev.comucarona.theme.AppTypography
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
-import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import org.koin.core.module.dsl.viewModel
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import androidx.compose.material3.MaterialTheme as MaterialTheme3
 
 @Composable
 @Preview
 fun App() {
     KoinContext {
-        MaterialTheme {
+        MaterialTheme3(
+            typography = AppTypography()
+        ) {
             Navigator(
                 screen = Game1(),
             ) { navigator ->
@@ -56,7 +55,10 @@ class Game1 : Screen {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Game 1")
+            Text(
+                text = "Game 1",
+                style = MaterialTheme3.typography.titleMedium
+            )
             Button(onClick = {
                 screenModel.getTest()
             }) {
@@ -94,7 +96,10 @@ class Game2 : Screen {
             modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text("Game 2")
+            Text(
+                text = "Game 2",
+                style = MaterialTheme3.typography.labelSmall
+            )
             Button(onClick = {
                 navigator.pop()
             }) {
