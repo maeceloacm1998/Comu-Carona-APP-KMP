@@ -22,12 +22,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.app.marcelodev.comucarona.service.sharedpreferences.SharedPreferencesBuilder
 import org.app.marcelodev.comucarona.theme.AppTypography
-import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import androidx.compose.material3.MaterialTheme as MaterialTheme3
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview

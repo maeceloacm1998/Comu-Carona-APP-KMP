@@ -19,6 +19,7 @@ voyagerVersion = "1.1.0-beta03"
 kamel = "0.9.4"
 koin = "4.0.2"
 ktor = "2.3.12"
+compose = "1.7.8"
 ksp = "2.0.21-1.0.28"
 coroutines = "1.9.0"
 mtplx_settings = "1.0.0"
@@ -33,7 +34,6 @@ androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-co
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
 androidx-material = { group = "com.google.android.material", name = "material", version.ref = "androidx-material" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
@@ -54,6 +54,7 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 multiplatform_settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "mtplx_settings" }
 multiplatform_settings_coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "mtplx_settings" }
+compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
