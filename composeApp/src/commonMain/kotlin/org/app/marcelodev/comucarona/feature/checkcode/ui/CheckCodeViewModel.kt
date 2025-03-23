@@ -11,8 +11,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
-import org.app.marcelodev.comucarona.service.ktor.NetworkingHttpState
+import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
 
 class CheckCodeViewModel(
@@ -57,35 +56,19 @@ class CheckCodeViewModel(
 //                        onGoToHome()
                     },
                     onFailure = { throwable ->
-                        println("Failure: ${throwable.message}")
-                        val statusCode = throwable.message?.let {
-                            // Extraímos o código do erro diretamente da mensagem da exceção
-                            it.split(":").lastOrNull()?.trim()?.toIntOrNull()
-                        } ?: 0
-
-                        println("O Status Code dessa requisição é: $statusCode")
-
-                        when (statusCode) {
-                            NetworkingHttpState.UNAUTHORIZED.code -> {
-                                // enter when the code is incorrect
+                        throwable.handleHttpException(
+                            onUnauthorized = {
                                 onUpdateLoadingState(false)
                                 onUpdateErrorState(true)
-                            }
-
-                            NetworkingHttpState.FORBIDDEN.code -> {
-                                // enter when the user identifier is incorrect
+                            },
+                            onForbidden = {
                                 onUpdateLoadingState(false)
                                 onUpdateErrorState(false)
                                 onUpdateSuccessState(true)
                                 println("Tela de registro")
 //                                onGoToRegisterAccount()
                             }
-
-                            else -> {
-                                onUpdateLoadingState(false)
-                                onUpdateErrorState(true)
-                            }
-                        }
+                        )
                     }
                 )
             }
@@ -98,8 +81,8 @@ class CheckCodeViewModel(
     }
 
     private fun onGoToRegisterAccount() {
-    // TODO ADICIONAR ROTA DE CADASTRO
-    //        NavigationUtils.replaceAllScreens(navigator, Routes.Home)
+        // TODO ADICIONAR ROTA DE CADASTRO
+        //        NavigationUtils.replaceAllScreens(navigator, Routes.Home)
     }
 
     private fun onUpdateLoadingState(isLoading: Boolean) {
