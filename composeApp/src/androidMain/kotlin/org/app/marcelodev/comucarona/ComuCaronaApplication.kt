@@ -1,6 +1,7 @@
 package org.app.marcelodev.comucarona
 
 import android.app.Application
+import org.app.marcelodev.comucarona.commons.utils.appContextDevice
 import org.app.marcelodev.comucarona.di.initKoin
 import org.app.marcelodev.comucarona.service.sharedpreferences.appContext
 import org.koin.android.ext.koin.androidContext
@@ -10,6 +11,7 @@ class ComuCaronaApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         appContext = this@ComuCaronaApplication
+        appContextDevice = this@ComuCaronaApplication
         initKoin {
             androidLogger()
             androidContext(this@ComuCaronaApplication)
