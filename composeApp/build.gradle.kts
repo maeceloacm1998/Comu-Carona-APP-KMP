@@ -50,9 +50,7 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
 
             // Constraint Layout
-            implementation("tech.annexflow.compose:constraintlayout-compose-multiplatform:0.5.1")
-
-            implementation(libs.compose.ui.tooling.preview)
+            implementation(libs.android.constraint.layout)
 
             // Ktor
             implementation(libs.ktor.client.core)

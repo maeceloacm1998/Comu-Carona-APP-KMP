@@ -20,6 +20,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
+import org.app.marcelodev.comucarona.feature.checkcode.ui.CheckCodeRoute
 import org.app.marcelodev.comucarona.service.sharedpreferences.SharedPreferencesBuilder
 import org.app.marcelodev.comucarona.theme.AppTypography
 import org.koin.compose.KoinContext
@@ -28,6 +30,7 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import androidx.compose.material3.MaterialTheme as MaterialTheme3
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.core.parameter.parametersOf
 
 @Composable
 @Preview
@@ -37,7 +40,7 @@ fun App() {
             typography = AppTypography()
         ) {
             Navigator(
-                screen = Game1(),
+                screen = CheckCodeRoute(),
             ) { navigator ->
                 FadeTransition(navigator)
             }
@@ -49,7 +52,11 @@ class Game1 : Screen {
     @Composable
     override fun Content() {
         val navigator: Navigator = LocalNavigator.currentOrThrow
-        val screenModel = koinScreenModel<GameViewModel>()
+        val screenModel = koinScreenModel<GameViewModel>(
+            parameters = {
+                parametersOf(navigator)
+            }
+        )
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -60,7 +67,7 @@ class Game1 : Screen {
                 style = MaterialTheme3.typography.titleMedium
             )
             Button(onClick = {
-                screenModel.getTest()
+                screenModel.onGoGame2Clicked()
             }) {
                 Text("Click me")
             }
@@ -69,6 +76,7 @@ class Game1 : Screen {
 }
 
 class GameViewModel(
+    private val navigator: Navigator,
     private val sharedPreferences: SharedPreferencesBuilder
 ) : ScreenModel, ViewModel(), KoinComponent {
     var count by mutableStateOf(0)
@@ -84,6 +92,13 @@ class GameViewModel(
             }
             println(test)
         }
+    }
+
+    fun onGoGame2Clicked() {
+        NavigationUtils.addNewScreen(
+            navigator = navigator,
+            screen = Game2()
+        )
     }
 }
 
@@ -111,6 +126,6 @@ class Game2 : Screen {
 
 object GameModule {
     val module = module {
-        viewModel { GameViewModel(get()) }
+        viewModel { params ->  GameViewModel(navigator = params.get(), sharedPreferences = get()) }
     }
 }

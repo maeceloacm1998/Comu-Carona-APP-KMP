@@ -19,10 +19,11 @@ voyagerVersion = "1.1.0-beta03"
 kamel = "0.9.4"
 koin = "4.0.2"
 ktor = "2.3.12"
-compose = "1.7.8"
 ksp = "2.0.21-1.0.28"
 coroutines = "1.9.0"
 mtplx_settings = "1.0.0"
+playServicesAdsIdentifier = "18.1.0"
+constraint_layout="0.5.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -54,7 +55,8 @@ kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-c
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 multiplatform_settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "mtplx_settings" }
 multiplatform_settings_coroutines = { module = "com.russhwolf:multiplatform-settings-coroutines", version.ref = "mtplx_settings" }
-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
+android-constraint-layout = { module = "tech.annexflow.compose:constraintlayout-compose-multiplatform", version.ref = "constraint_layout" }
+play-services-ads-identifier = { module = "com.google.android.gms:play-services-ads-identifier", version.ref = "playServicesAdsIdentifier" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

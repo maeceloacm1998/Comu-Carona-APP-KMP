@@ -1,0 +1,111 @@
+<resources>
+    <string name="app_name">Comu-Carona</string>
+
+    <string name="check_code_title">Código de entrada</string>
+    <string name="check_code_message">Digite o código disponibilizado nas\n reuniões e no grupo do whatsapp para\n ter acesso ao aplicativo</string>
+    <string name="check_code_error_message">Código inválido</string>
+    <string name="check_code_button_title">Verificar Código</string>
+
+    <string name="register_account_stage_of_full_name_title">Como podemos\nte chamar?</string>
+    <string name="register_account_stage_of_full_name_message">Esse nome será exibido para todas as pessoas que você solicitar carona.</string>
+    <string name="register_account_stage_of_full_name_hint">Nome completo</string>
+    <string name="register_account_stage_of_full_name_button_title">Próximo</string>
+
+    <string name="register_account_stage_of_birth_date_title">Qual a sua idade?</string>
+    <string name="register_account_stage_of_birth_date_message">Saber sua idade é importânte para o motorista da carona ter mais detalhes sobre você!</string>
+    <string name="register_account_stage_of_birth_date_hint">Ex: 02/04/1998</string>
+    <string name="register_account_stage_of_birth_date_button_title">Próximo</string>
+
+    <string name="register_account_stage_of_phone_number_title">Informe seu telefone</string>
+    <string name="register_account_stage_of_phone_number_message">Seu número de contato é importânte para caso o motorista da carona precise entrar em contato. 😁</string>
+    <string name="register_account_stage_of_phone_number_hint">Ex: (99) 99999-9999</string>
+    <string name="register_account_stage_of_phone_number_button_title">Próximo</string>
+
+    <string name="register_account_stage_of_photo_title">Estamos no final</string>
+    <string name="register_account_stage_of_photo_message">Por último, adicione uma foto sua para que o motorista da carona possa te reconhecer. 😁</string>
+    <string name="register_account_stage_of_photo_circular_button_title">Adicionar foto</string>
+    <string name="register_account_stage_of_photo_button_title">Finalizar</string>
+
+    <string name="initial_available_car_ride_title">Caronas disponíveis</string>
+    <string name="initial_not_available_car_ride_title">Nenhuma corrida disponível</string>
+    <string name="initial_username_title">Olá %s 👋</string>
+
+    <string name="create_car_ride_car_model_title">Qual são os dados\ndo seu carro?</string>
+    <string name="create_car_ride_car_model_message">Para mais detalhes da sua carona, digite os detalhes do seu carro para melhor identificação.</string>
+    <string name="create_car_ride_car_model_hint">Modelo do Carro</string>
+    <string name="create_car_ride_car_model_plate_hint">Placa do Carro</string>
+    <string name="create_car_ride_car_model_color_hint">Cor do carro</string>
+    <string name="create_car_ride_car_model_button_title">Próximo</string>
+
+    <string name="create_car_ride_last_car_ride_title">Usar a ultima carona?</string>
+    <string name="create_car_ride_last_car_ride_confirm_button_title">Usar última carona</string>
+    <string name="create_car_ride_last_car_ride_cancel_button_title">Criar nova carona</string>
+
+    <string name="create_car_ride_quantity_seats_title">Então, quantos\npassageiros você\npodera levar no carro?</string>
+
+    <string name="create_car_ride_waiting_address_title">De onde vai sair?</string>
+    <string name="create_car_ride_waiting_address_placeholder">Digite o endereço completo</string>
+
+    <string name="create_car_ride_waiting_hour_title">Qual horário você vai estar no local?</string>
+
+    <string name="create_car_ride_destination_address_title">Para qual local você vai?</string>
+    <string name="create_car_ride_destination_address_placeholder">Digite o endereço completo</string>
+
+    <string name="create_car_ride_destination_hour_title">Qual horário você vai chegar no local?</string>
+
+    <string name="create_car_ride_waiting_title">A Carona está sendo criada, aguarde um momento...</string>
+
+    <string name="create_car_ride_success_title">Sua Carona foi criada!</string>
+    <string name="create_car_ride_success_message">Aguarde as pessoas entrarem na sua carona 🚗</string>
+    <string name="create_car_ride_success_button_title">Ir para minhas caronas</string>
+
+    <string name="ride_in_progress_title">Minhas reservas</string>
+    <string name="ride_in_progress_empty_title">Nenhuma corrida disponível</string>
+
+    <string name="my_ride_in_progress_title">Minhas caronas</string>
+
+    <string name="car_ride_details_date_title_empty">Data não informada</string>
+    <string name="car_ride_details_hour_title_empty">00:00</string>
+    <string name="car_ride_details_address_title_empty">Endereço não informado</string>
+    <string name="car_ride_details_username_title_empty">Nome não informado</string>
+    <string name="car_ride_details_description_title_empty">Descrição não informada</string>
+    <string name="car_ride_details_reservation_button_title">Quero essa carona!</string>
+    <string name="car_ride_details_user_details_title">Placa do Motorista</string>
+    <string name="car_ride_details_user_details_wpp_title">Whatsapp</string>
+    <string name="car_ride_details_user_details_phone_title">Ligar</string>
+    <string name="car_ride_details_complete_title">Sua Carona foi reservada!</string>
+    <string name="car_ride_details_complete_description">Encontre a pessoa  no horário e local marcado, volte sempre 😁</string>
+    <string name="car_ride_details_complete_button_title">Ir para sua reservas</string>
+
+    <string name="my_ride_in_progress_details_cancel_button_title">Cancelar essa carona</string>
+    <string name="my_ride_in_progress_details_cancel_bottom_sheet_title">Deseja cancelar a carona?</string>
+    <string name="my_ride_in_progress_details_cancel_bottom_sheet_message">Pessoas estão contando com a sua carona, deseja realmente cancelar? 😥</string>
+    <string name="my_ride_in_progress_details_cancel_bottom_sheet_confirm_button_title">Cancelar Carona</string>
+    <string name="my_ride_in_progress_details_cancel_bottom_sheet_cancel_button_title">Voltar</string>
+    <string name="my_ride_in_progress_details_complete_title">Sua Carona foi cancelada!</string>
+    <string name="my_ride_in_progress_details_complete_description">Que pena que você cancelou a carona, mas continue sempre que puder compartilhando 😁🚗</string>
+    <string name="my_ride_in_progress_details_complete_button_title">Ir para a home</string>
+    <string name="my_ride_in_progress_details_reservations_title">Passageiros</string>
+    <string name="my_ride_in_progress_details_reservations_empty_title">Nenhum passageiro reservou a carona 😔</string>
+
+    <string name="ride_in_progress_details_cancel_button_title">Sair dessa carona</string>
+    <string name="ride_in_progress_details_cancel_bottom_sheet_title">Deseja cancelar sua reserva?</string>
+    <string name="ride_in_progress_details_cancel_bottom_sheet_message">Ao cancelar, você perderá sua vaga e precisará fazer uma nova reserva caso mude de ideia.</string>
+    <string name="ride_in_progress_details_cancel_bottom_sheet_confirm_button_title">Sair dessa reserva</string>
+    <string name="ride_in_progress_details_cancel_bottom_sheet_cancel_button_title">Voltar</string>
+    <string name="ride_in_progress_details_complete_title">Sua Reserva foi cancelada!</string>
+    <string name="ride_in_progress_details_complete_description">Que pena que você cancelou a reserva, mas sempre que precisar, volte! 😁🚗</string>
+    <string name="ride_in_progress_details_complete_button_title">Ir para a home</string>
+    <string name="ride_in_progress_details_reservations_title">Quem vai com você!</string>
+    <string name="ride_in_progress_details_reservations_empty_title">Nenhum passageiro reservou a carona 😔</string>
+
+    <string name="profile_title">Perfil</string>
+    <string name="profile_information_title">Dados pessoais</string>
+    <string name="profile_information_description">Faz alterações nos seus dados pessoais</string>
+    <string name="profile_exit_app_title">Sair do Aplicativo</string>
+    <string name="profile_exit_app_description">Saindo com segurança do aplicativo</string>
+
+    <string name="profile_button_title">Atualizar perfil</string>
+
+    <string name="generic_connection_error">Ocorreu um erro de conexão.\nPor favor, tente novamente.</string>
+</resources>

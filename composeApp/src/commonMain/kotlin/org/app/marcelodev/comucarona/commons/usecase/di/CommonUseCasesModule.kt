@@ -1,9 +1,10 @@
 package org.app.marcelodev.comucarona.commons.usecase.di
 
+import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.koin.dsl.module
 
 object CommonUseCasesModule {
-    val modules = module {
-
+    val module = module {
+        factory { LogoutUseCase(get()) }
     }
 }
