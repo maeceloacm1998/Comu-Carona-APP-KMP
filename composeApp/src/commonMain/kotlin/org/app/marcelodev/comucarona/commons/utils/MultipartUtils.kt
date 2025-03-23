@@ -1,4 +1,4 @@
-package org.app.marcelodev.comucarona.utils
+package org.app.marcelodev.comucarona.commons.utils
 
 object MultipartUtils {
 
