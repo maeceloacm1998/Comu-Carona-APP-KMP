@@ -10,7 +10,6 @@ import org.app.marcelodev.comucarona.feature.registeraccount.data.models.Registe
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
 import org.app.marcelodev.comucarona.feature.registeraccount.domain.RegisterAccountUseCase
 import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
-import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -43,7 +42,6 @@ class RegisterAccountViewModel(
         when (event) {
             is OnNextStep -> onNextStep(event.step)
             is OnRemoveNewStep -> onRemoveNewStep(event.step)
-            is OnGrantedPermission -> onGrantedPermission(event.isGranted)
             is OnUpdateFullName -> onUpdateFullName(event.fullName)
             is OnUpdateBirthDate -> onUpdateBirthDate(event.birthDate)
             is OnUpdatePhoneNumber -> onUpdatePhoneNumber(event.phoneNumber)
@@ -102,10 +100,6 @@ class RegisterAccountViewModel(
 
     private fun onUpdateStep(step: RegisterAccountSteps) {
         viewModelState.update { it.copy(steps = step) }
-    }
-
-    private fun onGrantedPermission(isGranted: Boolean) {
-        viewModelState.update { it.copy(isGrantedPermission = isGranted) }
     }
 
     private fun onUpdateFullName(fullName: String) {

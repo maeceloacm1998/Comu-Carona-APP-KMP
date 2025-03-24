@@ -46,9 +46,4 @@ sealed class RegisterAccountViewModelEventState {
      * Represents the event when the photo is updated.
      */
     data object OnOpenPhoto : RegisterAccountViewModelEventState()
-
-    /**
-     * Represents the event when the permission is granted.
-     */
-    data class OnGrantedPermission(val isGranted: Boolean) : RegisterAccountViewModelEventState()
 }

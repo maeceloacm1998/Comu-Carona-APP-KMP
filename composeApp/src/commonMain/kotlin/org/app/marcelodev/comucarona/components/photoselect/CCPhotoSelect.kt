@@ -20,73 +20,68 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
 import androidx.compose.ui.unit.dp
+import comucarona.composeapp.generated.resources.Res
+import comucarona.composeapp.generated.resources.register_account_stage_of_photo_circular_button_title
+import org.app.marcelodev.comucarona.theme.GrayLight
+import org.app.marcelodev.comucarona.theme.TextFieldColor
+import org.app.marcelodev.comucarona.theme.TextFieldLineColor
+import org.jetbrains.compose.resources.stringResource
 
-//@Composable
-//fun PhotoUriComponent(
-//    photoUri: Uri,
-//    onPhotoSelected: (Uri?) -> Unit
-//) {
-//
-//    val launcher = rememberLauncherForActivityResult(
-//        contract = ActivityResultContracts.StartActivityForResult()
-//    ) { result ->
-//        if (result.resultCode == Activity.RESULT_OK) {
-//            onPhotoSelected(result.data?.data)
-//        }
-//    }
-//
-//    Column(
-//        modifier = Modifier
-//            .size(300.dp)
-//            .background(GrayLight, shape = RoundedCornerShape(500.dp))
-//            .clickable {
-//                val intent = Intent(Intent.ACTION_PICK).apply {
-//                    type = "image/*"
-//                }
-//                launcher.launch(intent)
-//            }
-//            .border(1.dp, TextFieldLineColor, shape = RoundedCornerShape(500.dp)),
-//        verticalArrangement = Center,
-//        horizontalAlignment = CenterHorizontally
-//    ) {
-//        AnimatedVisibility(
-//            photoUri != Uri.EMPTY
-//        ) {
-//            Image(
-//                painter = rememberAsyncImagePainter(model = photoUri),
-//                contentScale = FillBounds,
-//                contentDescription = null,
-//                modifier = Modifier
-//                    .size(300.dp)
-//                    .clip(CircleShape)
-//            )
-//        }
-//
-//        AnimatedVisibility(photoUri == Uri.EMPTY) {
-//            Column(
-//                verticalArrangement = Center,
-//                horizontalAlignment = CenterHorizontally
-//            ) {
-//                Icon(
-//                    modifier = Modifier.size(70.dp),
-//                    imageVector = Icons.TwoTone.Person,
-//                    contentDescription = null,
-//                    tint = TextFieldColor
-//                )
-//
-//                Text(
-//                    text = stringResource(id = R.string.register_account_stage_of_photo_circular_button_title),
-//                    style = MaterialTheme.typography.bodyLarge,
-//                    color = TextFieldColor
-//                )
-//            }
-//        }
-//    }
-//}
-//
+@Composable
+fun PhotoImageBitmapComponent(
+    photoBitmap: ImageBitmap? = null,
+    onClick: () -> Unit
+) {
+
+    Column(
+        modifier = Modifier
+            .size(300.dp)
+            .background(GrayLight, shape = RoundedCornerShape(500.dp))
+            .clickable {
+                onClick()
+            }
+            .border(1.dp, TextFieldLineColor, shape = RoundedCornerShape(500.dp)),
+        verticalArrangement = Center,
+        horizontalAlignment = CenterHorizontally
+    ) {
+        AnimatedVisibility(
+            photoBitmap != null
+        ) {
+            Image(
+                bitmap = photoBitmap!!,
+                contentScale = FillBounds,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(300.dp)
+                    .clip(CircleShape)
+            )
+        }
+
+        AnimatedVisibility(photoBitmap == null) {
+            Column(
+                verticalArrangement = Center,
+                horizontalAlignment = CenterHorizontally
+            ) {
+                Icon(
+                    modifier = Modifier.size(70.dp),
+                    imageVector = Icons.TwoTone.Person,
+                    contentDescription = null,
+                    tint = TextFieldColor
+                )
+
+                Text(
+                    text = stringResource(Res.string.register_account_stage_of_photo_circular_button_title),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = TextFieldColor
+                )
+            }
+        }
+    }
+}
+
 //@Composable
 //fun PhotoUrlComponent(
 //    photoUrl: String,

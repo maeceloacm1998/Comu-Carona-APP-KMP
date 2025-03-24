@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -34,7 +33,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
-//            implementation(libs.kotlinx.coroutines.android)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -58,13 +56,13 @@ kotlin {
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.ktor.client.logging)
 
-            // COROUTINES
-//            implementation(libs.ktor.client.core)
-//            implementation(libs.kotlinx.coroutines.core)
-
             // SHARED PREFERENCES ( Multiplatform Settings )
             implementation(libs.multiplatform.settings)
             implementation(libs.multiplatform.settings.coroutines)
+
+            // MOKO MEDIA
+            implementation("dev.icerock.moko:permissions-gallery:0.19.1")
+            implementation("dev.icerock.moko:permissions-compose:0.19.1")
 
             implementation(compose.runtime)
             implementation(compose.foundation)

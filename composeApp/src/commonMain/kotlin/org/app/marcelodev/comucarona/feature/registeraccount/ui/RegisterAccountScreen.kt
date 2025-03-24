@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
@@ -21,12 +23,18 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState
 import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
-import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelUiState
 import comucarona.composeapp.generated.resources.*
 import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_hint
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_message
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_title
+import dev.icerock.moko.permissions.Permission
+import dev.icerock.moko.permissions.PermissionsController
+import dev.icerock.moko.permissions.compose.BindEffect
+import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
+import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
+import dev.icerock.moko.permissions.gallery.GALLERY
+import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.BIRTH_DATE_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.FULL_NAME_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.PHONE_NUMBER_LENGTH
@@ -34,6 +42,7 @@ import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatBirthDate
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatPhoneNumber
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.components.button.CCButtonBack
+import org.app.marcelodev.comucarona.components.photoselect.PhotoImageBitmapComponent
 import org.app.marcelodev.comucarona.components.textfield.CCTextField
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.BIRTH_DATE
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.FULL_NAME
@@ -265,10 +274,16 @@ fun StageOfPhotoScreen(
     uiState: RegisterAccountViewModelUiState.Register,
     event: (RegisterAccountViewModelEventState) -> Unit
 ) {
-//    RequestGalleryPermission(
-//        onPermissionDenied = { event(OnGrantedPermission(false)) },
-//        onPermissionGranted = { event(OnGrantedPermission(true)) }
-//    )
+    val coroutineScope = rememberCoroutineScope()
+
+    val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
+    val controller: PermissionsController = remember(factory) { factory.createPermissionsController() }
+
+    LaunchedEffect(Unit) {
+        controller.providePermission(Permission.GALLERY)
+    }
+
+    BindEffect(controller)
 
     Column(
         modifier = Modifier
@@ -306,14 +321,14 @@ fun StageOfPhotoScreen(
                 .fillMaxWidth(),
             horizontalAlignment = CenterHorizontally
         ) {
-//            PhotoUriComponent(
-//                photoUri = uiState.photoUri,
-//                onPhotoSelected = { uri ->
-//                    if (uri != null) {
-//                        event(OnOpenPhoto(uri))
-//                    }
-//                }
-//            )
+            PhotoImageBitmapComponent(
+                photoBitmap = uiState.photoUrl,
+                onClick = {
+                    coroutineScope.launch {
+
+                     }
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -339,6 +354,7 @@ fun StageOfFullNameScreenPreview() {
             fullName = "John Doe",
             birthDate = "01/01/2000",
             phoneNumber = "31999999999",
+            photoUrl = null,
             isLoading = false,
             isError = false,
             isSuccess = false
@@ -356,6 +372,7 @@ fun StageOfBirthDateScreenPreview() {
             fullName = "John Doe",
             birthDate = "01/01/2000",
             phoneNumber = "31999999999",
+            photoUrl = null,
             isLoading = false,
             isError = false,
             isSuccess = false
@@ -373,6 +390,7 @@ fun StageOfPhoneNumberScreenPreview() {
             fullName = "John Doe",
             birthDate = "01/01/2000",
             phoneNumber = "31999999999",
+            photoUrl = null,
             isLoading = false,
             isError = false,
             isSuccess = false
@@ -390,6 +408,7 @@ fun StageOfPhotoScreenPreview() {
             fullName = "John Doe",
             birthDate = "01/01/2000",
             phoneNumber = "31999999999",
+            photoUrl = null,
             isLoading = false,
             isError = false,
             isSuccess = false
