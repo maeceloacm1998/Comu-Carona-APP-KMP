@@ -14,7 +14,7 @@ class CheckCodeUseCase(
 ) {
     suspend operator fun invoke(code: String): Result<CheckCodeResponse> {
         val deviceUtils = DeviceUtils.create()
-        val userIdentifier = deviceUtils.getUniqueDeviceId()
+        val userIdentifier = deviceUtils.getUniqueDeviceId().lowercase()
         println("Advertising ID: $userIdentifier")
 
         return try {

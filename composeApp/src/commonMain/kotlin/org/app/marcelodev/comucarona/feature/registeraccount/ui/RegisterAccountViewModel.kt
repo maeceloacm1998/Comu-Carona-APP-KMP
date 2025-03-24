@@ -1,0 +1,136 @@
+package org.app.marcelodev.comucarona.feature.registeraccount.ui
+
+import androidx.compose.material3.SnackbarHostState
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import cafe.adriel.voyager.core.model.ScreenModel
+import cafe.adriel.voyager.navigator.Navigator
+import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState
+import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps
+import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
+import org.app.marcelodev.comucarona.feature.registeraccount.domain.RegisterAccountUseCase
+import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
+import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelState
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
+import org.koin.core.component.KoinComponent
+
+class RegisterAccountViewModel(
+    private val navigator: Navigator,
+    private val snackbarHostState: SnackbarHostState,
+    private val registerAccountUseCase: RegisterAccountUseCase,
+    private val logoutUseCase: LogoutUseCase
+) : ScreenModel, ViewModel(), KoinComponent {
+    private val snackbarMessageError = "Aconteceu um erro ao registrar o usuário, tenta novamente."
+    private val viewModelState = MutableStateFlow(RegisterAccountViewModelState())
+    private val stepsOrder: List<RegisterAccountSteps> = RegisterAccountSteps.entries.toTypedArray().toList()
+
+    val uiState = viewModelState
+        .map(RegisterAccountViewModelState::toUiState)
+        .stateIn(
+            viewModelScope,
+            SharingStarted.Eagerly,
+            viewModelState.value.toUiState()
+        )
+
+    fun onEvent(event: RegisterAccountViewModelEventState) {
+        when (event) {
+            is OnNextStep -> onNextStep(event.step)
+            is OnRemoveNewStep -> onRemoveNewStep(event.step)
+            is OnGrantedPermission -> onGrantedPermission(event.isGranted)
+            is OnUpdateFullName -> onUpdateFullName(event.fullName)
+            is OnUpdateBirthDate -> onUpdateBirthDate(event.birthDate)
+            is OnUpdatePhoneNumber -> onUpdatePhoneNumber(event.phoneNumber)
+            is OnOpenPhoto -> TODO()
+        }
+    }
+
+    private fun onNextStep(step: RegisterAccountSteps) {
+        if (step == PHOTO) {
+            onRegisterUser()
+        } else {
+            val index = stepsOrder.indexOf(step)
+            onUpdateStep(stepsOrder[index + 1])
+        }
+    }
+
+    private fun onRemoveNewStep(step: RegisterAccountSteps) {
+        val index = stepsOrder.indexOf(step)
+
+        if (index > 0) {
+            onUpdateStep(stepsOrder[index - 1])
+        }
+    }
+
+    private fun onRegisterUser() {
+        val state = viewModelState.value
+        onUpdateLoading(true)
+
+        viewModelScope.launch {
+            registerAccountUseCase(
+                fullName = state.fullName,
+                birthDate = state.birthDate,
+                phoneNumber = state.phoneNumber,
+            ).onSuccess {
+                //                onGoToHome()
+                onUpdateLoading(false)
+                onUpdateSuccess(true)
+            }.onFailure { throwable ->
+                throwable.handleHttpException(
+                    onUnauthorized = {
+                        logoutUseCase(navigator = navigator)
+                    },
+                    others = {
+                        println("Error ${throwable.message}")
+                        onUpdateLoading(false)
+                        showSnackbarMessage(snackbarMessageError)
+                    }
+                )
+            }
+        }
+    }
+
+    //    private fun onOpenGallery(uri: Uri) {
+    //        viewModelState.update { it.copy(photoUri = uri) }
+    //    }
+
+    private fun onUpdateStep(step: RegisterAccountSteps) {
+        viewModelState.update { it.copy(steps = step) }
+    }
+
+    private fun onGrantedPermission(isGranted: Boolean) {
+        viewModelState.update { it.copy(isGrantedPermission = isGranted) }
+    }
+
+    private fun onUpdateFullName(fullName: String) {
+        viewModelState.update { it.copy(fullName = fullName) }
+    }
+
+    private fun onUpdateBirthDate(birthDate: String) {
+        viewModelState.update { it.copy(birthDate = birthDate) }
+    }
+
+    private fun onUpdatePhoneNumber(phoneNumber: String) {
+        viewModelState.update { it.copy(phoneNumber = phoneNumber) }
+    }
+
+    private fun onUpdateLoading(isLoading: Boolean) {
+        viewModelState.update { it.copy(isLoading = isLoading) }
+    }
+
+    private fun onUpdateSuccess(isSuccess: Boolean) {
+        viewModelState.update { it.copy(isSuccess = isSuccess) }
+    }
+
+    private fun showSnackbarMessage(message: String) {
+        viewModelScope.launch {
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+}

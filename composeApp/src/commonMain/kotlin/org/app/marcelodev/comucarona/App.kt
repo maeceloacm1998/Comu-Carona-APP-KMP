@@ -126,6 +126,6 @@ class Game2 : Screen {
 
 object GameModule {
     val module = module {
-        viewModel { params ->  GameViewModel(navigator = params.get(), sharedPreferences = get()) }
+        viewModel { params -> GameViewModel(navigator = params.get(), sharedPreferences = get()) }
     }
 }

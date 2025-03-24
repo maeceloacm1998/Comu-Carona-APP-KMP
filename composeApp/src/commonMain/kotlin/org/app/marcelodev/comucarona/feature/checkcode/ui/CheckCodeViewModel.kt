@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
+import org.app.marcelodev.comucarona.feature.registeraccount.ui.RegisterAccountRoute
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
 
@@ -65,8 +67,7 @@ class CheckCodeViewModel(
                                 onUpdateLoadingState(false)
                                 onUpdateErrorState(false)
                                 onUpdateSuccessState(true)
-                                println("Tela de registro")
-//                                onGoToRegisterAccount()
+                                onGoToRegisterAccount()
                             }
                         )
                     }
@@ -81,8 +82,7 @@ class CheckCodeViewModel(
     }
 
     private fun onGoToRegisterAccount() {
-        // TODO ADICIONAR ROTA DE CADASTRO
-        //        NavigationUtils.replaceAllScreens(navigator, Routes.Home)
+        NavigationUtils.replaceAllScreens(navigator, RegisterAccountRoute())
     }
 
     private fun onUpdateLoadingState(isLoading: Boolean) {
