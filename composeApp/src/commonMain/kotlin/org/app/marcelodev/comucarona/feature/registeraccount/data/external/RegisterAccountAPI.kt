@@ -5,6 +5,7 @@ import io.ktor.client.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.client.request.*
+import io.ktor.client.request.forms.*
 
 
 interface RegisterAccountAPI {
@@ -13,10 +14,9 @@ interface RegisterAccountAPI {
         username: String
     ): HttpResponse
 
-//    suspend fun uploadImage(
-//        file: MultipartBody.Part
-//    ): HttpResponse
-
+    suspend fun uploadImage(
+        file: ByteArray
+    ): HttpResponse
 }
 
 class RegisterAccountAPIImpl(
@@ -30,17 +30,19 @@ class RegisterAccountAPIImpl(
         }
     }
 
-//
-//    override suspend fun uploadImage(file: File): HttpResponse {
-//        return client.post("api/files/v1/upload/user-image") {
-//            contentType(ContentType.Application.Json)
-//            MultiPartFormDataContent(
-//                formData {
-//                    append("file", file.readBytes(), Headers.build {
-//                        append(HttpHeaders.ContentType, "image/jpeg")  // Ou outro tipo de arquivo
-//                        append(HttpHeaders.ContentDisposition, "filename=\"${file.name}\"")
-//                    })
-//                })
-//        }
-//    }
+    override suspend fun uploadImage(file: ByteArray): HttpResponse {
+        return client.submitFormWithBinaryData(
+            url = "api/files/v1/upload/user-image",
+            formData = formData {
+                append(
+                    key = "file",
+                    value = file,
+                    headers = Headers.build {
+                        append(HttpHeaders.ContentType, "image/jpeg") // Ajuste o tipo de conteúdo conforme necessário
+                        append(HttpHeaders.ContentDisposition, "filename=\"user-image.jpg\"") // Nome do arquivo
+                    }
+                )
+            }
+        )
+    }
 }

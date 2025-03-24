@@ -5,11 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.navigator.Navigator
-import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.readBytes
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
 import org.app.marcelodev.comucarona.feature.registeraccount.domain.RegisterAccountUseCase
-import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
+import org.app.marcelodev.comucarona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.feature.registeraccount.domain.UploadPhotoUseCase
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
 
@@ -24,6 +26,7 @@ class RegisterAccountViewModel(
     private val navigator: Navigator,
     private val snackbarHostState: SnackbarHostState,
     private val registerAccountUseCase: RegisterAccountUseCase,
+    private val updatePhotoUseCase: UploadPhotoUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ScreenModel, ViewModel(), KoinComponent {
     private val snackbarMessageError = "Aconteceu um erro ao registrar o usuário, tenta novamente."
@@ -45,7 +48,7 @@ class RegisterAccountViewModel(
             is OnUpdateFullName -> onUpdateFullName(event.fullName)
             is OnUpdateBirthDate -> onUpdateBirthDate(event.birthDate)
             is OnUpdatePhoneNumber -> onUpdatePhoneNumber(event.phoneNumber)
-            is OnOpenPhoto -> TODO()
+            is OnUpdatePhoto -> onUpdatePhoto(event.photo)
         }
     }
 
@@ -75,6 +78,7 @@ class RegisterAccountViewModel(
                 fullName = state.fullName,
                 birthDate = state.birthDate,
                 phoneNumber = state.phoneNumber,
+                photoBityArray = state.photoUrl!!.readBytes()
             ).onSuccess {
                 //                onGoToHome()
                 onUpdateLoading(false)
@@ -100,6 +104,10 @@ class RegisterAccountViewModel(
 
     private fun onUpdateStep(step: RegisterAccountSteps) {
         viewModelState.update { it.copy(steps = step) }
+    }
+
+    private fun onUpdatePhoto(photo: PlatformFile?) {
+        viewModelState.update { it.copy(photoUrl = photo) }
     }
 
     private fun onUpdateFullName(fullName: String) {

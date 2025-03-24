@@ -64,6 +64,12 @@ kotlin {
             implementation("dev.icerock.moko:permissions-gallery:0.19.1")
             implementation("dev.icerock.moko:permissions-compose:0.19.1")
 
+            // FileKit
+            implementation("io.github.vinceglb:filekit-core:0.10.0-beta01")
+            implementation("io.github.vinceglb:filekit-dialogs:0.10.0-beta01")
+            implementation("io.github.vinceglb:filekit-dialogs-compose:0.10.0-beta01")
+            implementation("io.github.vinceglb:filekit-coil:0.10.0-beta01")
+
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -80,7 +86,7 @@ kotlin {
 
 android {
     namespace = "org.app.marcelodev.comucarona"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = 35
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs(
@@ -91,7 +97,7 @@ android {
     defaultConfig {
         applicationId = "org.app.marcelodev.comucarona"
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
     }

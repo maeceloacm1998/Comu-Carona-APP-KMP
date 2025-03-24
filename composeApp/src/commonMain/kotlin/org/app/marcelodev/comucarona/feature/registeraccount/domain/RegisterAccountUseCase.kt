@@ -7,13 +7,15 @@ import org.app.marcelodev.comucarona.service.ktor.AuthPreferences
 
 class RegisterAccountUseCase(
     private val registerAccountRepository: RegisterAccountRepository,
+    private val photoUseCase: UploadPhotoUseCase,
     private val authPreferences: AuthPreferences
 ) {
 
     suspend operator fun invoke(
         fullName: String,
         birthDate: String,
-        phoneNumber: String
+        phoneNumber: String,
+        photoBityArray: ByteArray,
     ): Result<Unit> {
         return try {
             val username = DeviceUtils.Companion.create().getUniqueDeviceId().lowercase()
@@ -31,25 +33,22 @@ class RegisterAccountUseCase(
 
             registerUserResponse.fold(
                 onSuccess = { userResponse ->
-//                    authPreferences.saveTokens(
-//                        accessToken = userResponse.accessToken,
-//                        refreshToken = userResponse.refreshToken
-//                    )
-//                    authPreferences.userName = userResponse.username
-                    Result.success(Unit)
+                    authPreferences.saveTokens(
+                        accessToken = userResponse.accessToken!!,
+                        refreshToken = userResponse.refreshToken!!
+                    )
 
-// TODO Fazer o request da imagem dps de adicionar o MOKO
-//                    val photoUploadResponse = uploadPhotoUseCase(photoUri)
-//                    photoUploadResponse.fold(
-//                        onSuccess = { data ->
-//                            authPreferences.userName = userResponse.username
-//                            authPreferences.photoUrl = data.uri
-//                            Result.success(Unit)
-//                        },
-//                        onFailure = { throwable ->
-//                            Result.failure(throwable)
-//                        }
-//                    )
+                    val photoUploadResponse = photoUseCase(photoBityArray)
+                    photoUploadResponse.fold(
+                        onSuccess = { data ->
+                            authPreferences.userName = userResponse.username
+                            authPreferences.photoUrl = data.uri
+                            Result.success(Unit)
+                        },
+                        onFailure = { throwable ->
+                            Result.failure(throwable)
+                        }
+                    )
                 },
                 onFailure = { throwable ->
                     Result.failure(throwable)

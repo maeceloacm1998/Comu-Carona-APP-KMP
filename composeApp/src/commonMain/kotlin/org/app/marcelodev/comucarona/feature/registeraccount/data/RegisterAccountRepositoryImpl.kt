@@ -6,6 +6,7 @@ import org.app.marcelodev.comucarona.feature.registeraccount.data.models.Registe
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import org.app.marcelodev.comucarona.feature.registeraccount.data.models.PhotoRequest
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleResultResponse
 
 class RegisterAccountRepositoryImpl(
@@ -31,15 +32,15 @@ class RegisterAccountRepositoryImpl(
     }
 
 
-//
-//    override suspend fun updatePhoto(photoUri: MultipartBody.Part): Result<PhotoRequest> {
-//        return withContext(Dispatchers.IO) {
-//            try {
-//                val response = registerAccountAPI.uploadImage(photoUri)
-//                Result.success(response)
-//            } catch (e: Exception) {
-//                Result.failure(e)
-//            }
-//        }
-//    }
+
+    override suspend fun updatePhoto(photoUri: ByteArray): Result<PhotoRequest> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = registerAccountAPI.uploadImage(photoUri)
+                return@withContext response.handleResultResponse<PhotoRequest>()
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
 }

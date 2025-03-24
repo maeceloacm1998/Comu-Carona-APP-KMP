@@ -16,23 +16,24 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
 import androidx.compose.ui.unit.dp
 import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.register_account_stage_of_photo_circular_button_title
+import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.coil.AsyncImage
+import io.github.vinceglb.filekit.name
 import org.app.marcelodev.comucarona.theme.GrayLight
 import org.app.marcelodev.comucarona.theme.TextFieldColor
 import org.app.marcelodev.comucarona.theme.TextFieldLineColor
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun PhotoImageBitmapComponent(
-    photoBitmap: ImageBitmap? = null,
+fun PhotoPlatformFileComponent(
+    photoFile: PlatformFile? = null,
     onClick: () -> Unit
 ) {
 
@@ -48,19 +49,19 @@ fun PhotoImageBitmapComponent(
         horizontalAlignment = CenterHorizontally
     ) {
         AnimatedVisibility(
-            photoBitmap != null
+            photoFile != null
         ) {
-            Image(
-                bitmap = photoBitmap!!,
+            AsyncImage(
+                file = photoFile,
+                contentDescription = photoFile?.name,
                 contentScale = FillBounds,
-                contentDescription = null,
                 modifier = Modifier
                     .size(300.dp)
                     .clip(CircleShape)
             )
         }
 
-        AnimatedVisibility(photoBitmap == null) {
+        AnimatedVisibility(photoFile == null) {
             Column(
                 verticalArrangement = Center,
                 horizontalAlignment = CenterHorizontally

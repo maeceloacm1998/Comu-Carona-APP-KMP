@@ -21,8 +21,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState
-import com.app.comu_carona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
+import org.app.marcelodev.comucarona.feature.registeraccount.ui.RegisterAccountViewModelEventState.*
 import comucarona.composeapp.generated.resources.*
 import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_hint
@@ -34,6 +33,9 @@ import dev.icerock.moko.permissions.compose.BindEffect
 import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
 import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
 import dev.icerock.moko.permissions.gallery.GALLERY
+import io.github.vinceglb.filekit.FileKit
+import io.github.vinceglb.filekit.dialogs.FileKitType
+import io.github.vinceglb.filekit.dialogs.openFilePicker
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.BIRTH_DATE_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.FULL_NAME_LENGTH
@@ -42,7 +44,7 @@ import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatBirthDate
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatPhoneNumber
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.components.button.CCButtonBack
-import org.app.marcelodev.comucarona.components.photoselect.PhotoImageBitmapComponent
+import org.app.marcelodev.comucarona.components.photoselect.PhotoPlatformFileComponent
 import org.app.marcelodev.comucarona.components.textfield.CCTextField
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.BIRTH_DATE
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.FULL_NAME
@@ -283,6 +285,7 @@ fun StageOfPhotoScreen(
         controller.providePermission(Permission.GALLERY)
     }
 
+
     BindEffect(controller)
 
     Column(
@@ -321,12 +324,13 @@ fun StageOfPhotoScreen(
                 .fillMaxWidth(),
             horizontalAlignment = CenterHorizontally
         ) {
-            PhotoImageBitmapComponent(
-                photoBitmap = uiState.photoUrl,
+            PhotoPlatformFileComponent(
+                photoFile = uiState.photoUrl,
                 onClick = {
                     coroutineScope.launch {
-
-                     }
+                        val image = FileKit.openFilePicker(type = FileKitType.Image)
+                        image?.let { event(OnUpdatePhoto(it)) }
+                    }
                 }
             )
         }
@@ -336,6 +340,7 @@ fun StageOfPhotoScreen(
         CCButton(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(Res.string.register_account_stage_of_photo_button_title),
+            isEnable = uiState.photoUrl != null,
             isLoading = uiState.isLoading,
             isSuccess = uiState.isSuccess,
             onButtonListener = {

@@ -12,7 +12,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
-import com.app.comu_carona.feature.registeraccount.ui.*
 import org.app.marcelodev.comucarona.commons.utils.AnimatedUtils.animatedTransitionPage
 import org.app.marcelodev.comucarona.components.snackbar.CCSnackbar
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType

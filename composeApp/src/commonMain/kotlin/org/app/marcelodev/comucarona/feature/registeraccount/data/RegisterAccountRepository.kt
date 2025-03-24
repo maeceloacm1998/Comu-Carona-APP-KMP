@@ -1,5 +1,6 @@
 package org.app.marcelodev.comucarona.feature.registeraccount.data
 
+import org.app.marcelodev.comucarona.feature.registeraccount.data.models.PhotoRequest
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountRequest
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountResponse
 
@@ -9,5 +10,5 @@ interface RegisterAccountRepository {
         username: String
     ): Result<RegisterAccountResponse>
 
-//    suspend fun updatePhoto(photoUri: MultipartBody.Part): Result<PhotoRequest>
+    suspend fun updatePhoto(photoUri: ByteArray): Result<PhotoRequest>
 }
