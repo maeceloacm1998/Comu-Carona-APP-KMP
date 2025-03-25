@@ -43,6 +43,7 @@ kotlin {
             implementation(libs.voyager.screenmodel)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.koin)
+            implementation(libs.voyager.tab)
 
             // Koin
             implementation(libs.koin.compose.viewmodel)
@@ -61,14 +62,14 @@ kotlin {
             implementation(libs.multiplatform.settings.coroutines)
 
             // MOKO MEDIA
-            implementation("dev.icerock.moko:permissions-gallery:0.19.1")
-            implementation("dev.icerock.moko:permissions-compose:0.19.1")
+            implementation(libs.permissions.gallery)
+            implementation(libs.permissions.compose)
 
             // FileKit
-            implementation("io.github.vinceglb:filekit-core:0.10.0-beta01")
-            implementation("io.github.vinceglb:filekit-dialogs:0.10.0-beta01")
-            implementation("io.github.vinceglb:filekit-dialogs-compose:0.10.0-beta01")
-            implementation("io.github.vinceglb:filekit-coil:0.10.0-beta01")
+            implementation(libs.filekit.core)
+            implementation(libs.filekit.dialogs)
+            implementation(libs.filekit.dialogs.compose)
+            implementation(libs.filekit.coil)
 
             implementation(compose.runtime)
             implementation(compose.foundation)
