@@ -13,8 +13,10 @@ androidx-material = "1.12.0"
 compose-material3 = "1.1.2"
 androidx-test-junit = "1.2.1"
 compose-multiplatform = "1.7.0"
+filekit= "0.10.0-beta01"
 junit = "4.13.2"
 kotlin = "2.1.0"
+permissionsGallery = "0.19.1"
 voyagerVersion = "1.1.0-beta03"
 kamel = "0.9.4"
 koin = "4.0.2"
@@ -25,6 +27,10 @@ mtplx_settings = "1.0.0"
 constraint_layout="0.5.1"
 
 [libraries]
+filekit-coil = { module = "io.github.vinceglb:filekit-coil", version.ref = "filekit" }
+filekit-dialogs-compose = { module = "io.github.vinceglb:filekit-dialogs-compose", version.ref = "filekit"  }
+filekit-dialogs = { module = "io.github.vinceglb:filekit-dialogs", version.ref = "filekit"  }
+filekit-core = { module = "io.github.vinceglb:filekit-core", version.ref = "filekit"  }
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -37,10 +43,13 @@ compose-material3 = { module = "androidx.compose.material3:material3", version.r
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
+permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "permissionsGallery" }
+permissions-gallery = { module = "dev.icerock.moko:permissions-gallery", version.ref = "permissionsGallery" }
 voyager-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyagerVersion" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyagerVersion" }
 voyager-screenmodel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyagerVersion" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyagerVersion" }
+voyager-tab = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyagerVersion" }
 kamel = { module = "media.kamel:kamel-image", version.ref = "kamel" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koin" }

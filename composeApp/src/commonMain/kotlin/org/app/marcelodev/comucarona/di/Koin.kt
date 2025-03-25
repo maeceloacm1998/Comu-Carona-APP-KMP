@@ -3,6 +3,8 @@ package org.app.marcelodev.comucarona.di
 import org.app.marcelodev.comucarona.GameModule
 import org.app.marcelodev.comucarona.commons.usecase.di.CommonUseCasesModule
 import org.app.marcelodev.comucarona.feature.checkcode.data.di.CheckCodeModule
+import org.app.marcelodev.comucarona.feature.home.di.HomeModule
+import org.app.marcelodev.comucarona.feature.home.steps.initial.data.di.InitialMdules
 import org.app.marcelodev.comucarona.feature.registeraccount.data.di.RegisterAccountModule
 import org.app.marcelodev.comucarona.service.di.ServiceModule
 import org.koin.core.context.startKoin
@@ -19,7 +21,9 @@ fun initKoin(config: KoinAppDeclaration? = null) {
                 ServiceModule.module,
                 CheckCodeModule.module,
                 RegisterAccountModule.module,
-                GameModule.module
+                HomeModule.module,
+                InitialMdules.module,
+                GameModule.module,
             )
         )
     }

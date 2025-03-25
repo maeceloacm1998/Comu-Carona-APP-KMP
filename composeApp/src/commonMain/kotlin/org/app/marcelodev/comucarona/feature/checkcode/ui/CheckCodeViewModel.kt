@@ -12,6 +12,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
+import org.app.marcelodev.comucarona.feature.checkcode.ui.CheckCodeViewModelEventState.*
+import org.app.marcelodev.comucarona.feature.home.HomeRoute
 import org.app.marcelodev.comucarona.feature.registeraccount.ui.RegisterAccountRoute
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
@@ -32,8 +34,9 @@ class CheckCodeViewModel(
 
     fun onEvent(event: CheckCodeViewModelEventState) {
         when (event) {
-            is CheckCodeViewModelEventState.OnChangedCode -> onChangedCode(event.code)
-            is CheckCodeViewModelEventState.OnClickCheckCode -> onClickCheckCode()
+            is OnChangedCode -> onChangedCode(event.code)
+            is OnClickCheckCode -> onClickCheckCode()
+            is OnGoToHome -> onGoToHome()
         }
     }
 
@@ -77,8 +80,7 @@ class CheckCodeViewModel(
     }
 
     private fun onGoToHome() {
-        // TODO ADICIONAR ROTA DA HOME
-//        NavigationUtils.replaceAllScreens(navigator, Routes.Home)
+        NavigationUtils.replaceAllScreens(navigator, HomeRoute())
     }
 
     private fun onGoToRegisterAccount() {

@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
+import org.app.marcelodev.comucarona.feature.home.HomeRoute
 import org.app.marcelodev.comucarona.feature.registeraccount.domain.UploadPhotoUseCase
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
@@ -80,7 +82,7 @@ class RegisterAccountViewModel(
                 phoneNumber = state.phoneNumber,
                 photoBityArray = state.photoUrl!!.readBytes()
             ).onSuccess {
-                //                onGoToHome()
+                onGoToHome()
                 onUpdateLoading(false)
                 onUpdateSuccess(true)
             }.onFailure { throwable ->
@@ -98,9 +100,9 @@ class RegisterAccountViewModel(
         }
     }
 
-    //    private fun onOpenGallery(uri: Uri) {
-    //        viewModelState.update { it.copy(photoUri = uri) }
-    //    }
+    private fun onGoToHome() {
+        NavigationUtils.replaceAllScreens(navigator, HomeRoute())
+    }
 
     private fun onUpdateStep(step: RegisterAccountSteps) {
         viewModelState.update { it.copy(steps = step) }

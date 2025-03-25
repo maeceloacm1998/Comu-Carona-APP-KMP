@@ -15,4 +15,9 @@ sealed class CheckCodeViewModelEventState {
      * Represents the event when the check code button is clicked.
      */
     data object OnClickCheckCode : CheckCodeViewModelEventState()
+
+    /**
+     * Represents the event to navigate to the home screen.
+     */
+    data object OnGoToHome : CheckCodeViewModelEventState()
 }
