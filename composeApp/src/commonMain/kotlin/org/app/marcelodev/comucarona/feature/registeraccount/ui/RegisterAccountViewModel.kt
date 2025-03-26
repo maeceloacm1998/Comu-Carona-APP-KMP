@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
-import org.app.marcelodev.comucarona.feature.home.HomeRoute
+import org.app.marcelodev.comucarona.feature.home.HomeRoutePatern
 import org.app.marcelodev.comucarona.feature.registeraccount.domain.UploadPhotoUseCase
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
@@ -101,7 +101,7 @@ class RegisterAccountViewModel(
     }
 
     private fun onGoToHome() {
-        NavigationUtils.replaceAllScreens(navigator, HomeRoute())
+        NavigationUtils.replaceAllScreens(navigator, HomeRoutePatern())
     }
 
     private fun onUpdateStep(step: RegisterAccountSteps) {

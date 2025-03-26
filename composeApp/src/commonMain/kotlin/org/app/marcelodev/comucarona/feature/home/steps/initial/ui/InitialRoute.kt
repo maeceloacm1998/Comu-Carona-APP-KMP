@@ -11,9 +11,14 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import comucarona.composeapp.generated.resources.Res
+import comucarona.composeapp.generated.resources.generic_connection_error
 import comucarona.composeapp.generated.resources.ic_home
+import org.app.marcelodev.comucarona.components.contenterror.CCErrorContentRetry
+import org.app.marcelodev.comucarona.components.contentloading.CCLoadingShimmerContent
 import org.app.marcelodev.comucarona.components.contentloading.CCLoadingSwipeRefreshContent
+import org.app.marcelodev.comucarona.feature.home.steps.initial.ui.InitialViewModelEventState.OnLoadAvailableCarRide
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.core.parameter.parametersOf
 
 object InitialRoute : Tab {
@@ -62,9 +67,18 @@ fun InitialRoute(
         isLoading = uiState.isLoading,
         isRefresh = uiState.isRefresh,
         isError = uiState.isError,
-        onRefresh = { onEvent(InitialViewModelEventState.OnLoadAvailableCarRide) },
-        loadingContent = { },
-        errorContent = { },
+        onRefresh = { onEvent(OnLoadAvailableCarRide) },
+        loadingContent = {
+            CCLoadingShimmerContent()
+        },
+        errorContent = {
+            CCErrorContentRetry(
+                title = stringResource(Res.string.generic_connection_error),
+                onClick = {
+                    onEvent(OnLoadAvailableCarRide)
+                }
+            )
+        },
         content = {
             InitialScreen(
                 uiState = uiState,

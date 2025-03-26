@@ -1,6 +1,5 @@
 package org.app.marcelodev.comucarona.di
 
-import org.app.marcelodev.comucarona.GameModule
 import org.app.marcelodev.comucarona.commons.usecase.di.CommonUseCasesModule
 import org.app.marcelodev.comucarona.feature.checkcode.data.di.CheckCodeModule
 import org.app.marcelodev.comucarona.feature.home.di.HomeModule
@@ -24,8 +23,7 @@ fun initKoin(config: KoinAppDeclaration? = null) {
                 RegisterAccountModule.module,
                 HomeModule.module,
                 InitialMdules.module,
-                ProfileModule.module,
-                GameModule.module,
+                ProfileModule.module
             )
         )
     }

@@ -18,7 +18,7 @@ class RegisterAccountUseCase(
         photoBityArray: ByteArray,
     ): Result<Unit> {
         return try {
-            val username = DeviceUtils.Companion.create().getUniqueDeviceId().lowercase()
+            val username = DeviceUtils.create().getUniqueDeviceId().lowercase()
             val request = RegisterAccountRequest(
                 fullName = fullName,
                 birthDate = birthDate,
@@ -39,7 +39,7 @@ class RegisterAccountUseCase(
                     )
                     authPreferences.userName = userResponse.username
 
-                    val photoUploadResponse = photoUseCase(photoBityArray)
+                    photoUseCase(photoBityArray)
                     Result.success(Unit)
                 },
                 onFailure = { throwable ->

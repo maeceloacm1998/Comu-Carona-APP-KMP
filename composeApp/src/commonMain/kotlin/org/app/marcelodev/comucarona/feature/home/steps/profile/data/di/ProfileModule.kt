@@ -38,11 +38,11 @@ object ProfileModule {
 
         viewModel { param ->
             ProfileDetailsViewModel(
+                navigator = param.get(),
+                snackbarHostState = param.get(),
                 userName = param.get(),
                 birthDate = param.get(),
                 phoneNumber = param.get(),
-                navigator = param.get(),
-                snackbarHostState = param.get(),
                 getUserInformationUseCase = get(),
                 logoutUseCase = get(),
                 photoUseCase = get(),
