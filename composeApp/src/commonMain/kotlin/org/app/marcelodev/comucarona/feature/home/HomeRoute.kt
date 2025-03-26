@@ -16,6 +16,7 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.app.marcelodev.comucarona.feature.home.bottomnavigation.TabItem
 import org.app.marcelodev.comucarona.feature.home.steps.initial.ui.InitialRoute
+import org.app.marcelodev.comucarona.feature.home.steps.profile.ui.ProfileRoute
 
 class HomeRoute : Screen {
     @Composable
@@ -47,6 +48,7 @@ fun HomeRoute(uiState: HomeViewModelUiState) {
                         containerColor = Color.White,
                     ) {
                         TabItem(InitialRoute)
+                        TabItem(ProfileRoute)
                     }
                 }
             )
