@@ -58,7 +58,7 @@ class CheckCodeViewModel(
                         onUpdateLoadingState(false)
                         onUpdateSuccessState(true)
                         println("Success: $it")
-//                        onGoToHome()
+                        onGoToHome()
                     },
                     onFailure = { throwable ->
                         throwable.handleHttpException(
@@ -79,7 +79,7 @@ class CheckCodeViewModel(
         }
     }
 
-    private fun onGoToHome() {
+    private fun onGoToHome() { 
         NavigationUtils.replaceAllScreens(navigator, HomeRoute())
     }
 

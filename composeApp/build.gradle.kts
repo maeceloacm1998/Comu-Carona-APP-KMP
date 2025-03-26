@@ -33,6 +33,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
+            implementation(libs.ktor.client.android)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -70,6 +71,9 @@ kotlin {
             implementation(libs.filekit.dialogs)
             implementation(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
+
+            implementation(libs.coil.compose)
+            implementation(libs.coil.network.ktor)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

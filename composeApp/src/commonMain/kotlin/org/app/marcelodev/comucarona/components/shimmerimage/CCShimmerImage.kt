@@ -5,15 +5,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import org.app.marcelodev.comucarona.theme.BackgroundSkeleton
 import org.app.marcelodev.comucarona.theme.Error
 
@@ -26,8 +24,8 @@ fun CCShimmerImage(
     imageSize: Int = 35
 ) {
 
-    val error: Boolean by remember { mutableStateOf(false) }
-    val loading: Boolean by remember { mutableStateOf(false) }
+    var error: Boolean by remember { mutableStateOf(false) }
+    var loading: Boolean by remember { mutableStateOf(false) }
 
     Box(
         modifier = modifier
@@ -35,7 +33,7 @@ fun CCShimmerImage(
             .clip(CircleShape)
     ) {
 
-        if(error){
+        if (error) {
             Box(
                 modifier = Modifier
                     .matchParentSize()
@@ -43,7 +41,7 @@ fun CCShimmerImage(
             )
         }
 
-        if(loading) {
+        if (loading) {
             Box(
                 modifier = Modifier
                     .matchParentSize()
@@ -51,30 +49,17 @@ fun CCShimmerImage(
             )
         }
 
-//        Image(
-//            painter = rememberAsyncImagePainter(
-//                model = imageUrl,
-//                onState = {
-//                    when (it) {
-//                        is Error -> {
-//                            error = true
-//                        }
-//                        is Loading -> {
-//                            loading = true
-//                        }
-//
-//                        is Success -> {
-//                            error = false
-//                            loading = false
-//                        }
-//
-//                        AsyncImagePainter.State.Empty -> {}
-//                    }
-//                }
-//            ),
-//            contentDescription = null,
-//            contentScale = contentScale,
-//            modifier = Modifier.matchParentSize()
-//        )
+        AsyncImage(
+            model = imageUrl,
+            onLoading = { loading = true },
+            onError = { error = true },
+            onSuccess = {
+                loading = false
+                error = false
+            },
+            contentDescription = null,
+            contentScale = contentScale,
+            modifier = Modifier.matchParentSize()
+        )
     }
 }
