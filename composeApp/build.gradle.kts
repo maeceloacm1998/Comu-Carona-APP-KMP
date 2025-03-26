@@ -72,8 +72,14 @@ kotlin {
             implementation(libs.filekit.dialogs.compose)
             implementation(libs.filekit.coil)
 
+            // Coil
             implementation(libs.coil.compose)
             implementation(libs.coil.network.ktor)
+
+            implementation(libs.compottie)
+            implementation(libs.compottie.network)
+            implementation(libs.compottie.dot)
+            implementation(libs.compottie.resources)
 
             implementation(compose.runtime)
             implementation(compose.foundation)

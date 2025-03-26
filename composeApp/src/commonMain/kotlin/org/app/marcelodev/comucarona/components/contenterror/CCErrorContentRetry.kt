@@ -1,5 +1,6 @@
 package org.app.marcelodev.comucarona.components.contenterror
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,19 +17,28 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
+import comucarona.composeapp.generated.resources.Res
+import io.github.alexzhirkevich.compottie.Compottie
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.theme.TextColor
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
-fun CCErrorContentRetry (
+fun CCErrorContentRetry(
     modifier: Modifier = Modifier,
     title: String,
     onClick: () -> Unit = {}
 ) {
-//    val loadingLottieAnimation by rememberLottieComposition(
-//        spec = LottieCompositionSpec.RawRes(R.raw.search_car_ride)
-//    )
+    val loadingLottieAnimation by rememberLottieComposition {
+        LottieCompositionSpec.JsonString(
+            Res.readBytes("files/search_car_ride.json").decodeToString()
+        )
+    }
 
     Column(
         modifier = modifier
@@ -38,13 +48,16 @@ fun CCErrorContentRetry (
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-//        LottieAnimation(
-//            composition = loadingLottieAnimation,
-//            modifier = Modifier
-//                .size(120.dp),
-//            contentScale = ContentScale.Crop,
-//            iterations = LottieConstants.IterateForever // Makes the animation loop
-//        )
+        Image(
+            painter = rememberLottiePainter(
+                composition = loadingLottieAnimation,
+                iterations = Compottie.IterateForever
+            ),
+            modifier = Modifier
+                .size(120.dp),
+            contentScale = ContentScale.Crop,
+            contentDescription = "Lottie animation"
+        )
 
         Text(
             text = title,

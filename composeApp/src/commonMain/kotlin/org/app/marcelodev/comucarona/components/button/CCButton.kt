@@ -3,6 +3,7 @@ package org.app.marcelodev.comucarona.components.button
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -22,13 +23,20 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import comucarona.composeapp.generated.resources.Res
+import io.github.alexzhirkevich.compottie.Compottie
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import org.app.marcelodev.comucarona.theme.DisabledBackground
 import org.app.marcelodev.comucarona.theme.Primary
 import org.app.marcelodev.comucarona.theme.Success
 import org.app.marcelodev.comucarona.theme.TextColor
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
 fun CCButton(
     modifier: Modifier = Modifier,
@@ -40,9 +48,11 @@ fun CCButton(
     isEnable: Boolean = true,
     onButtonListener: () -> Unit = { },
 ) {
-//    val loadingLottieAnimation by rememberLottieComposition(
-//        spec = LottieCompositionSpec.RawRes(R.raw.loading_lottie)
-//    )
+    val loadingLottieAnimation by rememberLottieComposition {
+        LottieCompositionSpec.JsonString(
+            Res.readBytes("files/loading_lottie.json").decodeToString()
+        )
+    }
 
     Button(
         modifier = modifier
@@ -77,14 +87,17 @@ fun CCButton(
             enter = fadeIn(),
             exit = fadeOut()
         ) {
-//            LottieAnimation(
-//                composition = loadingLottieAnimation,
-//                modifier = Modifier
-//                    .size(120.dp)
-//                    .align(Alignment.CenterVertically),
-//                contentScale = ContentScale.Crop,
-//                iterations = LottieConstants.IterateForever // Makes the animation loop
-//            )
+            Image(
+                painter = rememberLottiePainter(
+                    composition = loadingLottieAnimation,
+                    iterations = Compottie.IterateForever
+                ),
+                modifier = Modifier
+                    .size(120.dp)
+                    .align(Alignment.CenterVertically),
+                contentScale = ContentScale.Crop,
+                contentDescription = "Lottie animation"
+            )
         }
 
         AnimatedVisibility(
