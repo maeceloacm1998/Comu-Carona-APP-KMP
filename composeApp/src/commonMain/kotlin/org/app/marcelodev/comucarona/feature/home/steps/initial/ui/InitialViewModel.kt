@@ -86,12 +86,14 @@ class InitialViewModel(
     private fun onLoadAvailableCarRide() {
         viewModelScope.launch {
             onUpdateLoadingState(true)
+            onUpdateRefresh(true)
 
             val result = availableCarRidesUseCase()
 
             result.fold(
                 onSuccess = { availableCarRides ->
                     onUpdateLoadingState(false)
+                    onUpdateRefresh(false)
                     onUpdateErrorState(false)
                     onUpdateAvailableCarRides(availableCarRides)
                 },
@@ -102,6 +104,7 @@ class InitialViewModel(
                         },
                         others = {
                             onUpdateLoadingState(false)
+                            onUpdateRefresh(false)
                             onUpdateErrorState(true)
                         }
                     )
@@ -122,6 +125,10 @@ class InitialViewModel(
 
     private fun onUpdateLoadingState(isLoading: Boolean) {
         viewModelState.update { it.copy(isLoading = isLoading) }
+    }
+
+    private fun onUpdateRefresh(isRefresh: Boolean) {
+        viewModelState.update { it.copy(isRefresh = isRefresh) }
     }
 
     private fun onUpdateErrorState(isError: Boolean) {
