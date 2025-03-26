@@ -38,7 +38,7 @@ class RegisterAccountAPIImpl(
                     key = "file",
                     value = file,
                     headers = Headers.build {
-                        append(HttpHeaders.ContentType, "image/jpeg") // Ajuste o tipo de conteúdo conforme necessário
+                        append(HttpHeaders.ContentType, ContentType.Image.Any) // Tipo do arquivo
                         append(HttpHeaders.ContentDisposition, "filename=\"user-image.jpg\"") // Nome do arquivo
                     }
                 )

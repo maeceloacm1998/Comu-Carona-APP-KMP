@@ -21,7 +21,7 @@ fun provideKtor(json: Json, authPreferences: AuthPreferences) = HttpClient {
 
     // Interceptor e baseUrl
     install(DefaultRequest) {
-        url("https://36d6-2804-14c-5bc5-855c-4b9-66d8-8b2f-ef36.ngrok-free.app")
+        url("https://19cc-2804-14c-5bc5-855c-71fc-b4d4-d852-fabb.ngrok-free.app")
 
         headers {
             append(HttpHeaders.ContentType, ContentType.Application.Json)

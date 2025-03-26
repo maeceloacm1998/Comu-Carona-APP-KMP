@@ -37,18 +37,10 @@ class RegisterAccountUseCase(
                         accessToken = userResponse.accessToken!!,
                         refreshToken = userResponse.refreshToken!!
                     )
+                    authPreferences.userName = userResponse.username
 
                     val photoUploadResponse = photoUseCase(photoBityArray)
-                    photoUploadResponse.fold(
-                        onSuccess = { data ->
-                            authPreferences.userName = userResponse.username
-                            authPreferences.photoUrl = data.uri
-                            Result.success(Unit)
-                        },
-                        onFailure = { throwable ->
-                            Result.failure(throwable)
-                        }
-                    )
+                    Result.success(Unit)
                 },
                 onFailure = { throwable ->
                     Result.failure(throwable)
