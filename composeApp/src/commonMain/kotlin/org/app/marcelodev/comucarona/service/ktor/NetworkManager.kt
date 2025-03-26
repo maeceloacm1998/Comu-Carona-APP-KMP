@@ -2,7 +2,8 @@ package org.app.marcelodev.comucarona.service.ktor
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
-import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.cache.*
+import io.ktor.client.plugins.cache.storage.*
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logger
@@ -41,10 +42,8 @@ fun provideKtor(json: Json, authPreferences: AuthPreferences) = HttpClient {
         level = LogLevel.ALL
     }
 
-    // Timeout of requisitions
-    install(HttpTimeout) {
-        requestTimeoutMillis = 30_000
-        connectTimeoutMillis = 30_000
-        socketTimeoutMillis = 30_000
+    install(HttpCache) {
+        // Define uma política de cache que sempre busca novos dados
+        publicStorage(CacheStorage.Disabled)
     }
 }

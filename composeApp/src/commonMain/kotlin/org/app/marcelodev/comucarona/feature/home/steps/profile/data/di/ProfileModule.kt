@@ -1,5 +1,6 @@
 package org.app.marcelodev.comucarona.feature.home.steps.profile.data.di
 
+import org.app.marcelodev.comucarona.feature.profiledetails.ProfileDetailsViewModel
 import org.app.marcelodev.comucarona.feature.home.steps.profile.data.ProfileRepository
 import org.app.marcelodev.comucarona.feature.home.steps.profile.data.ProfileRepositoryImpl
 import org.app.marcelodev.comucarona.feature.home.steps.profile.data.external.ProfileAPI
@@ -32,6 +33,20 @@ object ProfileModule {
                 getProfileUseCase = get(),
                 logoutUseCase = get(),
                 navigator = param.get()
+            )
+        }
+
+        viewModel { param ->
+            ProfileDetailsViewModel(
+                userName = param.get(),
+                birthDate = param.get(),
+                phoneNumber = param.get(),
+                navigator = param.get(),
+                snackbarHostState = param.get(),
+                getUserInformationUseCase = get(),
+                logoutUseCase = get(),
+                photoUseCase = get(),
+                updateProfileUseCase = get()
             )
         }
     }

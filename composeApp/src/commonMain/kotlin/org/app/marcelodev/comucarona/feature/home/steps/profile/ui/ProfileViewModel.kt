@@ -14,7 +14,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.feature.home.steps.profile.domain.GetProfileUseCase
+import org.app.marcelodev.comucarona.feature.profiledetails.ProfileDetailsRoute
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountRequest
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
@@ -47,14 +49,18 @@ class ProfileViewModel(
     }
 
     private fun onNavigateToProfileDetails() {
-//        val profileInformation = checkNotNull(viewModelState.value.profileInformation)
-//        val route = Routes.ProfileDetails.route
-//        val routeWithId = route
-//            .replace("{username}", profileInformation.fullName.encodeParameter())
-//            .replace("{phoneNumber}", profileInformation.phoneNumber.encodeParameter())
-//            .replace("{birthDate}", profileInformation.birthDate.encodeParameter())
-//
-//        navController.navigate(routeWithId)
+        val profileInformation = checkNotNull(viewModelState.value.profileInformation)
+
+        navigator.parent?.let {
+            NavigationUtils.addNewScreen(
+                navigator = it,
+                screen = ProfileDetailsRoute(
+                    userName = profileInformation.fullName,
+                    birthDate = profileInformation.birthDate,
+                    phoneNumber = profileInformation.phoneNumber,
+                )
+            )
+        }
     }
 
     private fun onFetchProfile() {

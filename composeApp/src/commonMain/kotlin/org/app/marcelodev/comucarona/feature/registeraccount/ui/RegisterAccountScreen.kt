@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -27,12 +26,6 @@ import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_hint
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_message
 import comucarona.composeapp.generated.resources.register_account_stage_of_full_name_title
-import dev.icerock.moko.permissions.Permission
-import dev.icerock.moko.permissions.PermissionsController
-import dev.icerock.moko.permissions.compose.BindEffect
-import dev.icerock.moko.permissions.compose.PermissionsControllerFactory
-import dev.icerock.moko.permissions.compose.rememberPermissionsControllerFactory
-import dev.icerock.moko.permissions.gallery.GALLERY
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
@@ -44,6 +37,7 @@ import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatBirthDate
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatPhoneNumber
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.components.button.CCButtonBack
+import org.app.marcelodev.comucarona.components.permissions.RequestGalleryPermission
 import org.app.marcelodev.comucarona.components.photoselect.PhotoPlatformFileComponent
 import org.app.marcelodev.comucarona.components.textfield.CCTextField
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.BIRTH_DATE
@@ -278,16 +272,6 @@ fun StageOfPhotoScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    val factory: PermissionsControllerFactory = rememberPermissionsControllerFactory()
-    val controller: PermissionsController = remember(factory) { factory.createPermissionsController() }
-
-    LaunchedEffect(Unit) {
-        controller.providePermission(Permission.GALLERY)
-    }
-
-
-    BindEffect(controller)
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -333,6 +317,7 @@ fun StageOfPhotoScreen(
                     }
                 }
             )
+            RequestGalleryPermission()
         }
 
         Spacer(modifier = Modifier.height(30.dp))

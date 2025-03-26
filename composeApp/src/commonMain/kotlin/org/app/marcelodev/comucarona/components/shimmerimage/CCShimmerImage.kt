@@ -1,7 +1,7 @@
 package org.app.marcelodev.comucarona.components.shimmerimage
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -21,7 +21,8 @@ fun CCShimmerImage(
     modifier: Modifier = Modifier,
     contentScale: ContentScale = ContentScale.Crop,
     placeholderColor: Color = BackgroundSkeleton,
-    imageSize: Int = 35
+    imageSize: Int = 35,
+    onClick: () -> Unit = {}
 ) {
 
     var error: Boolean by remember { mutableStateOf(false) }
@@ -31,6 +32,7 @@ fun CCShimmerImage(
         modifier = modifier
             .size(imageSize.dp)
             .clip(CircleShape)
+            .clickable { onClick() }
     ) {
 
         if (error) {
