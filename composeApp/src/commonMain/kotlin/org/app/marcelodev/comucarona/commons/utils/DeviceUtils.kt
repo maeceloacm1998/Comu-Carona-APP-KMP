@@ -7,3 +7,11 @@ expect class DeviceUtils {
         fun create(): DeviceUtils
     }
 }
+
+expect class CallPhoneUtils() {
+    fun handleCallPhone(phoneNumber: String, onErrorAction: (message: String) -> Unit = {})
+
+    companion object {
+        fun create(): CallPhoneUtils
+    }
+}

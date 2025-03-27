@@ -43,6 +43,7 @@ object CarRideDetailsModule {
                 riderId = params.get(),
                 getCarRideDetails = get(),
                 reservationRideUseCase = get(),
+                callPhoneUseCase = get(),
                 logoutUseCase = get()
             )
         }

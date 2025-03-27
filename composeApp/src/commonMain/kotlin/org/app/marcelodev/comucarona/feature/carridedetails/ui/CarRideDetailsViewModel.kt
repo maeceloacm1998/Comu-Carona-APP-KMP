@@ -23,6 +23,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.app.marcelodev.comucarona.commons.usecase.CallPhoneUseCase
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
@@ -38,7 +39,7 @@ class CarRideDetailsViewModel(
     private val getCarRideDetails: GetCarRideDetailsUseCase,
     private val reservationRideUseCase: ReservationRideUseCase,
 //    private val callWhatsappUseCase: CallWhatsappUseCase,
-//    private val callPhoneUseCase: CallPhoneUseCase,
+    private val callPhoneUseCase: CallPhoneUseCase,
 //    private val shareLinkUseCase: ShareLinkUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
@@ -163,16 +164,16 @@ class CarRideDetailsViewModel(
 
     private fun onCallPhone() {
         val data = checkNotNull(viewModelState.value.carRideDetailsResponse)
-//        callPhoneUseCase(
-//            phoneNumber = data.bottomSheetCarRideUser.bottomSheetRiderPhoneNumber,
-//            onErrorAction = { errorMessage ->
-//                onUpdateShowSnackBar(
-//                    showSnackBar = true,
-//                    snackBarMessage = errorMessage,
-//                    snackbarType = ERROR
-//                )
-//            }
-//        )
+        callPhoneUseCase(
+            phoneNumber = data.bottomSheetCarRideUser.bottomSheetRiderPhoneNumber,
+            onErrorAction = { errorMessage ->
+                onUpdateShowSnackBar(
+                    showSnackBar = true,
+                    snackBarMessage = errorMessage,
+                    snackbarType = ERROR
+                )
+            }
+        )
     }
 
     private fun onCallWhatsApp() {
