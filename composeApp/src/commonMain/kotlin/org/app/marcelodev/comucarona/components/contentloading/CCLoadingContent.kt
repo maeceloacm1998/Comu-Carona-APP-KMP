@@ -5,6 +5,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshDefaults.Indicator
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.material3.pulltorefresh.pullToRefresh
@@ -15,12 +17,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.style.TextAlign.Companion.Center
 import androidx.compose.ui.unit.dp
 import comucarona.composeapp.generated.resources.Res
 import io.github.alexzhirkevich.compottie.Compottie
 import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
+import org.app.marcelodev.comucarona.theme.SoftBlack
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @Composable
@@ -130,6 +134,16 @@ fun CCLoadingShimmerContent() {
                 .size(120.dp),
             contentScale = ContentScale.Crop,
             contentDescription = "Lottie animation"
+        )
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = "Carregando...",
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = Center,
+            color = SoftBlack,
+            modifier = Modifier.fillMaxWidth(),
         )
     }
 }

@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
+import org.app.marcelodev.comucarona.feature.carridedetails.ui.CarRideDetailsRoute
 import org.app.marcelodev.comucarona.feature.checkcode.ui.CheckCodeRoute
 import org.app.marcelodev.comucarona.feature.home.steps.initial.domain.AvailableCarRidesUseCase
 import org.app.marcelodev.comucarona.feature.home.steps.initial.domain.GetUserInformationUseCase
@@ -118,7 +119,7 @@ class InitialViewModel(
         navigator.parent?.let {
             NavigationUtils.addNewScreen(
                 navigator = it,
-                screen = CheckCodeRoute()
+                screen = CarRideDetailsRoute(id)
             )
         }
     }
