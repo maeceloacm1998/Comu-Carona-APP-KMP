@@ -27,6 +27,7 @@ import org.app.marcelodev.comucarona.commons.usecase.CallPhoneUseCase
 import org.app.marcelodev.comucarona.commons.usecase.CallWhatsappUseCase
 import org.app.marcelodev.comucarona.commons.usecase.CallWhatsappUseCase.Companion.DEFAULT_MESSAGE_CAR_RIDE
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.commons.usecase.ShareLinkUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType.ERROR
@@ -42,7 +43,7 @@ class CarRideDetailsViewModel(
     private val reservationRideUseCase: ReservationRideUseCase,
     private val callWhatsappUseCase: CallWhatsappUseCase,
     private val callPhoneUseCase: CallPhoneUseCase,
-//    private val shareLinkUseCase: ShareLinkUseCase,
+    private val shareLinkUseCase: ShareLinkUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
     private val fullSeatsMessage = "Todas as vagas dessa carona ja foram preechidas! \uD83D\uDE25"
@@ -195,15 +196,15 @@ class CarRideDetailsViewModel(
 
     private fun onOpenShareLink() {
         val data = checkNotNull(viewModelState.value.carRideDetailsResponse)
-//        shareLinkUseCase(
-//            link = data.shareDeeplink,
-//            onErrorAction = {
-//                onUpdateShowSnackBar(
-//                    showSnackBar = true,
-//                    snackBarMessage = it,
-//                    snackbarType = ERROR
-//                )
-//            })
+        shareLinkUseCase(
+            link = data.shareDeeplink,
+            onErrorAction = {
+                onUpdateShowSnackBar(
+                    showSnackBar = true,
+                    snackBarMessage = it,
+                    snackbarType = ERROR
+                )
+            })
     }
 
     private fun onUpdateSuccessReservation(isSuccess: Boolean) {

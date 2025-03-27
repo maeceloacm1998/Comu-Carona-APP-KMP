@@ -66,3 +66,23 @@ actual class CallWhatsappUtils actual constructor() {
         return "https://api.whatsapp.com/send?phone=$phoneNumber&text=${Uri.encode(message)}"
     }
 }
+
+actual class ShareUtils actual constructor() {
+    actual fun handleShare(link: String, onErrorAction: (message: String) -> Unit) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "text/plain"
+            putExtra(Intent.EXTRA_TEXT, link)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        if (intent.resolveActivity(appContextDevice.packageManager) != null) {
+            appContextDevice.startActivity(intent)
+        } else {
+            onErrorAction("Erro ao tentar abrir o compartilhamento.")
+        }
+    }
+
+    actual companion object {
+        actual fun create(): ShareUtils = ShareUtils()
+    }
+
+}

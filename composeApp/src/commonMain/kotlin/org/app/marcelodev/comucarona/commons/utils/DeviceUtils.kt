@@ -23,3 +23,12 @@ expect class CallWhatsappUtils() {
         fun create(): CallWhatsappUtils
     }
 }
+
+expect class ShareUtils() {
+    fun handleShare(link: String, onErrorAction: (message: String) -> Unit = {})
+
+    companion object {
+        fun create(): ShareUtils
+    }
+}
+

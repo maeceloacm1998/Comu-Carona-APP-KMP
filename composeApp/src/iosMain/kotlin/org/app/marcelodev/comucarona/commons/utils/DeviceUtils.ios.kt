@@ -1,6 +1,9 @@
 package org.app.marcelodev.comucarona.commons.utils
 
+import platform.Foundation.NSString
 import platform.Foundation.NSURL
+import platform.Foundation.create
+import platform.UIKit.UIActivityViewController
 import platform.UIKit.UIApplication
 import platform.UIKit.UIDevice
 
@@ -53,4 +56,19 @@ actual class CallWhatsappUtils actual constructor() {
     actual companion object {
         actual fun create(): CallWhatsappUtils = CallWhatsappUtils()
     }
+}
+
+actual class ShareUtils actual constructor() {
+    actual fun handleShare(link: String, onErrorAction: (message: String) -> Unit) {
+        val text = NSString.create(string = link) // Criando um NSString para compartilhar
+
+        val activityViewController = UIActivityViewController(activityItems = listOf(text), applicationActivities = null)
+        val controller = UIApplication.sharedApplication.keyWindow?.rootViewController
+        controller?.presentViewController(activityViewController, animated = true, completion = null)
+    }
+
+    actual companion object {
+        actual fun create(): ShareUtils = ShareUtils()
+    }
+
 }
