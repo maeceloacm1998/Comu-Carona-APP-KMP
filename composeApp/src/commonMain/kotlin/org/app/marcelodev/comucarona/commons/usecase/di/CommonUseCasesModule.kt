@@ -1,9 +1,6 @@
 package org.app.marcelodev.comucarona.commons.usecase.di
 
-import org.app.marcelodev.comucarona.commons.usecase.CallPhoneUseCase
-import org.app.marcelodev.comucarona.commons.usecase.CallWhatsappUseCase
-import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
-import org.app.marcelodev.comucarona.commons.usecase.ShareLinkUseCase
+import org.app.marcelodev.comucarona.commons.usecase.*
 import org.koin.dsl.module
 
 object CommonUseCasesModule {
@@ -12,5 +9,6 @@ object CommonUseCasesModule {
         factory { CallPhoneUseCase() }
         factory { CallWhatsappUseCase() }
         factory { ShareLinkUseCase() }
+        factory { CopyToClipboardUseCase() }
     }
 }

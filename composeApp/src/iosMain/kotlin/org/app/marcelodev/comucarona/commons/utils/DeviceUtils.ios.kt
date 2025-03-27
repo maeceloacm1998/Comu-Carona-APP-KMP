@@ -1,11 +1,10 @@
 package org.app.marcelodev.comucarona.commons.utils
 
+import kotlinx.cinterop.BetaInteropApi
 import platform.Foundation.NSString
 import platform.Foundation.NSURL
 import platform.Foundation.create
-import platform.UIKit.UIActivityViewController
-import platform.UIKit.UIApplication
-import platform.UIKit.UIDevice
+import platform.UIKit.*
 
 actual class DeviceUtils {
     actual suspend fun getUniqueDeviceId(): String {
@@ -71,4 +70,37 @@ actual class ShareUtils actual constructor() {
         actual fun create(): ShareUtils = ShareUtils()
     }
 
+}
+
+actual class CopyToClipboardUtils actual constructor() {
+    @OptIn(BetaInteropApi::class)
+    actual fun copy(text: String, label: String) {
+        UIPasteboard.generalPasteboard.string = NSString.create(string = text).toString()
+
+        val controller = getCurrentViewController()
+        controller?.let {
+            val alert = UIAlertController.alertControllerWithTitle(
+                title = "Copiado!",
+                message = "O texto foi copiado para a área de transferência.",
+                preferredStyle = UIAlertControllerStyleAlert
+            )
+
+            alert.addAction(UIAlertAction.actionWithTitle("OK", UIAlertActionStyleDefault, null))
+
+            it.presentViewController(alert, animated = true, completion = null)
+        }
+    }
+
+    actual companion object {
+        actual fun create(): CopyToClipboardUtils = CopyToClipboardUtils()
+    }
+
+    private fun getCurrentViewController(): UIViewController? {
+        val window = UIApplication.sharedApplication.keyWindow
+        var topController = window?.rootViewController
+        while (topController?.presentedViewController != null) {
+            topController = topController.presentedViewController
+        }
+        return topController
+    }
 }

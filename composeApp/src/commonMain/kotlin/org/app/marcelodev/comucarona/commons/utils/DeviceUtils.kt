@@ -32,3 +32,11 @@ expect class ShareUtils() {
     }
 }
 
+expect class CopyToClipboardUtils() {
+    fun copy(text: String, label: String = "Copied Text")
+
+    companion object {
+        fun create(): CopyToClipboardUtils
+    }
+}
+

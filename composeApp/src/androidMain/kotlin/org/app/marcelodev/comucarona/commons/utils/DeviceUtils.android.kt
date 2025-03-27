@@ -1,9 +1,12 @@
 package org.app.marcelodev.comucarona.commons.utils
 
+import android.annotation.SuppressLint
+import android.content.ClipData
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.Settings
+import android.widget.Toast
 
 
 lateinit var appContextDevice: Context
@@ -83,6 +86,22 @@ actual class ShareUtils actual constructor() {
 
     actual companion object {
         actual fun create(): ShareUtils = ShareUtils()
+    }
+
+}
+
+actual class CopyToClipboardUtils actual constructor() {
+    @SuppressLint("ServiceCast")
+    actual fun copy(text: String, label: String) {
+        val clipboard = appContextDevice.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(label, text)
+        clipboard.setPrimaryClip(clip)
+
+        Toast.makeText(appContextDevice, "Texto copiado!", Toast.LENGTH_SHORT).show()
+    }
+
+    actual companion object {
+        actual fun create(): CopyToClipboardUtils = CopyToClipboardUtils()
     }
 
 }

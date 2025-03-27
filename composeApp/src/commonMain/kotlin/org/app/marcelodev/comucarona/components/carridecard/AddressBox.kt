@@ -28,10 +28,11 @@ import androidx.compose.ui.text.font.FontWeight.Companion.Normal
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import org.app.marcelodev.comucarona.theme.BackgroundSkeleton
+import org.app.marcelodev.comucarona.commons.usecase.CopyToClipboardUseCase
 import org.app.marcelodev.comucarona.theme.Primary
 import org.app.marcelodev.comucarona.theme.TextFieldColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.koinInject
 
 @Composable
 fun AddressBox(
@@ -43,7 +44,7 @@ fun AddressBox(
     showCopyAddress: Boolean = true
 ) {
     var addressHeight by remember { mutableStateOf(0.dp) }
-//    var copyToClipboardUseCase = koinInject<CopyToClipboardUseCase>()
+    var copyToClipboardUseCase = koinInject<CopyToClipboardUseCase>()
 
     ConstraintLayout(
         modifier = modifier.fillMaxWidth()
@@ -140,7 +141,7 @@ fun AddressBox(
 
         IconButton(
             onClick = {
-//                copyToClipboardUseCase(waitingAddress)
+                copyToClipboardUseCase(waitingAddress)
             },
             modifier = Modifier
                 .constrainAs(copyIconInitAddress) {
@@ -175,7 +176,7 @@ fun AddressBox(
 
         IconButton(
             onClick = {
-//                copyToClipboardUseCase(destinationAddress)
+                copyToClipboardUseCase(destinationAddress)
             },
             modifier = Modifier
                 .constrainAs(copyIconFinishAddress) {
