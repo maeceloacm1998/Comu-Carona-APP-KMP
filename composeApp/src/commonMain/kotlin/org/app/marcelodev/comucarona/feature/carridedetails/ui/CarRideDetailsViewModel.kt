@@ -24,6 +24,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.CallPhoneUseCase
+import org.app.marcelodev.comucarona.commons.usecase.CallWhatsappUseCase
+import org.app.marcelodev.comucarona.commons.usecase.CallWhatsappUseCase.Companion.DEFAULT_MESSAGE_CAR_RIDE
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
@@ -38,7 +40,7 @@ class CarRideDetailsViewModel(
     private val riderId: String,
     private val getCarRideDetails: GetCarRideDetailsUseCase,
     private val reservationRideUseCase: ReservationRideUseCase,
-//    private val callWhatsappUseCase: CallWhatsappUseCase,
+    private val callWhatsappUseCase: CallWhatsappUseCase,
     private val callPhoneUseCase: CallPhoneUseCase,
 //    private val shareLinkUseCase: ShareLinkUseCase,
     private val logoutUseCase: LogoutUseCase
@@ -178,10 +180,10 @@ class CarRideDetailsViewModel(
 
     private fun onCallWhatsApp() {
         val data = checkNotNull(viewModelState.value.carRideDetailsResponse)
-//        callWhatsappUseCase(
-//            phoneNumber = data.bottomSheetCarRideUser.bottomSheetRiderPhoneNumber,
-//            message = DEFAULT_MESSAGE_CAR_RIDE
-//        )
+        callWhatsappUseCase(
+            phoneNumber = data.bottomSheetCarRideUser.bottomSheetRiderPhoneNumber,
+            message = DEFAULT_MESSAGE_CAR_RIDE
+        )
     }
 
     private fun onGoToHome() {

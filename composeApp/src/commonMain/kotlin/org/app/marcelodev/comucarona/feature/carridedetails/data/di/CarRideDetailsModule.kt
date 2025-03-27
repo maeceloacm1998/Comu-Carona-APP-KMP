@@ -44,6 +44,7 @@ object CarRideDetailsModule {
                 getCarRideDetails = get(),
                 reservationRideUseCase = get(),
                 callPhoneUseCase = get(),
+                callWhatsappUseCase = get(),
                 logoutUseCase = get()
             )
         }

@@ -29,3 +29,28 @@ actual class CallPhoneUtils actual constructor() {
     }
 
 }
+
+actual class CallWhatsappUtils actual constructor() {
+    actual fun handleCallWhatsapp(phoneNumber: String, message: String) {
+        val urlString = "https://api.whatsapp.com/send?phone=$phoneNumber&text=${message}"
+        val webURL = NSURL.URLWithString(urlString)
+
+        if (webURL != null) {
+            UIApplication.sharedApplication.openURL(
+                url = webURL,
+                options = emptyMap<Any?, Any>(),  // Map vazio para compatibilidade
+                completionHandler = { success ->
+                    if (!success) {
+                        println("Erro ao abrir o Safari com o link: $urlString")
+                    }
+                }
+            )
+        } else {
+            println("Erro ao criar a URL do WhatsApp Web")
+        }
+    }
+
+    actual companion object {
+        actual fun create(): CallWhatsappUtils = CallWhatsappUtils()
+    }
+}

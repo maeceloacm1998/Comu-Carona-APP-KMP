@@ -32,9 +32,37 @@ actual class CallPhoneUtils actual constructor() {
     }
 
     actual companion object {
-        actual fun create(): CallPhoneUtils {
-            TODO("Not yet implemented")
+        actual fun create(): CallPhoneUtils = CallPhoneUtils()
+    }
+
+}
+
+actual class CallWhatsappUtils actual constructor() {
+    actual fun handleCallWhatsapp(phoneNumber: String, message: String) {
+        val url = getUrl(phoneNumber, message)
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        if (intent.resolveActivity(appContextDevice.packageManager) != null) {
+            appContextDevice.startActivity(intent)
+        } else {
+            openWithBrowser(url)
         }
     }
 
+    actual companion object {
+        actual fun create(): CallWhatsappUtils = CallWhatsappUtils()
+    }
+
+    private fun openWithBrowser(url: String) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        appContextDevice.startActivity(browserIntent)
+    }
+
+    private fun getUrl(phoneNumber: String, message: String): String {
+        return "https://api.whatsapp.com/send?phone=$phoneNumber&text=${Uri.encode(message)}"
+    }
 }

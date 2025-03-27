@@ -15,3 +15,11 @@ expect class CallPhoneUtils() {
         fun create(): CallPhoneUtils
     }
 }
+
+expect class CallWhatsappUtils() {
+    fun handleCallWhatsapp(phoneNumber: String, message: String)
+
+    companion object {
+        fun create(): CallWhatsappUtils
+    }
+}
