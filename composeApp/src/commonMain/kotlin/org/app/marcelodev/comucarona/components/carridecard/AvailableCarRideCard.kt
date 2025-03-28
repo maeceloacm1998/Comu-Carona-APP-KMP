@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.unit.dp
 import org.app.marcelodev.comucarona.components.horizontalline.HorizontalLine
 import org.app.marcelodev.comucarona.components.tag.CCTag
+import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.data.models.RideInProgressFilterOptions
 import org.app.marcelodev.comucarona.theme.TextFieldLineColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -26,7 +27,7 @@ fun AvailableCarRideCard(
     riderPhotoUrl: String,
     riderUserName: String,
     riderDescription: String,
-    status: List<RideProgressState> = emptyList(),
+    status: List<RideInProgressFilterOptions> = emptyList(),
     onClick: () -> Unit = {}
 ) {
     Card(

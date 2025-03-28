@@ -6,7 +6,9 @@ import org.app.marcelodev.comucarona.feature.checkcode.data.di.CheckCodeModule
 import org.app.marcelodev.comucarona.feature.createcarride.data.di.CreateCarRideModule
 import org.app.marcelodev.comucarona.feature.home.di.HomeModule
 import org.app.marcelodev.comucarona.feature.home.steps.initial.data.di.InitialMdules
+import org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.data.di.MyRideInProgressModule
 import org.app.marcelodev.comucarona.feature.home.steps.profile.data.di.ProfileModule
+import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.data.di.RideInPrgressModule
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.data.di.MyRideInProgressDetailsModule
 import org.app.marcelodev.comucarona.feature.registeraccount.data.di.RegisterAccountModule
 import org.app.marcelodev.comucarona.service.di.ServiceModule
@@ -29,6 +31,8 @@ fun initKoin(config: KoinAppDeclaration? = null) {
                 ProfileModule.module,
                 CarRideDetailsModule.module,
                 CreateCarRideModule.module,
+                RideInPrgressModule.module,
+                MyRideInProgressModule.module,
                 MyRideInProgressDetailsModule.module
             )
         )

@@ -13,7 +13,9 @@ import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
 import org.app.marcelodev.comucarona.feature.home.bottomnavigation.TabItem
 import org.app.marcelodev.comucarona.feature.home.steps.initial.ui.InitialRoute
+import org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.ui.MyRideInProgressRoute
 import org.app.marcelodev.comucarona.feature.home.steps.profile.ui.ProfileRoute
+import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.ui.RideInProgressRoute
 
 class HomeRoutePatern : Screen {
     @Composable
@@ -39,6 +41,8 @@ fun HomeRoute() {
                         containerColor = Color.White,
                     ) {
                         TabItem(InitialRoute)
+                        TabItem(RideInProgressRoute)
+                        TabItem(MyRideInProgressRoute)
                         TabItem(ProfileRoute)
                     }
                 }
