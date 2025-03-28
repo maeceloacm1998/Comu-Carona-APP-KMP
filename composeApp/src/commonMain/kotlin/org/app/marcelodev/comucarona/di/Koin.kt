@@ -3,6 +3,7 @@ package org.app.marcelodev.comucarona.di
 import org.app.marcelodev.comucarona.commons.usecase.di.CommonUseCasesModule
 import org.app.marcelodev.comucarona.feature.carridedetails.data.di.CarRideDetailsModule
 import org.app.marcelodev.comucarona.feature.checkcode.data.di.CheckCodeModule
+import org.app.marcelodev.comucarona.feature.createcarride.data.di.CreateCarRideModule
 import org.app.marcelodev.comucarona.feature.home.di.HomeModule
 import org.app.marcelodev.comucarona.feature.home.steps.initial.data.di.InitialMdules
 import org.app.marcelodev.comucarona.feature.home.steps.profile.data.di.ProfileModule
@@ -25,7 +26,8 @@ fun initKoin(config: KoinAppDeclaration? = null) {
                 HomeModule.module,
                 InitialMdules.module,
                 ProfileModule.module,
-                CarRideDetailsModule.module
+                CarRideDetailsModule.module,
+                CreateCarRideModule.module
             )
         )
     }

@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.feature.carridedetails.ui.CarRideDetailsRoute
-import org.app.marcelodev.comucarona.feature.checkcode.ui.CheckCodeRoute
+import org.app.marcelodev.comucarona.feature.createcarride.ui.CreateCarRideRoute
 import org.app.marcelodev.comucarona.feature.home.steps.initial.domain.AvailableCarRidesUseCase
 import org.app.marcelodev.comucarona.feature.home.steps.initial.domain.GetUserInformationUseCase
 import org.app.marcelodev.comucarona.feature.home.steps.initial.ui.InitialViewModelEventState.*
@@ -54,7 +54,7 @@ class InitialViewModel(
             is OnNavigateToCreateCarRide -> navigator.parent?.let {
                 NavigationUtils.addNewScreen(
                     navigator = it,
-                    screen = CheckCodeRoute()
+                    screen = CreateCarRideRoute()
                 )
             }
         }

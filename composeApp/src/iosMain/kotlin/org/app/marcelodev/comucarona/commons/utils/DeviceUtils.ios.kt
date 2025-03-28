@@ -59,7 +59,7 @@ actual class CallWhatsappUtils actual constructor() {
 
 actual class ShareUtils actual constructor() {
     actual fun handleShare(link: String, onErrorAction: (message: String) -> Unit) {
-        val text = NSString.create(string = link) // Criando um NSString para compartilhar
+        val text = NSString.create(string = link)
 
         val activityViewController = UIActivityViewController(activityItems = listOf(text), applicationActivities = null)
         val controller = UIApplication.sharedApplication.keyWindow?.rootViewController
