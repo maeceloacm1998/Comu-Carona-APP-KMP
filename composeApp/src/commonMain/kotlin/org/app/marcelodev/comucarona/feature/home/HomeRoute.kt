@@ -1,13 +1,15 @@
 package org.app.marcelodev.comucarona.feature.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.tab.CurrentTab
 import cafe.adriel.voyager.navigator.tab.TabNavigator
@@ -28,17 +30,24 @@ class HomeRoutePatern : Screen {
 fun HomeRoute() {
     Surface(
         modifier = Modifier
-            .background(Color.White)
+            .background(White)
             .fillMaxSize(),
     ) {
         TabNavigator(InitialRoute) {
             Scaffold(
                 content = { paddingValues ->
-                    CurrentTab()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(White)
+                            .padding(paddingValues)
+                    ) {
+                        CurrentTab()
+                    }
                 },
                 bottomBar = {
                     NavigationBar(
-                        containerColor = Color.White,
+                        containerColor = White,
                     ) {
                         TabItem(InitialRoute)
                         TabItem(RideInProgressRoute)

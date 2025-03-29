@@ -234,7 +234,7 @@ fun UserDetailsBottomSheet(
                     .padding(vertical = 20.dp, horizontal = 30.dp),
             ) {
                 Text(
-                    text = "YUX-2024",
+                    text = data.bottomSheetRiderPlate,
                     style = MaterialTheme.typography.titleSmall,
                     color = Primary,
                     fontWeight = Bold,

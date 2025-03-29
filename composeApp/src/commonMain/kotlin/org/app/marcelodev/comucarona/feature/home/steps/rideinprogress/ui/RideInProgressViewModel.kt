@@ -54,16 +54,16 @@ class RideInProgressViewModel(
 
     private fun onLoadAvailableCarRide() {
         onUpdateLoading(true)
+        onUpdateIsRefreshing(true)
 
         viewModelScope.launch {
             val status = viewModelState.value.rideInProgressFilterSelected.toString()
-
-            onUpdateLoading(false)
 
             getRideInProgressUseCase.invoke(status)
                 .onSuccess { result ->
                     onUpdateRideInProgressList(result)
                     onUpdateLoading(false)
+                    onUpdateIsRefreshing(false)
                 }
                 .onFailure { throwable ->
                     throwable.handleHttpException(
@@ -73,6 +73,7 @@ class RideInProgressViewModel(
                         others = {
                             onUpdateError(true)
                             onUpdateLoading(false)
+                            onUpdateIsRefreshing(false)
                         }
                     )
                 }
@@ -106,6 +107,10 @@ class RideInProgressViewModel(
         viewModelState.update {
             it.copy(rideInProgressFilterSelected = rideInProgressFilterOptions)
         }
+    }
+
+    private fun onUpdateIsRefreshing(isRefreshing: Boolean) {
+        viewModelState.update { it.copy(isRefresh = isRefreshing) }
     }
 
     private fun onUpdateLoading(isLoading: Boolean) {

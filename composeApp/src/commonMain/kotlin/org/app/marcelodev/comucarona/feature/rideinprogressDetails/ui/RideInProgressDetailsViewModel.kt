@@ -106,26 +106,26 @@ class RideInProgressDetailsViewModel(
         onUpdateLoadingReservation(true)
 
         viewModelScope.launch {
-//            deleteReservationsUseCase.invoke(riderId)
-//                .onSuccess {
-//                    onUpdateLoadingReservation(false)
-//                    onUpdateSuccessReservation(true)
-//                }
-//                .onFailure { throwable ->
-//                    throwable.handleHttpException(
-//                        onUnauthorized = {
-//                            logoutUseCase(navigator)
-//                        },
-//                        others = {
-//                            onUpdateLoadingReservation(false)
-//                            onUpdateShowSnackBar(
-//                                showSnackBar = true,
-//                                snackBarMessage = throwable.message ?: "",
-//                                snackbarType = ERROR
-//                            )
-//                        }
-//                    )
-//                }
+            deleteReservationsUseCase.invoke(riderId)
+                .onSuccess {
+                    onUpdateLoadingReservation(false)
+                    onUpdateSuccessReservation(true)
+                }
+                .onFailure { throwable ->
+                    throwable.handleHttpException(
+                        onUnauthorized = {
+                            logoutUseCase(navigator)
+                        },
+                        others = {
+                            onUpdateLoadingReservation(false)
+                            onUpdateShowSnackBar(
+                                showSnackBar = true,
+                                snackBarMessage = throwable.message ?: "",
+                                snackbarType = ERROR
+                            )
+                        }
+                    )
+                }
         }
     }
 
