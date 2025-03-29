@@ -21,6 +21,7 @@ class CarRideDetailsAPIImpl(
     override suspend fun getCarRideDetails(id: String): HttpResponse {
         return client.get("/api/car-ride/v1/details/$id")
     }
+
     override suspend fun reservationRide(riderId: String) {
         client.post("/api/car-ride/v1/details/reservationRide/$riderId") {
             contentType(ContentType.Application.Json)

@@ -68,7 +68,7 @@ class RideInProgressViewModel(
                 .onFailure { throwable ->
                     throwable.handleHttpException(
                         onUnauthorized = {
-                            logoutUseCase(navigator)
+                            navigator.parent?.let { logoutUseCase(it) }
                         },
                         others = {
                             onUpdateError(true)
