@@ -11,6 +11,7 @@ import org.app.marcelodev.comucarona.feature.home.steps.profile.data.di.ProfileM
 import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.data.di.RideInPrgressModule
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.data.di.MyRideInProgressDetailsModule
 import org.app.marcelodev.comucarona.feature.registeraccount.data.di.RegisterAccountModule
+import org.app.marcelodev.comucarona.feature.rideinprogressDetails.data.di.RideInProgressDetailsModule
 import org.app.marcelodev.comucarona.service.di.ServiceModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
