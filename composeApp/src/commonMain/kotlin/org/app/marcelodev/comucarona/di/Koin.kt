@@ -32,8 +32,9 @@ fun initKoin(config: KoinAppDeclaration? = null) {
                 CarRideDetailsModule.module,
                 CreateCarRideModule.module,
                 RideInPrgressModule.module,
+                RideInProgressDetailsModule.module,
                 MyRideInProgressModule.module,
-                MyRideInProgressDetailsModule.module
+                MyRideInProgressDetailsModule.module,
             )
         )
     }

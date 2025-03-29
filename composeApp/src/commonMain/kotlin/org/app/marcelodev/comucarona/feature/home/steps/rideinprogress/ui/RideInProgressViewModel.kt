@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.ui.RideInProgressViewModelEventState.*
+import org.app.marcelodev.comucarona.feature.rideinprogressDetails.ui.RideInProgressDetailsRoute
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
 
@@ -84,12 +85,12 @@ class RideInProgressViewModel(
     }
 
     private fun onNavigateTo(riderId: String) {
-//        navigator.parent?.let {
-//            NavigationUtils.addNewScreen(
-//                navigator = it,
-//                screen = RideInProgressDetailsScreen(riderId)
-//            )
-//        }
+        navigator.parent?.let {
+            NavigationUtils.addNewScreen(
+                navigator = it,
+                screen = RideInProgressDetailsRoute(riderId)
+            )
+        }
     }
 
     private fun onUpdateRideInProgressList(rideInProgressList: List<RideInProgressModel>) {
