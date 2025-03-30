@@ -6,15 +6,6 @@ import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.navigator.Navigator
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.domain.DeleteCarRideUseCase
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnBack
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnCallPhone
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnCallWhatsApp
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnCancelMyRide
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnDismissBottomSheet
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnGoToHome
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnOpenBottomSheet
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnOpenShare
-import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.OnRetry
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
@@ -33,6 +24,8 @@ import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType.WARN
 import org.app.marcelodev.comucarona.feature.carridedetails.data.models.CarRideDetails
 import org.app.marcelodev.comucarona.feature.carridedetails.domain.GetCarRideDetailsUseCase
 import org.app.marcelodev.comucarona.feature.home.HomeRoutePatern
+import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.domain.FinishCarRideUseCase
+import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState.*
 import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 import org.koin.core.component.KoinComponent
 
@@ -42,6 +35,7 @@ class MyRideInProgressDetailsViewModel(
     private val snackbarHostState: SnackbarHostState,
     private val getCarRideDetailsUseCase: GetCarRideDetailsUseCase,
     private val deleteCarRideUseCase: DeleteCarRideUseCase,
+    private val finishCarRideUseCase: FinishCarRideUseCase,
     private val callWhatsappUseCase: CallWhatsappUseCase,
     private val callPhoneUseCase: CallPhoneUseCase,
     private val shareLinkUseCase: ShareLinkUseCase,
@@ -67,12 +61,13 @@ class MyRideInProgressDetailsViewModel(
             is OnCancelMyRide -> onFetchCancelMyRide()
             is OnDismissBottomSheet -> onDismissBottomSheet()
             is OnOpenBottomSheet -> onOpenBottomSheet()
-            is MyRideInProgressDetailsViewModelEventState.OnOpenCancelBottomSheet -> onOpenCancelBottomSheet()
+            is OnOpenCancelBottomSheet -> onOpenCancelBottomSheet()
             is OnCallWhatsApp -> onCallWhatsApp()
             is OnCallPhone -> onCallPhone()
             is OnGoToHome -> onGoToHome()
             is OnRetry -> onFetchReservationRide(riderId)
             is OnOpenShare -> onOpenShareLink()
+            is OnFinishCarRide -> onFinishCarRide()
             is OnBack -> {
                 NavigationUtils.removeLastScreen(navigator)
             }
@@ -120,6 +115,43 @@ class MyRideInProgressDetailsViewModel(
                 .onSuccess {
                     onUpdateLoadingReservation(false)
                     onUpdateSuccessReservation(true)
+
+                    onUpdateCompleteTitleAndDescription(
+                        title = "Sua Carona foi cancelada!",
+                        description = "Que pena que você cancelou a carona, mas continue sempre que puder compartilhando 😁🚗"
+                    )
+                }
+                .onFailure { throwable ->
+                    throwable.handleHttpException(
+                        onUnauthorized = {
+                            logoutUseCase(navigator)
+                        },
+                        others = {
+                            onUpdateLoadingReservation(false)
+                            onUpdateShowSnackBar(
+                                showSnackBar = true,
+                                snackBarMessage = throwable.message ?: "",
+                                snackbarType = ERROR
+                            )
+                        }
+                    )
+                }
+        }
+    }
+
+    fun onFinishCarRide() {
+        onUpdateLoadingReservation(true)
+
+        viewModelScope.launch {
+            finishCarRideUseCase.invoke(riderId)
+                .onSuccess {
+                    onUpdateLoadingReservation(false)
+                    onUpdateSuccessReservation(true)
+
+                    onUpdateCompleteTitleAndDescription(
+                        title = "Você terminou sua Carona!",
+                        description = "Muito obrigado por ajudar nossa comunidade, continue compartilhando sempre que puder 😁🚗"
+                    )
                 }
                 .onFailure { throwable ->
                     throwable.handleHttpException(
@@ -232,5 +264,9 @@ class MyRideInProgressDetailsViewModel(
 
     private fun onUpdateIsEnableButton(isEnableButton: Boolean) {
         viewModelState.update { it.copy(isEnableButton = isEnableButton) }
+    }
+
+    private fun onUpdateCompleteTitleAndDescription(title: String, description: String) {
+        viewModelState.update { it.copy(completeDescription = description, completeTitle = title) }
     }
 }

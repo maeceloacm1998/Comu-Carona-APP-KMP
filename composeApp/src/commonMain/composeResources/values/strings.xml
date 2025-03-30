@@ -80,10 +80,9 @@
     <string name="my_ride_in_progress_details_cancel_button_title">Cancelar essa carona</string>
     <string name="my_ride_in_progress_details_cancel_bottom_sheet_title">Deseja cancelar a carona?</string>
     <string name="my_ride_in_progress_details_cancel_bottom_sheet_message">Pessoas estão contando com a sua carona, deseja realmente cancelar? 😥</string>
+    <string name="my_ride_in_progress_details_finish_button_title">Finalizar Carona</string>
     <string name="my_ride_in_progress_details_cancel_bottom_sheet_confirm_button_title">Cancelar Carona</string>
     <string name="my_ride_in_progress_details_cancel_bottom_sheet_cancel_button_title">Voltar</string>
-    <string name="my_ride_in_progress_details_complete_title">Sua Carona foi cancelada!</string>
-    <string name="my_ride_in_progress_details_complete_description">Que pena que você cancelou a carona, mas continue sempre que puder compartilhando 😁🚗</string>
     <string name="my_ride_in_progress_details_complete_button_title">Ir para a home</string>
     <string name="my_ride_in_progress_details_reservations_title">Passageiros</string>
     <string name="my_ride_in_progress_details_reservations_empty_title">Nenhum passageiro reservou a carona 😔</string>

@@ -16,8 +16,6 @@ import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideIn
 import comucarona.composeapp.generated.resources.*
 import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.my_ride_in_progress_details_complete_button_title
-import comucarona.composeapp.generated.resources.my_ride_in_progress_details_complete_description
-import comucarona.composeapp.generated.resources.my_ride_in_progress_details_complete_title
 import org.app.marcelodev.comucarona.commons.utils.AnimatedUtils.animatedTransitionPage
 import org.app.marcelodev.comucarona.components.contenterror.CCErrorContentRetry
 import org.app.marcelodev.comucarona.components.contentloading.CCLoadingContent
@@ -63,8 +61,8 @@ fun CarRideDetailsRoute(
         when (targetState) {
             true -> {
                 CCSuccessContent(
-                    title = stringResource(Res.string.my_ride_in_progress_details_complete_title),
-                    description = stringResource(Res.string.my_ride_in_progress_details_complete_description),
+                    title = uiState.completeTitle,
+                    description = uiState.completeDescription,
                     buttonText = stringResource(Res.string.my_ride_in_progress_details_complete_button_title),
                     onClick = { onEvent(OnGoToHome) }
                 )

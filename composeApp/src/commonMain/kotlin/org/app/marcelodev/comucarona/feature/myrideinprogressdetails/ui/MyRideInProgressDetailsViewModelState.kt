@@ -13,6 +13,8 @@ sealed interface MyRideInProgressDetailsViewModelUiState {
     val snackbarType: SnackbarCustomType
     val showBottomSheet: Boolean
     val showCancelBottomSheet: Boolean
+    val completeTitle: String
+    val completeDescription: String
 
     data class HasCarRideDetails(
         val carRideDetailsResponse: CarRideDetails?,
@@ -25,6 +27,8 @@ sealed interface MyRideInProgressDetailsViewModelUiState {
         override val isLoadingReservation: Boolean,
         override val isSuccessReservation: Boolean,
         override val isEnableButton: Boolean,
+        override val completeTitle: String,
+        override val completeDescription: String,
     ) : MyRideInProgressDetailsViewModelUiState
 }
 
@@ -38,7 +42,9 @@ data class MyRideInProgressDetailsViewModelState(
     val isError: Boolean = false,
     val isLoadingReservation: Boolean = false,
     val isSuccessReservation: Boolean = false,
-    val isEnableButton: Boolean = true
+    val isEnableButton: Boolean = true,
+    val completeTitle: String = "",
+    val completeDescription: String = "",
 ) {
 
     fun toUiState(): MyRideInProgressDetailsViewModelUiState =
@@ -52,6 +58,8 @@ data class MyRideInProgressDetailsViewModelState(
             isError = isError,
             isLoadingReservation = isLoadingReservation,
             isSuccessReservation = isSuccessReservation,
-            isEnableButton = isEnableButton
+            isEnableButton = isEnableButton,
+            completeTitle = completeTitle,
+            completeDescription = completeDescription
         )
 }

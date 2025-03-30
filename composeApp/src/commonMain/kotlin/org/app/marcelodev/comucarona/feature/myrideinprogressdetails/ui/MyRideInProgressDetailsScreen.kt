@@ -1,5 +1,6 @@
 package org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -184,16 +185,35 @@ fun MyRideInProgressDetailsScreen(
             ) {
                 HorizontalLine(Modifier.padding(bottom = 10.dp))
 
-                CCButton(
-                    Modifier.padding(bottom = 20.dp),
-                    title = stringResource(Res.string.my_ride_in_progress_details_cancel_button_title),
-                    isLoading = uiState.isLoadingReservation,
-                    isSuccess = uiState.isSuccessReservation,
-                    isEnable = uiState.isEnableButton,
-                    titleColor = Error,
-                    containerColor = Transparent,
-                    onButtonListener = { onEvent(OnOpenCancelBottomSheet) }
-                )
+                val isShowFinishButton: Boolean = uiState.carRideDetailsResponse?.isShowConfirmButton == true
+                val finishCarRide: Boolean = uiState.carRideDetailsResponse?.finishRide ?: false
+                AnimatedVisibility(isShowFinishButton) {
+                    CCButton(
+                        Modifier.padding(bottom = 20.dp),
+                        title = stringResource(Res.string.my_ride_in_progress_details_finish_button_title),
+                        isLoading = uiState.isLoadingReservation,
+                        isSuccess = finishCarRide,
+                        isEnable = uiState.isEnableButton,
+                        onButtonListener = {
+                            if(!finishCarRide) {
+                                onEvent(OnFinishCarRide)
+                            }
+                        }
+                    )
+                }
+
+                AnimatedVisibility(!isShowFinishButton) {
+                    CCButton(
+                        Modifier.padding(bottom = 20.dp),
+                        title = stringResource(Res.string.my_ride_in_progress_details_cancel_button_title),
+                        isLoading = uiState.isLoadingReservation,
+                        isSuccess = uiState.isSuccessReservation,
+                        isEnable = uiState.isEnableButton,
+                        titleColor = Error,
+                        containerColor = Transparent,
+                        onButtonListener = { onEvent(OnOpenCancelBottomSheet) }
+                    )
+                }
             }
         }
 
@@ -331,6 +351,8 @@ fun CarRideDetailsScreenPreview() {
             isLoading = false,
             isError = false,
             isLoadingReservation = false,
+            completeDescription = "",
+            completeTitle = "",
             isEnableButton = true
         ),
         onEvent = {},

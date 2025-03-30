@@ -18,4 +18,15 @@ class MyRideInProgressDetailsRepositoryImpl(
             }
         }
     }
+
+    override suspend fun finishCarRide(riderId: String): Result<Unit> {
+        return withContext(Dispatchers.IO) {
+            try {
+                myCarRideInProgressDetailsAPI.finishCarRide(riderId)
+                Result.success(Unit)
+            } catch (e: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
 }

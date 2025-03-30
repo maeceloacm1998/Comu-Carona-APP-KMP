@@ -15,7 +15,10 @@ data class CarRideDetails(
     @SerialName("destinationAddress") val destinationAddress: String,
     @SerialName("waitingHour") val waitingHour: String,
     @SerialName("destinationHour") val destinationHour: String,
+    @SerialName("isShowConfirmButton") val isShowConfirmButton: Boolean,
+    @SerialName("finishRide") val finishRide: Boolean,
     @SerialName("isFullSeats") val isFullSeats: Boolean,
+    @SerialName("existingReservation") val existingReservation: Boolean,
     @SerialName("reservations") val reservations: List<Reservation>,
     @SerialName("shareDeeplink") val shareDeeplink: String,
     @SerialName("bottomSheetCarRideUser") val bottomSheetCarRideUser: BottomSheetCarRideUser

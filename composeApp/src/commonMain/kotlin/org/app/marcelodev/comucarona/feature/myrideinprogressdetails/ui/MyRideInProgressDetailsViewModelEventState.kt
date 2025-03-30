@@ -52,4 +52,9 @@ sealed class MyRideInProgressDetailsViewModelEventState {
      * Open cancel bottom sheet
      */
     data object OnOpenCancelBottomSheet: MyRideInProgressDetailsViewModelEventState()
+
+    /**
+     * Finish Car Ride
+     */
+    data object OnFinishCarRide: MyRideInProgressDetailsViewModelEventState()
 }

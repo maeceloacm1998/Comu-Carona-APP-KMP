@@ -5,6 +5,7 @@ import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.data.MyRide
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.data.external.MyRideInProgressDetailsAPI
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.data.external.MyRideInProgressDetailsAPIImpl
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.domain.DeleteCarRideUseCase
+import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.domain.FinishCarRideUseCase
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -20,6 +21,7 @@ object MyRideInProgressDetailsModule {
         }
 
         factory { DeleteCarRideUseCase(myRideInProgressDetailsRepository = get()) }
+        factory { FinishCarRideUseCase(myRideInProgressDetailsRepository = get()) }
 
         viewModel { param ->
             MyRideInProgressDetailsViewModel(
@@ -28,6 +30,7 @@ object MyRideInProgressDetailsModule {
                 snackbarHostState = param.get(),
                 getCarRideDetailsUseCase = get(),
                 deleteCarRideUseCase = get(),
+                finishCarRideUseCase = get(),
                 callWhatsappUseCase = get(),
                 callPhoneUseCase = get(),
                 shareLinkUseCase = get(),
