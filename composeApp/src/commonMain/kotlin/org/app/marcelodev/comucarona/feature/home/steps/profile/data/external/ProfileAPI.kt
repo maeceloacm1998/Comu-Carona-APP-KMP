@@ -22,7 +22,7 @@ class ProfileAPIImpl(
         }
     }
     override suspend fun updateProfile(user: RegisterAccountRequest): HttpResponse {
-        return client.post("/api/profile/v1/user-profile") {
+        return client.put("/api/profile/v1/user-profile") {
             contentType(ContentType.Application.Json)
             setBody(user)
         }

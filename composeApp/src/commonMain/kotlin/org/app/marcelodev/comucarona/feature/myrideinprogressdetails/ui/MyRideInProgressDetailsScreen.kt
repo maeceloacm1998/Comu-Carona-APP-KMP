@@ -161,7 +161,12 @@ fun MyRideInProgressDetailsScreen(
                         modifier = Modifier.fillMaxWidth().padding(bottom = 25.dp),
                     )
                 } else {
-                    LazyColumn {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f)
+                            .background(White)
+                    ) {
                         items(checkNotNull(uiState.carRideDetailsResponse?.reservations)) { reservation ->
                             UserSelectionBox(
                                 riderPhotoUrl = reservation.photoUrl,

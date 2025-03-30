@@ -1,10 +1,12 @@
 package org.app.marcelodev.comucarona.components.permissions
 
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import dev.icerock.moko.permissions.DeniedException
 import dev.icerock.moko.permissions.Permission
 import dev.icerock.moko.permissions.PermissionsController
@@ -39,7 +41,10 @@ fun RequestGalleryPermission() {
 
     BindEffect(controller)
 
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         if (isGranted.value) {
             Text("Adicione uma foto")
         } else {
