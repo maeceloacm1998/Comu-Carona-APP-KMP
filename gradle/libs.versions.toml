@@ -27,6 +27,7 @@ mtplx_settings = "1.0.0"
 constraint_layout="0.5.1"
 coil = "3.0.4"
 compottie="2.0.0-rc04"
+androidx-splashscreen = "1.0.1"
 
 [libraries]
 filekit-coil = { module = "io.github.vinceglb:filekit-coil", version.ref = "filekit" }
@@ -73,7 +74,7 @@ compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "comp
 compottie-dot = { module = "io.github.alexzhirkevich:compottie-dot", version.ref = "compottie" }
 compottie-network = { module = "io.github.alexzhirkevich:compottie-network", version.ref = "compottie" }
 compottie-resources = { module = "io.github.alexzhirkevich:compottie-resources", version.ref = "compottie" }
-
+androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidx-splashscreen" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

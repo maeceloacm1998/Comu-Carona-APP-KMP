@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
             implementation(libs.koin.android)
             implementation(libs.ktor.client.android)
+            implementation(libs.androidx.splashscreen)
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
