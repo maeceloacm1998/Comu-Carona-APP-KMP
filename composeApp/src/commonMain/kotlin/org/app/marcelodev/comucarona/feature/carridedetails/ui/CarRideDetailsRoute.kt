@@ -33,8 +33,8 @@ class CarRideDetailsRoute(
     @OptIn(ExperimentalVoyagerApi::class)
     @Composable
     override fun Content() {
-        val navigator: Navigator = LocalNavigator.currentOrThrow
         val snackbarHostState = remember { SnackbarHostState() }
+        val navigator: Navigator = LocalNavigator.currentOrThrow
         val viewModel = koinViewModel<CarRideDetailsViewModel>(
             parameters = { parametersOf(navigator, snackbarHostState, riderId) }
         )
@@ -46,6 +46,7 @@ class CarRideDetailsRoute(
 
             onDispose {
                 viewModel.clearState()
+                snackbarHostState.currentSnackbarData?.dismiss()
             }
         }
 

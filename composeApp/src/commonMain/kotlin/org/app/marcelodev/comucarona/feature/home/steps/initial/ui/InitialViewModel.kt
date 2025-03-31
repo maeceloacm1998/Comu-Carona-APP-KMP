@@ -115,7 +115,6 @@ class InitialViewModel(
     }
 
     private fun onNavigateToRideDetails(id: String) {
-        // Pagina de details
         navigator.parent?.let {
             NavigationUtils.addNewScreen(
                 navigator = it,

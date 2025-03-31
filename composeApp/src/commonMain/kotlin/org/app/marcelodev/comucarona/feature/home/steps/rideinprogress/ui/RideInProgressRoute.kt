@@ -2,9 +2,15 @@ package org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.ui
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import cafe.adriel.voyager.core.annotation.ExperimentalVoyagerApi
+import cafe.adriel.voyager.core.lifecycle.LifecycleEffectOnce
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import cafe.adriel.voyager.navigator.tab.Tab
@@ -21,8 +27,10 @@ import org.jetbrains.compose.resources.stringResource
 import org.koin.core.parameter.parametersOf
 import cafe.adriel.voyager.koin.koinScreenModel
 import comucarona.composeapp.generated.resources.ic_my_car_ride
+import org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.ui.MyRideInProgressViewModelEventState.OnLoadMyRideInProgress
 
 object RideInProgressRoute : Tab {
+    @OptIn(ExperimentalVoyagerApi::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
@@ -34,10 +42,25 @@ object RideInProgressRoute : Tab {
 
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-        RideInProgressRoute(
-            uiState = uiState,
-            onEvent = viewModel::onEvent
-        )
+        var isFocused by remember { mutableStateOf(false) }
+
+        DisposableEffect(Unit) {
+            onDispose {
+                isFocused = false
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            viewModel.onEvent(OnLoadRideInProgress)
+            isFocused = true
+        }
+
+        if (isFocused) {
+            RideInProgressRoute(
+                uiState = uiState,
+                onEvent = viewModel::onEvent
+            )
+        }
     }
 
     override val options: TabOptions

@@ -80,6 +80,10 @@ class RideInProgressViewModel(
         }
     }
 
+    fun clearState() {
+        viewModelState.update { RideInProgressViewModelState() }
+    }
+
     private fun onSelectFilter(rideInProgressFilterOptions: RideInProgressFilterOptions) {
         onUpdateFilterSelected(rideInProgressFilterOptions)
         onLoadAvailableCarRide()

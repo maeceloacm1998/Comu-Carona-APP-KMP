@@ -47,6 +47,7 @@ class CarRideDetailsViewModel(
     private val logoutUseCase: LogoutUseCase
 ) : ViewModel() {
     private val fullSeatsMessage = "Todas as vagas dessa carona ja foram preechidas! \uD83D\uDE25"
+    private val existingReservationMessage = "Você já está cadastrado nessa carona! 😁✌️"
     private val viewModelState = MutableStateFlow(CarRideDetailsViewModelState())
 
     val uiState = viewModelState
@@ -74,6 +75,7 @@ class CarRideDetailsViewModel(
 
     fun clearState() {
         viewModelState.update { CarRideDetailsViewModelState() }
+        snackbarHostState.currentSnackbarData?.dismiss()
     }
 
     fun onFetchCarRideDetails(id: String) {
@@ -91,6 +93,15 @@ class CarRideDetailsViewModel(
                         onUpdateShowSnackBar(
                             showSnackBar = true,
                             snackBarMessage = fullSeatsMessage,
+                            snackbarType = WARNING
+                        )
+                    }
+
+                    if(result.existingReservation) {
+                        onUpdateIsEnableButton(false)
+                        onUpdateShowSnackBar(
+                            showSnackBar = true,
+                            snackBarMessage = existingReservationMessage,
                             snackbarType = WARNING
                         )
                     }
