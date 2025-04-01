@@ -1,9 +1,7 @@
 package org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.ui
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.koin.koinScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
@@ -14,7 +12,6 @@ import org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.ui.MyRi
 import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.generic_connection_error
 import comucarona.composeapp.generated.resources.ic_car_ride
-import comucarona.composeapp.generated.resources.ic_profile
 import org.app.marcelodev.comucarona.components.contenterror.CCErrorContentRetry
 import org.app.marcelodev.comucarona.components.contentloading.CCLoadingShimmerContent
 import org.app.marcelodev.comucarona.components.contentloading.CCLoadingSwipeRefreshContent
@@ -25,6 +22,7 @@ import org.koin.core.parameter.parametersOf
 object MyRideInProgressRoute : Tab {
     @Composable
     override fun Content() {
+        var isFocused by remember { mutableStateOf(false) }
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = koinScreenModel<MyRideInProgressViewModel>(
             parameters = {
@@ -34,10 +32,23 @@ object MyRideInProgressRoute : Tab {
 
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-        MyRideInProgressRoute(
-            uiState = uiState,
-            onEvent = viewModel::onEvent
-        )
+        DisposableEffect(Unit) {
+            onDispose {
+                isFocused = false
+            }
+        }
+
+        LaunchedEffect(Unit) {
+            viewModel.onEvent(OnLoadMyRideInProgress)
+            isFocused = true
+        }
+
+        if(isFocused) {
+            MyRideInProgressRoute(
+                uiState = uiState,
+                onEvent = viewModel::onEvent
+            )
+        }
     }
 
     override val options: TabOptions

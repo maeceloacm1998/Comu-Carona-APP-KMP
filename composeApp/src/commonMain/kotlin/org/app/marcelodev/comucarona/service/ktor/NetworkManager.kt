@@ -22,7 +22,7 @@ fun provideKtor(json: Json, authPreferences: AuthPreferences) = HttpClient {
 
     // Interceptor e baseUrl
     install(DefaultRequest) {
-        url("https://e8d4-2804-14c-5bc5-855c-859-6a27-bc98-aaa9.ngrok-free.app")
+        url("https://comu-carona-api-1-1757524f00a6.herokuapp.com")
 
         headers {
             append(HttpHeaders.ContentType, ContentType.Application.Json)

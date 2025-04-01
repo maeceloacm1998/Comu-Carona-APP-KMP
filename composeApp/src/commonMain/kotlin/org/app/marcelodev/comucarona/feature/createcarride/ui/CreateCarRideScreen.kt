@@ -750,8 +750,7 @@ fun LastCarRideBottomSheetPreview() {
                 waitingHour = "00:00",
                 destinationHour = "00:00",
                 status = "",
-                isTwoPassengersBehind = false,
-                twoPassengersBehind = false
+                isTwoPassengersBehind = false
             ),
             availableCarRide = AvailableCarRide(
                 id = "1",

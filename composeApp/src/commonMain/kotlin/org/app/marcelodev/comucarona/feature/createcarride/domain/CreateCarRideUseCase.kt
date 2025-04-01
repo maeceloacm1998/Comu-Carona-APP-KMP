@@ -26,8 +26,7 @@ class CreateCarRideUseCase(
             waitingHour = waitingHour,
             destinationHour = destinationHour,
             status = "",
-            isTwoPassengersBehind = false,
-            twoPassengersBehind = false
+            isTwoPassengersBehind = false
         )
 
         return createCarRideRepository.createCarRide(data)

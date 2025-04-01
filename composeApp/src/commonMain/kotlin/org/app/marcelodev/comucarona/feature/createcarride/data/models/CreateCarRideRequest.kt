@@ -14,6 +14,5 @@ data class CreateCarRideRequest(
     @SerialName("waitingHour") val waitingHour: String,
     @SerialName("destinationHour") val destinationHour: String,
     @SerialName("status") val status: String,
-    @SerialName("isTwoPassengersBehind") val isTwoPassengersBehind: Boolean,
-    @SerialName("twoPassengersBehind") val twoPassengersBehind: Boolean
+    @SerialName("isTwoPassengersBehind") val isTwoPassengersBehind: Boolean
 )

@@ -14,7 +14,7 @@ class MyRideInProgressDetailsAPIImpl(
 ) : MyRideInProgressDetailsAPI {
 
     override suspend fun deleteCarRide(riderId: String) {
-        client.delete("/api/car-ride/v1/delete/$riderId")
+        client.put("/api/car-ride/v1/delete/$riderId")
     }
 
     override suspend fun deleteReservation(riderId: String) {

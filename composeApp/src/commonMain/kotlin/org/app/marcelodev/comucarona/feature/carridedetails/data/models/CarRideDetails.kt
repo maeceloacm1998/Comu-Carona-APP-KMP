@@ -16,6 +16,7 @@ data class CarRideDetails(
     @SerialName("waitingHour") val waitingHour: String,
     @SerialName("destinationHour") val destinationHour: String,
     @SerialName("isShowConfirmButton") val isShowConfirmButton: Boolean,
+    @SerialName("isShowCancelButton") val isShowCancleButton: Boolean,
     @SerialName("finishRide") val finishRide: Boolean,
     @SerialName("isFullSeats") val isFullSeats: Boolean,
     @SerialName("existingReservation") val existingReservation: Boolean,

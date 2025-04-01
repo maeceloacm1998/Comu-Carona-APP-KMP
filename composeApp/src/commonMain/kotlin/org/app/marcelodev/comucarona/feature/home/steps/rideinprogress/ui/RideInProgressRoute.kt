@@ -33,6 +33,7 @@ object RideInProgressRoute : Tab {
     @OptIn(ExperimentalVoyagerApi::class)
     @Composable
     override fun Content() {
+        var isFocused by remember { mutableStateOf(false) }
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = koinScreenModel<RideInProgressViewModel>(
             parameters = {
@@ -41,8 +42,6 @@ object RideInProgressRoute : Tab {
         )
 
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-        var isFocused by remember { mutableStateOf(false) }
 
         DisposableEffect(Unit) {
             onDispose {

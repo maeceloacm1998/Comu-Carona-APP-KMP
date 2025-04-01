@@ -62,6 +62,12 @@ fun MyRideInProgressDetailsScreen(
     onEvent: (MyRideInProgressDetailsViewModelEventState) -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
+    val isShowFinishButton: Boolean = uiState.carRideDetailsResponse?.isShowConfirmButton ?: false
+    val isShowCancelButton: Boolean = uiState.carRideDetailsResponse?.isShowCancleButton ?: false
+    val isShowShareButton: Boolean = !uiState.carRideDetailsResponse?.shareDeeplink.isNullOrBlank()
+    val finishCarRide: Boolean = uiState.carRideDetailsResponse?.finishRide ?: false
+
+
     Scaffold(
         snackbarHost = {
             CCSnackbar(
@@ -94,14 +100,16 @@ fun MyRideInProgressDetailsScreen(
                         onEvent(MyRideInProgressDetailsViewModelEventState.OnBack)
                     })
 
-                    IconButton(
-                        onClick = { onEvent(OnOpenShare) }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = null,
-                            tint = SoftBlack
-                        )
+                    if(isShowShareButton) {
+                        IconButton(
+                            onClick = { onEvent(OnOpenShare) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = null,
+                                tint = SoftBlack
+                            )
+                        }
                     }
                 }
 
@@ -182,42 +190,42 @@ fun MyRideInProgressDetailsScreen(
                 }
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(White)
-                    .padding(horizontal = 20.dp)
-            ) {
-                HorizontalLine(Modifier.padding(bottom = 10.dp))
+            if(isShowCancelButton || isShowFinishButton) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(White)
+                        .padding(horizontal = 20.dp)
+                ) {
+                    HorizontalLine(Modifier.padding(bottom = 10.dp))
 
-                val isShowFinishButton: Boolean = uiState.carRideDetailsResponse?.isShowConfirmButton == true
-                val finishCarRide: Boolean = uiState.carRideDetailsResponse?.finishRide ?: false
-                AnimatedVisibility(isShowFinishButton) {
-                    CCButton(
-                        Modifier.padding(bottom = 20.dp),
-                        title = stringResource(Res.string.my_ride_in_progress_details_finish_button_title),
-                        isLoading = uiState.isLoadingReservation,
-                        isSuccess = finishCarRide,
-                        isEnable = uiState.isEnableButton,
-                        onButtonListener = {
-                            if(!finishCarRide) {
-                                onEvent(OnFinishCarRide)
+                    AnimatedVisibility(isShowFinishButton) {
+                        CCButton(
+                            Modifier.padding(bottom = 20.dp),
+                            title = stringResource(Res.string.my_ride_in_progress_details_finish_button_title),
+                            isLoading = uiState.isLoadingReservation,
+                            isSuccess = finishCarRide,
+                            isEnable = uiState.isEnableButton,
+                            onButtonListener = {
+                                if(!finishCarRide) {
+                                    onEvent(OnFinishCarRide)
+                                }
                             }
-                        }
-                    )
-                }
+                        )
+                    }
 
-                AnimatedVisibility(!isShowFinishButton) {
-                    CCButton(
-                        Modifier.padding(bottom = 20.dp),
-                        title = stringResource(Res.string.my_ride_in_progress_details_cancel_button_title),
-                        isLoading = uiState.isLoadingReservation,
-                        isSuccess = uiState.isSuccessReservation,
-                        isEnable = uiState.isEnableButton,
-                        titleColor = Error,
-                        containerColor = Transparent,
-                        onButtonListener = { onEvent(OnOpenCancelBottomSheet) }
-                    )
+                    AnimatedVisibility(!isShowFinishButton) {
+                        CCButton(
+                            Modifier.padding(bottom = 20.dp),
+                            title = stringResource(Res.string.my_ride_in_progress_details_cancel_button_title),
+                            isLoading = uiState.isLoadingReservation,
+                            isSuccess = uiState.isSuccessReservation,
+                            isEnable = uiState.isEnableButton,
+                            titleColor = Error,
+                            containerColor = Transparent,
+                            onButtonListener = { onEvent(OnOpenCancelBottomSheet) }
+                        )
+                    }
                 }
             }
         }
