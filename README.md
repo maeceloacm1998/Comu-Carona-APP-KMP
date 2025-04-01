@@ -1,14 +1,158 @@
-This is a Kotlin Multiplatform project targeting Android, iOS.
-
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
-
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+# Comu Carona KMP   ![Android – Icon](https://github.com/user-attachments/assets/d60c534a-c32f-461e-8b54-38c2f9306021)<svg width="108" height="108" viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="108" height="108" fill="#0F1011"/>
+<rect x="24" y="30" width="36" height="36" fill="#30116C"/>
+<path d="M59.5099 52.2727C59.5099 53.3037 59.3145 54.1809 58.9237 54.9041C58.5359 55.6274 58.0065 56.1798 57.3356 56.5614C56.6677 56.94 55.9168 57.1293 55.0827 57.1293C54.2425 57.1293 53.4885 56.9384 52.8207 56.5568C52.1528 56.1752 51.625 55.6228 51.2372 54.8995C50.8494 54.1763 50.6555 53.3007 50.6555 52.2727C50.6555 51.2417 50.8494 50.3646 51.2372 49.6413C51.625 48.9181 52.1528 48.3672 52.8207 47.9886C53.4885 47.607 54.2425 47.4162 55.0827 47.4162C55.9168 47.4162 56.6677 47.607 57.3356 47.9886C58.0065 48.3672 58.5359 48.9181 58.9237 49.6413C59.3145 50.3646 59.5099 51.2417 59.5099 52.2727ZM57.4833 52.2727C57.4833 51.6049 57.3833 51.0417 57.1832 50.5831C56.9863 50.1245 56.7077 49.7768 56.3477 49.5398C55.9876 49.3028 55.5659 49.1843 55.0827 49.1843C54.5996 49.1843 54.1779 49.3028 53.8178 49.5398C53.4577 49.7768 53.1777 50.1245 52.9776 50.5831C52.7807 51.0417 52.6822 51.6049 52.6822 52.2727C52.6822 52.9406 52.7807 53.5038 52.9776 53.9624C53.1777 54.4209 53.4577 54.7687 53.8178 55.0057C54.1779 55.2427 54.5996 55.3612 55.0827 55.3612C55.5659 55.3612 55.9876 55.2427 56.3477 55.0057C56.7077 54.7687 56.9863 54.4209 57.1832 53.9624C57.3833 53.5038 57.4833 52.9406 57.4833 52.2727ZM60.9907 47.5455H63.4559L66.0596 53.8977H66.1704L68.7741 47.5455H71.2393V57H69.3003V50.8462H69.2219L66.7751 56.9538H65.4548L63.0081 50.8232H62.9296V57H60.9907V47.5455ZM78.726 47.5455H80.725V53.6854C80.725 54.3748 80.5603 54.978 80.231 55.495C79.9048 56.0121 79.4477 56.4152 78.8599 56.7045C78.2721 56.9908 77.5873 57.1339 76.8056 57.1339C76.0208 57.1339 75.3345 56.9908 74.7466 56.7045C74.1588 56.4152 73.7018 56.0121 73.3755 55.495C73.0493 54.978 72.8862 54.3748 72.8862 53.6854V47.5455H74.8851V53.5146C74.8851 53.8746 74.9636 54.1947 75.1206 54.4748C75.2806 54.7549 75.5053 54.9749 75.7946 55.1349C76.0839 55.295 76.4209 55.375 76.8056 55.375C77.1934 55.375 77.5304 55.295 77.8166 55.1349C78.1059 54.9749 78.329 54.7549 78.486 54.4748C78.646 54.1947 78.726 53.8746 78.726 53.5146V47.5455Z" fill="white"/>
+<path d="M47.3239 47H45.9886C45.8892 46.5028 45.7093 46.0436 45.4489 45.6222C45.1932 45.196 44.8712 44.8243 44.483 44.5071C44.0947 44.1899 43.6544 43.9437 43.1619 43.7685C42.6695 43.5933 42.1368 43.5057 41.5639 43.5057C40.6454 43.5057 39.8073 43.7448 39.0497 44.223C38.2969 44.7012 37.6932 45.4044 37.2386 46.3324C36.7888 47.2557 36.5639 48.3873 36.5639 49.7273C36.5639 51.0767 36.7888 52.2131 37.2386 53.1364C37.6932 54.0597 38.2969 54.7604 39.0497 55.2386C39.8073 55.7121 40.6454 55.9489 41.5639 55.9489C42.1368 55.9489 42.6695 55.8613 43.1619 55.6861C43.6544 55.5109 44.0947 55.267 44.483 54.9545C44.8712 54.6373 45.1932 54.2656 45.4489 53.8395C45.7093 53.4134 45.8892 52.9517 45.9886 52.4545H47.3239C47.2055 53.1222 46.983 53.7448 46.6562 54.3224C46.3343 54.8954 45.9223 55.3973 45.4205 55.8281C44.9233 56.259 44.3504 56.5952 43.7017 56.8366C43.053 57.0781 42.3404 57.1989 41.5639 57.1989C40.3423 57.1989 39.258 56.8935 38.3111 56.2827C37.3641 55.6671 36.6207 54.8007 36.081 53.6832C35.5459 52.5658 35.2784 51.2472 35.2784 49.7273C35.2784 48.2074 35.5459 46.8887 36.081 45.7713C36.6207 44.6539 37.3641 43.7898 38.3111 43.179C39.258 42.5634 40.3423 42.2557 41.5639 42.2557C42.3404 42.2557 43.053 42.3764 43.7017 42.6179C44.3504 42.8546 44.9233 43.1908 45.4205 43.6264C45.9223 44.0573 46.3343 44.5592 46.6562 45.1321C46.983 45.705 47.2055 46.3277 47.3239 47Z" fill="white"/>
+<path d="M36.1637 64.8555H34.1417C34.1048 64.5939 34.0294 64.3615 33.9155 64.1584C33.8016 63.9522 33.6554 63.7768 33.4769 63.6321C33.2984 63.4875 33.0922 63.3767 32.8583 63.2997C32.6275 63.2228 32.3767 63.1843 32.1058 63.1843C31.6165 63.1843 31.1902 63.3059 30.8271 63.549C30.4639 63.7891 30.1823 64.1399 29.9822 64.6016C29.7822 65.0601 29.6822 65.6172 29.6822 66.2727C29.6822 66.9467 29.7822 67.513 29.9822 67.9716C30.1854 68.4302 30.4685 68.7764 30.8317 69.0103C31.1948 69.2442 31.6149 69.3612 32.092 69.3612C32.3597 69.3612 32.6075 69.3258 32.8352 69.255C33.0661 69.1842 33.2707 69.0811 33.4492 68.9457C33.6277 68.8072 33.7755 68.6394 33.8924 68.4425C34.0124 68.2455 34.0955 68.0208 34.1417 67.7685L36.1637 67.7777C36.1114 68.2116 35.9806 68.6302 35.7713 69.0334C35.5651 69.4335 35.2866 69.792 34.9357 70.109C34.5879 70.4229 34.1725 70.6722 33.6893 70.8569C33.2092 71.0385 32.666 71.1293 32.0597 71.1293C31.2164 71.1293 30.4624 70.9384 29.7976 70.5568C29.1359 70.1752 28.6127 69.6228 28.228 68.8995C27.8464 68.1763 27.6555 67.3007 27.6555 66.2727C27.6555 65.2417 27.8494 64.3646 28.2372 63.6413C28.625 62.9181 29.1513 62.3672 29.8161 61.9886C30.4808 61.607 31.2287 61.4162 32.0597 61.4162C32.6075 61.4162 33.1153 61.4931 33.5831 61.647C34.054 61.8009 34.471 62.0256 34.8342 62.321C35.1973 62.6134 35.4928 62.9719 35.7205 63.3967C35.9513 63.8214 36.0991 64.3076 36.1637 64.8555ZM39.049 71H36.907L40.1708 61.5455H42.7468L46.006 71H43.864L41.4957 63.706H41.4219L39.049 71ZM38.9151 67.2837H43.9748V68.8441H38.9151V67.2837ZM47.144 71V61.5455H50.8741C51.5881 61.5455 52.1975 61.6732 52.7022 61.9286C53.21 62.181 53.5963 62.5395 53.861 63.0043C54.1287 63.4659 54.2626 64.0091 54.2626 64.6339C54.2626 65.2617 54.1272 65.8018 53.8564 66.2543C53.5855 66.7036 53.1931 67.0483 52.6792 67.2884C52.1683 67.5284 51.5497 67.6484 50.8233 67.6484H48.3258V66.0419H50.5002C50.8818 66.0419 51.1988 65.9896 51.4512 65.8849C51.7035 65.7803 51.8913 65.6233 52.0144 65.4141C52.1406 65.2048 52.2037 64.9447 52.2037 64.6339C52.2037 64.32 52.1406 64.0553 52.0144 63.8398C51.8913 63.6244 51.702 63.4613 51.4466 63.3505C51.1942 63.2366 50.8757 63.1797 50.4909 63.1797H49.1429V71H47.144ZM52.2498 66.6974L54.5996 71H52.3929L50.0939 66.6974H52.2498ZM64.3635 66.2727C64.3635 67.3037 64.168 68.1809 63.7772 68.9041C63.3894 69.6274 62.86 70.1798 62.1891 70.5614C61.5212 70.94 60.7703 71.1293 59.9363 71.1293C59.0961 71.1293 58.342 70.9384 57.6742 70.5568C57.0063 70.1752 56.4785 69.6228 56.0907 68.8995C55.7029 68.1763 55.5091 67.3007 55.5091 66.2727C55.5091 65.2417 55.7029 64.3646 56.0907 63.6413C56.4785 62.9181 57.0063 62.3672 57.6742 61.9886C58.342 61.607 59.0961 61.4162 59.9363 61.4162C60.7703 61.4162 61.5212 61.607 62.1891 61.9886C62.86 62.3672 63.3894 62.9181 63.7772 63.6413C64.168 64.3646 64.3635 65.2417 64.3635 66.2727ZM62.3368 66.2727C62.3368 65.6049 62.2368 65.0417 62.0368 64.5831C61.8398 64.1245 61.5613 63.7768 61.2012 63.5398C60.8411 63.3028 60.4194 63.1843 59.9363 63.1843C59.4531 63.1843 59.0314 63.3028 58.6713 63.5398C58.3113 63.7768 58.0312 64.1245 57.8311 64.5831C57.6342 65.0417 57.5357 65.6049 57.5357 66.2727C57.5357 66.9406 57.6342 67.5038 57.8311 67.9624C58.0312 68.4209 58.3113 68.7687 58.6713 69.0057C59.0314 69.2427 59.4531 69.3612 59.9363 69.3612C60.4194 69.3612 60.8411 69.2427 61.2012 69.0057C61.5613 68.7687 61.8398 68.4209 62.0368 67.9624C62.2368 67.5038 62.3368 66.9406 62.3368 66.2727ZM73.7522 61.5455V71H72.0257L67.9124 65.0494H67.8431V71H65.8442V61.5455H67.5985L71.6794 67.4915H71.7625V61.5455H73.7522ZM77.0334 71H74.8913L78.1552 61.5455H80.7312L83.9904 71H81.8484L79.4801 63.706H79.4062L77.0334 71ZM76.8995 67.2837H81.9592V68.8441H76.8995V67.2837Z" fill="white"/>
+</svg>
 
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html)…
+## Descrição
+
+Este projeto é um aplicativo Android e IOS desenvolvido com Kotlin, utilizando Jetpack Compose para a interface do usuário e Voyager para navegação e outras bibliotecas. O projeto também faz uso de várias bibliotecas populares para funcionalidades adicionais.
+
+## Tecnologias Utilizadas
+
+- **Kotlin**: Linguagem principal do projeto.
+- **Jetpack Compose**: Framework para construção de interfaces de usuário declarativas.
+- **Voyager**: Biblioteca de navegação para Compose.
+- **Koin**: Injeção de dependência.
+- **Ktor**: Cliente HTTP.
+- **Coil**: Carregamento de imagens.
+- **JUnit**: Testes unitários.
+- **Coroutines**: Programação assíncrona.
+- **FileKit**: Manipulação de arquivos.
+- **PermissionsGallery**: Gerenciamento de permissões.
+- **Constraint Layout**: Layouts complexos.
+- **Compottie**: Animações Lottie.
+- **AndroidX SplashScreen**: Tela de splash.
+- **Moko Permissions**: Para pegar permissões dentro do app.
+
+## Estrutura do Projeto
+
+- `/composeApp`: Código compartilhado entre as aplicações Compose Multiplatform.
+  - `commonMain`: Código comum a todos os alvos.
+  - Outras pastas: Código Kotlin compilado apenas para a plataforma indicada no nome da pasta.
+- `/iosApp`: Contém aplicativos iOS e código SwiftUI.
+- `gradle/libs.versions.toml`: Arquivo de configuração das versões das dependências.
+
+## Diretórios Principais
+`src/commonMain/kotlin/org/app/marcelodev/comucarona/`
+
+### 📁 `commons/`
+Utilitários e funções compartilhadas  
+- Extensões
+- Funções auxiliares
+- Classes base
+
+### 🎨 `components/`
+Componentes UI reutilizáveis  
+- Botões customizados
+- Campos de texto
+- Diálogos
+- Cards
+
+### 💉 `di/`
+Injeção de dependência  
+- Módulos Koin
+- Providers
+- Configurações de DI
+
+### ⚡ `feature/`
+Funcionalidades do aplicativo  
+- Telas
+- ViewModels
+- Estados
+- Casos de uso
+
+### 🔧 `service/`
+Serviços e integrações  
+- Chamadas de API
+- Armazenamento local
+- Gerenciamento de dados
+
+### 🎯 `theme/`
+Definições visuais  
+- Cores
+- Tipografia
+- Dimensões
+- Estilos
+
+## Estrutura de Diretórios
+
+```bash
+composeApp/
+└── src/
+    └── commonMain/
+        └── kotlin/
+            └── org/
+                └── app/
+                    └── marcelodev/
+                        └── comucarona/
+                            ├── App.kt
+                            ├── Greeting.kt
+                            ├── Platform.kt
+                            ├── commons/
+                            ├── components/
+                            ├── di/
+                            ├── feature/
+                            ├── service/
+                            └── theme/
+```
+
+## Dependências
+
+As principais dependências do projeto estão listadas no arquivo `gradle/libs.versions.toml`. Aqui estão algumas delas:
+
+- `filekit`: `0.10.0-beta01`
+- `junit`: `4.13.2`
+- `kotlin`: `2.1.0`
+- `permissionsGallery`: `0.19.1`
+- `voyagerVersion`: `1.1.0-beta03`
+- `koin`: `4.0.2`
+- `ktor`: `3.1.1`
+- `coroutines`: `1.9.0`
+- `constraint_layout`: `0.5.1`
+- `coil`: `3.0.4`
+- `compottie`: `2.0.0-rc04`
+- `androidx-splashscreen`: `1.0.1`
+
+## Configuração do Ambiente
+
+1. **Clone o repositório**:
+    ```sh
+    git clone <URL_DO_REPOSITORIO>
+    ```
+
+2. **Abra o projeto no JetBrains Fleet**:
+    - Certifique-se de ter o JetBrains Fleet instalado.
+
+3. **Sincronize o projeto com o Gradle**:
+    - O Android Studio deve sincronizar automaticamente, mas você pode forçar a sincronização clicando em `File > Sync Project with Gradle Files`.
+
+## Executando o Projeto
+
+1. **Conecte um dispositivo ou inicie um emulador**.
+2. **Execute o aplicativo**:
+    - Clique no botão `Run` ou use o atalho `Shift + F10`.
+
+## Contribuição
+
+1. **Fork o repositório**.
+2. **Crie uma branch para sua feature**:
+    ```sh
+    git checkout -b minha-feature
+    ```
+3. **Commit suas mudanças**:
+    ```sh
+    git commit -m 'Adiciona minha feature'
+    ```
+4. **Push para a branch**:
+    ```sh
+    git push origin minha-feature
+    ```
+5. **Abra um Pull Request**.
+
+## Kotlin Multiplatform
+
+Este é um projeto Kotlin Multiplatform direcionado para Android e iOS.
