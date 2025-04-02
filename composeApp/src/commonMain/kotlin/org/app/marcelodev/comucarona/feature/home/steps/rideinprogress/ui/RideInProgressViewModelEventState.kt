@@ -4,6 +4,7 @@ import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.data.mode
 
 sealed class RideInProgressViewModelEventState {
     data object OnLoadRideInProgress : RideInProgressViewModelEventState()
+    data object OnUpdateRideInProgress : RideInProgressViewModelEventState()
     data class OnSelectFilter(val rideInProgressFilterOptions: RideInProgressFilterOptions) :
         RideInProgressViewModelEventState()
 

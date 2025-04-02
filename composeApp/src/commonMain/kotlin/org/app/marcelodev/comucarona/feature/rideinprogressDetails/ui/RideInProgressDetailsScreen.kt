@@ -65,6 +65,8 @@ fun RideInProgressDetailsScreen(
     onEvent: (RideInProgressDetailsViewModelEventState) -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
+    val isShowShareButton: Boolean = !uiState.carRideDetailsResponse?.shareDeeplink.isNullOrBlank()
+
     Scaffold(
         snackbarHost = {
             CCSnackbar(
@@ -97,14 +99,16 @@ fun RideInProgressDetailsScreen(
                         onEvent(OnBack)
                     })
 
-                    IconButton(
-                        onClick = { onEvent(OnOpenShare) }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = null,
-                            tint = SoftBlack
-                        )
+                    if(isShowShareButton) {
+                        IconButton(
+                            onClick = { onEvent(OnOpenShare) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = null,
+                                tint = SoftBlack
+                            )
+                        }
                     }
                 }
 

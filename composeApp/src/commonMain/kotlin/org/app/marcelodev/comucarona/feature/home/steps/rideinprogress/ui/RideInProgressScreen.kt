@@ -29,6 +29,7 @@ import comucarona.composeapp.generated.resources.ride_in_progress_title
 import org.app.marcelodev.comucarona.components.carridecard.AvailableCarRideCard
 import org.app.marcelodev.comucarona.components.chip.CCChip
 import org.app.marcelodev.comucarona.components.contenterror.CCErrorContent
+import org.app.marcelodev.comucarona.components.contentloading.CCLoadingShimmerContent
 import org.app.marcelodev.comucarona.components.horizontalline.HorizontalLine
 import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.ui.RideInProgressViewModelEventState.*
 import org.app.marcelodev.comucarona.theme.SoftBlack
@@ -87,27 +88,31 @@ fun RideInProgressScreen(
             }
 
             if (uiState is RideInProgressViewModelUiState.HasRiderInProgress) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                ) {
-                    items(uiState.rideInProgressList) { items ->
-                        AvailableCarRideCard(
-                            modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
-                            waitingHour = items.waitingHour,
-                            destinationHour = items.destinationHour,
-                            waitingAddress = items.waitingAddress,
-                            destinationAddress = items.destinationAddress,
-                            riderPhotoUrl = items.riderInformation.photoUrl,
-                            riderUserName = items.riderInformation.username,
-                            riderDescription = "Participa de alvo",
-                            status = items.states.map { RideInProgressFilterOptions.fromValue(it) },
-                            onClick = {
-                                onEvent(
-                                    OnNavigateToRideDetails(items.uuid)
-                                )
-                            }
-                        )
+                if(uiState.isLoadingList) {
+                    CCLoadingShimmerContent()
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                    ) {
+                        items(uiState.rideInProgressList) { items ->
+                            AvailableCarRideCard(
+                                modifier = Modifier.padding(horizontal = 20.dp, vertical = 10.dp),
+                                waitingHour = items.waitingHour,
+                                destinationHour = items.destinationHour,
+                                waitingAddress = items.waitingAddress,
+                                destinationAddress = items.destinationAddress,
+                                riderPhotoUrl = items.riderInformation.photoUrl,
+                                riderUserName = items.riderInformation.username,
+                                riderDescription = "Participa de alvo",
+                                status = items.states.map { RideInProgressFilterOptions.fromValue(it) },
+                                onClick = {
+                                    onEvent(
+                                        OnNavigateToRideDetails(items.uuid)
+                                    )
+                                }
+                            )
+                        }
                     }
                 }
             } else {
@@ -147,6 +152,7 @@ fun RideInProgressScreenPreview() {
             rideInProgressList = listOf(),
             rideInProgressListFiltered = listOf(),
             rideInProgressFilterSelected = RideInProgressFilterOptions.ALL,
+            isLoadingList = false,
             isLoading = false,
             isError = false,
             isRefresh = false,

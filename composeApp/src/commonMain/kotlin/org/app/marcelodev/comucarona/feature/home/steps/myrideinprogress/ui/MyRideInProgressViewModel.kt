@@ -47,6 +47,7 @@ class MyRideInProgressViewModel(
     fun onEvent(event: MyRideInProgressViewModelEventState) {
         when (event) {
             is OnLoadMyRideInProgress -> onLoadAvailableCarRide()
+            is OnUpdateMyRideInProgressLiSt -> onLoadAvailableCarRideListWithSwipe()
             is OnSelectFilter -> onSelectFilter(event.rideInProgressFilterOptions)
             is OnNavigateToMyRideDetails -> onNavigateTo(event.riderId)
         }
@@ -54,7 +55,6 @@ class MyRideInProgressViewModel(
 
     private fun onLoadAvailableCarRide() {
         onUpdateLoading(true)
-        onUpdateIsRefreshing(true)
 
         viewModelScope.launch {
             val status = viewModelState.value.rideInProgressFilterSelected.toString()
@@ -63,6 +63,59 @@ class MyRideInProgressViewModel(
                 .onSuccess { result ->
                     onUpdateRideInProgressList(result)
                     onUpdateLoading(false)
+                }
+                .onFailure { throwable ->
+                    throwable.handleHttpException(
+                        onUnauthorized = {
+                            navigator.parent?.let { logoutUseCase(it) }
+                        },
+                        others = {
+                            onUpdateError(true)
+                            onUpdateLoading(false)
+                            onUpdateIsRefreshing(false)
+                        }
+                    )
+                }
+        }
+    }
+
+    private fun onLoadAvailableCarRideList() {
+        onUpdateLoadingList(true)
+
+        viewModelScope.launch {
+            val status = viewModelState.value.rideInProgressFilterSelected.toString()
+
+            getMyRideInProgressUseCase.invoke(status)
+                .onSuccess { result ->
+                    onUpdateRideInProgressList(result)
+                    onUpdateLoadingList(false)
+                }
+                .onFailure { throwable ->
+                    throwable.handleHttpException(
+                        onUnauthorized = {
+                            navigator.parent?.let { logoutUseCase(it) }
+                        },
+                        others = {
+                            onUpdateError(true)
+                            onUpdateLoading(false)
+                            onUpdateIsRefreshing(false)
+                        }
+                    )
+                }
+        }
+    }
+
+    private fun onLoadAvailableCarRideListWithSwipe() {
+        onUpdateLoadingList(true)
+        onUpdateIsRefreshing(true)
+
+        viewModelScope.launch {
+            val status = viewModelState.value.rideInProgressFilterSelected.toString()
+
+            getMyRideInProgressUseCase.invoke(status)
+                .onSuccess { result ->
+                    onUpdateRideInProgressList(result)
+                    onUpdateLoadingList(false)
                     onUpdateIsRefreshing(false)
                 }
                 .onFailure { throwable ->
@@ -82,7 +135,7 @@ class MyRideInProgressViewModel(
 
     private fun onSelectFilter(rideInProgressFilterOptions: RideInProgressFilterOptions) {
         onUpdateFilterSelected(rideInProgressFilterOptions)
-        onLoadAvailableCarRide()
+        onLoadAvailableCarRideList()
     }
 
     private fun onNavigateTo(riderId: String) {
@@ -115,6 +168,10 @@ class MyRideInProgressViewModel(
 
     private fun onUpdateLoading(isLoading: Boolean) {
         viewModelState.update { it.copy(isLoading = isLoading) }
+    }
+
+    private fun onUpdateLoadingList(isLoadingList: Boolean) {
+        viewModelState.update { it.copy(isLoadingList = isLoadingList) }
     }
 
     private fun onUpdateError(error: Boolean) {

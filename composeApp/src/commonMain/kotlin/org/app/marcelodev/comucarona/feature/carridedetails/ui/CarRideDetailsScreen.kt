@@ -65,6 +65,8 @@ fun CarRideDetailsScreen(
     onEvent: (CarRideDetailsViewModelEventState) -> Unit,
     snackbarHostState: SnackbarHostState
 ) {
+    val isShowShareButton: Boolean = !uiState.carRideDetailsResponse?.shareDeeplink.isNullOrBlank()
+
     Scaffold(
         snackbarHost = {
             CCSnackbar(
@@ -97,14 +99,16 @@ fun CarRideDetailsScreen(
                         onEvent(OnBack)
                     })
 
-                    IconButton(
-                        onClick = { onEvent(OnOpenShare) }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Share,
-                            contentDescription = null,
-                            tint = SoftBlack
-                        )
+                    if(isShowShareButton) {
+                        IconButton(
+                            onClick = { onEvent(OnOpenShare) }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Share,
+                                contentDescription = null,
+                                tint = SoftBlack
+                            )
+                        }
                     }
                 }
 

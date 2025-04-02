@@ -15,6 +15,7 @@ import comucarona.composeapp.generated.resources.ic_car_ride
 import org.app.marcelodev.comucarona.components.contenterror.CCErrorContentRetry
 import org.app.marcelodev.comucarona.components.contentloading.CCLoadingShimmerContent
 import org.app.marcelodev.comucarona.components.contentloading.CCLoadingSwipeRefreshContent
+import org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.ui.MyRideInProgressViewModelEventState.OnUpdateMyRideInProgressLiSt
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.core.parameter.parametersOf
@@ -77,7 +78,7 @@ fun MyRideInProgressRoute(
         isLoading = uiState.isLoading,
         isRefresh = uiState.isRefresh,
         isError = uiState.isError,
-        onRefresh = { onEvent(OnLoadMyRideInProgress) },
+        onRefresh = { onEvent(OnUpdateMyRideInProgressLiSt) },
         loadingContent = {
             CCLoadingShimmerContent()
         },

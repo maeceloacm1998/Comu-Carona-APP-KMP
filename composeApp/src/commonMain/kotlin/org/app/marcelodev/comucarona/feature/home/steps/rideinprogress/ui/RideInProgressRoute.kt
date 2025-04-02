@@ -28,6 +28,7 @@ import org.koin.core.parameter.parametersOf
 import cafe.adriel.voyager.koin.koinScreenModel
 import comucarona.composeapp.generated.resources.ic_my_car_ride
 import org.app.marcelodev.comucarona.feature.home.steps.myrideinprogress.ui.MyRideInProgressViewModelEventState.OnLoadMyRideInProgress
+import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.ui.RideInProgressViewModelEventState.OnUpdateRideInProgress
 
 object RideInProgressRoute : Tab {
     @OptIn(ExperimentalVoyagerApi::class)
@@ -88,7 +89,7 @@ fun RideInProgressRoute(
         isLoading = uiState.isLoading,
         isRefresh = uiState.isRefresh,
         isError = uiState.isError,
-        onRefresh = { onEvent(OnLoadRideInProgress) },
+        onRefresh = { onEvent(OnUpdateRideInProgress) },
         loadingContent = {
             CCLoadingShimmerContent()
         },
