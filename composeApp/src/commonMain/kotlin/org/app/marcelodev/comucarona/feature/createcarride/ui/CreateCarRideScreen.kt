@@ -75,7 +75,6 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
-@OptIn(InternalVoyagerApi::class)
 @Composable
 fun StageOfCarModelScreen(
     uiState: CreateCarRideViewModelUiState.Steps,
@@ -85,108 +84,108 @@ fun StageOfCarModelScreen(
     val carColorFocusRequester = remember { FocusRequester() }
     val carPlateFocusRequester = remember { FocusRequester() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val scrollState = rememberScrollState()
 
     LaunchedEffect(Unit) {
         carModelFocusRequester.requestFocus()
         keyboardController?.show()
     }
 
-    Box(Modifier.verticalScroll(rememberScrollState())) {
-        Column(
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+            .verticalScroll(scrollState)
+            .padding(20.dp)
+    ) {
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        CCButtonBack(onClick = {
+            event(OnGoToHome)
+        })
+
+        Spacer(modifier = Modifier.height(27.dp))
+
+        Text(
+            text = stringResource(Res.string.create_car_ride_car_model_title),
+            style = MaterialTheme.typography.titleLarge,
+            color = SoftBlack
+        )
+
+        Spacer(modifier = Modifier.height(7.dp))
+
+        Text(
+            text = stringResource(Res.string.create_car_ride_car_model_message),
+            style = MaterialTheme.typography.bodyLarge,
+            color = TextFieldColor
+        )
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        CCTextField(
             modifier = Modifier
-                .fillMaxSize()
-                .background(White)
-                .padding(20.dp)
-        ) {
+                .fillMaxWidth()
+                .focusRequester(carModelFocusRequester),
+            placeholder = stringResource(Res.string.create_car_ride_car_model_hint),
+            value = uiState.carModel,
+            onValueChange = { text ->
+                event(OnCarModel(text))
+            },
+            keyboardType = KeyboardType.Text,
+            isErrorMessage = false,
+            onImeAction = {
+                carPlateFocusRequester.requestFocus()
+            }
+        )
 
-            Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            CCButtonBack(onClick = {
-                event(OnGoToHome)
-            })
+        CCTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(carPlateFocusRequester),
+            placeholder = stringResource(Res.string.create_car_ride_car_model_plate_hint),
+            value = uiState.carPlate,
+            onValueChange = { text ->
+                event(OnCarPlate(text))
+            },
+            maxLength = CAR_PLATE_LENGTH,
+            keyboardType = KeyboardType.Text,
+            isErrorMessage = false,
+            onImeAction = {
+                carColorFocusRequester.requestFocus()
+            }
+        )
 
-            Spacer(modifier = Modifier.height(27.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
-            Text(
-                text = stringResource(Res.string.create_car_ride_car_model_title),
-                style = MaterialTheme.typography.titleLarge,
-                color = SoftBlack
-            )
+        CCTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .focusRequester(carColorFocusRequester),
+            placeholder = stringResource(Res.string.create_car_ride_car_model_color_hint),
+            value = uiState.carColor,
+            onValueChange = { text ->
+                event(OnCarColor(text))
+            },
+            keyboardType = KeyboardType.Text,
+            isErrorMessage = false,
+            onImeAction = {
+                event(OnNextStep(CAR_QUANTITY_SEATS))
+            }
+        )
 
-            Spacer(modifier = Modifier.height(7.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
-            Text(
-                text = stringResource(Res.string.create_car_ride_car_model_message),
-                style = MaterialTheme.typography.bodyLarge,
-                color = TextFieldColor
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            CCTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .focusRequester(carModelFocusRequester),
-                placeholder = stringResource(Res.string.create_car_ride_car_model_hint),
-                value = uiState.carModel,
-                onValueChange = { text ->
-                    event(OnCarModel(text))
-                },
-                keyboardType = KeyboardType.Text,
-                isErrorMessage = false,
-                onImeAction = {
-                    carPlateFocusRequester.requestFocus()
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            CCTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .focusRequester(carPlateFocusRequester),
-                placeholder = stringResource(Res.string.create_car_ride_car_model_plate_hint),
-                value = uiState.carPlate,
-                onValueChange = { text ->
-                    event(OnCarPlate(text))
-                },
-                maxLength = CAR_PLATE_LENGTH,
-                keyboardType = KeyboardType.Text,
-                isErrorMessage = false,
-                onImeAction = {
-                    carColorFocusRequester.requestFocus()
-                }
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            CCTextField(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .focusRequester(carColorFocusRequester),
-                placeholder = stringResource(Res.string.create_car_ride_car_model_color_hint),
-                value = uiState.carColor,
-                onValueChange = { text ->
-                    event(OnCarColor(text))
-                },
-                keyboardType = KeyboardType.Text,
-                isErrorMessage = false,
-                onImeAction = {
-                    event(OnNextStep(CAR_QUANTITY_SEATS))
-                }
-            )
-
-            Spacer(modifier = Modifier.height(30.dp))
-
-            CCButton(
-                modifier = Modifier.fillMaxWidth(),
-                title = stringResource(Res.string.register_account_stage_of_birth_date_button_title),
-                isEnable = uiState.enabledCarModelScreen,
-                onButtonListener = {
-                    event(OnNextStep(CAR_QUANTITY_SEATS))
-                }
-            )
-        }
+        CCButton(
+            modifier = Modifier.fillMaxWidth(),
+            title = stringResource(Res.string.register_account_stage_of_birth_date_button_title),
+            isEnable = uiState.enabledCarModelScreen,
+            onButtonListener = {
+                event(OnNextStep(CAR_QUANTITY_SEATS))
+            }
+        )
     }
 }
 
