@@ -172,7 +172,8 @@ fun StageOfBirthDateScreen(
             },
             maxLength = BIRTH_DATE_LENGTH,
             keyboardType = KeyboardType.Number,
-            isErrorMessage = false,
+            isErrorMessage = uiState.birthDateErro,
+            errorMessage = stringResource(Res.string.register_account_stage_of_birth_date_error_message),
             onImeAction = {
                 event(OnNextStep(BIRTH_DATE))
             }
@@ -183,7 +184,7 @@ fun StageOfBirthDateScreen(
         CCButton(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(Res.string.register_account_stage_of_birth_date_button_title),
-            isEnable = uiState.birthDate.formatBirthDate().length == BIRTH_DATE_LENGTH,
+            isEnable = uiState.birthDate.formatBirthDate().length == BIRTH_DATE_LENGTH && !uiState.birthDateErro,
             onButtonListener = {
                 event(OnNextStep(BIRTH_DATE))
             }
@@ -343,6 +344,7 @@ fun StageOfFullNameScreenPreview() {
             steps = FULL_NAME,
             fullName = "John Doe",
             birthDate = "01/01/2000",
+            birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,
             isLoading = false,
@@ -361,6 +363,7 @@ fun StageOfBirthDateScreenPreview() {
             steps = BIRTH_DATE,
             fullName = "John Doe",
             birthDate = "01/01/2000",
+            birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,
             isLoading = false,
@@ -379,6 +382,7 @@ fun StageOfPhoneNumberScreenPreview() {
             steps = PHONE_NUMBER,
             fullName = "John Doe",
             birthDate = "01/01/2000",
+            birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,
             isLoading = false,
@@ -397,6 +401,7 @@ fun StageOfPhotoScreenPreview() {
             steps = PHOTO,
             fullName = "John Doe",
             birthDate = "01/01/2000",
+            birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,
             isLoading = false,

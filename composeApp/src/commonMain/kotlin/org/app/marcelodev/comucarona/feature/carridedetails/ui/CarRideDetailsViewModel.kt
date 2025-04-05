@@ -38,7 +38,6 @@ import org.app.marcelodev.comucarona.service.ktor.extensions.handleHttpException
 class CarRideDetailsViewModel(
     private val navigator: Navigator,
     private val snackbarHostState: SnackbarHostState,
-    private val riderId: String,
     private val getCarRideDetails: GetCarRideDetailsUseCase,
     private val reservationRideUseCase: ReservationRideUseCase,
     private val callWhatsappUseCase: CallWhatsappUseCase,
@@ -49,6 +48,7 @@ class CarRideDetailsViewModel(
     private val fullSeatsMessage = "Todas as vagas dessa carona ja foram preechidas! \uD83D\uDE25"
     private val existingReservationMessage = "Você já está cadastrado nessa carona! 😁✌️"
     private val viewModelState = MutableStateFlow(CarRideDetailsViewModelState())
+    private var riderId: String = ""
 
     val uiState = viewModelState
         .map(CarRideDetailsViewModelState::toUiState)
@@ -76,6 +76,10 @@ class CarRideDetailsViewModel(
     fun clearState() {
         viewModelState.update { CarRideDetailsViewModelState() }
         snackbarHostState.currentSnackbarData?.dismiss()
+    }
+
+    fun onUpdateRiderId(riderId: String) {
+        this.riderId = riderId
     }
 
     fun onFetchCarRideDetails(id: String) {

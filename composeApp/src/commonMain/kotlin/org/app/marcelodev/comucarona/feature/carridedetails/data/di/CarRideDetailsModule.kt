@@ -40,7 +40,6 @@ object CarRideDetailsModule {
             CarRideDetailsViewModel(
                 navigator = params.get(),
                 snackbarHostState = params.get(),
-                riderId = params.get(),
                 getCarRideDetails = get(),
                 reservationRideUseCase = get(),
                 callPhoneUseCase = get(),

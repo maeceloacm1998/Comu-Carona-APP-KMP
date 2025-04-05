@@ -19,7 +19,7 @@ class CheckCodeUseCase(
 
         return try {
             run {
-                val request = CheckCodeRequest(code = code, username = userIdentifier)
+                val request = CheckCodeRequest(code = code, username = "b4a5854d5efcafbc")
                 return repository.checkCode(request).fold(
                     onSuccess = { checkCodeResponse ->
                         authPreferences.saveTokens(

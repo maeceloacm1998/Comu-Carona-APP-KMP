@@ -18,6 +18,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.commons.utils.DateUtils
+import org.app.marcelodev.comucarona.commons.utils.DateUtils.isValidBirthDate
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.feature.home.HomeRoutePatern
 import org.app.marcelodev.comucarona.feature.registeraccount.domain.UploadPhotoUseCase
@@ -117,7 +119,18 @@ class RegisterAccountViewModel(
     }
 
     private fun onUpdateBirthDate(birthDate: String) {
-        viewModelState.update { it.copy(birthDate = birthDate) }
+        viewModelState.update { currentState ->
+            val isValid = if (birthDate.length == 10) {
+                isValidBirthDate(birthDate)
+            } else {
+                false
+            }
+
+            currentState.copy(
+                birthDate = birthDate,
+                birthDateErro = !isValid,
+            )
+        }
     }
 
     private fun onUpdatePhoneNumber(phoneNumber: String) {

@@ -1,6 +1,5 @@
 package org.app.marcelodev.comucarona.feature.registeraccount.ui
 
-import androidx.compose.ui.graphics.ImageBitmap
 import io.github.vinceglb.filekit.PlatformFile
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps
 
@@ -16,6 +15,7 @@ sealed interface RegisterAccountViewModelUiState {
         val steps: RegisterAccountSteps,
         val fullName: String,
         val birthDate: String,
+        val birthDateErro: Boolean,
         val phoneNumber: String,
         val photoUrl: PlatformFile?,
         val isLoading: Boolean,
@@ -31,6 +31,7 @@ data class RegisterAccountViewModelState(
     val steps: RegisterAccountSteps = RegisterAccountSteps.FULL_NAME,
     val fullName: String = "",
     val birthDate: String = "",
+    val birthDateErro: Boolean = false,
     val phoneNumber: String = "",
     val photoUrl: PlatformFile? = null,
     val isLoading: Boolean = false,
@@ -45,6 +46,7 @@ data class RegisterAccountViewModelState(
         steps = steps,
         fullName = fullName,
         birthDate = birthDate,
+        birthDateErro = birthDateErro,
         phoneNumber = phoneNumber,
         photoUrl = photoUrl,
         isLoading = isLoading,

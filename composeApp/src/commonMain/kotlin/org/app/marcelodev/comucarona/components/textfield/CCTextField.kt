@@ -47,6 +47,7 @@ fun CCTextField(
     maxLines: Int = 1,
     maxLength: Int = 100,
     isSingleLine: Boolean = true,
+    errorMessage: String = "",
     isErrorMessage: Boolean = false,
     onImeAction: () -> Unit
 ) {
@@ -110,6 +111,18 @@ fun CCTextField(
             focusedIndicatorColor = borderColor,
             unfocusedIndicatorColor = borderColor
         ),
+        isError = isErrorMessage,
+        supportingText = {
+            if (isErrorMessage) {
+                Text(
+                    text = errorMessage,
+                    fontSize = placeholderSize.sp,
+                    color = Error,
+                    textAlign = textAlign,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
+        },
         keyboardOptions = KeyboardOptions.Default.copy(
             keyboardType = keyboardType,
             imeAction = ImeAction.Done

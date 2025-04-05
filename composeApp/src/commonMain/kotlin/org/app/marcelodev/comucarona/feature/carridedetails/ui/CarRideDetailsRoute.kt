@@ -36,13 +36,16 @@ class CarRideDetailsRoute(
         val snackbarHostState = remember { SnackbarHostState() }
         val navigator: Navigator = LocalNavigator.currentOrThrow
         val viewModel = koinViewModel<CarRideDetailsViewModel>(
-            parameters = { parametersOf(navigator, snackbarHostState, riderId) }
+            parameters = { parametersOf(navigator, snackbarHostState) }
         )
 
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
         LifecycleEffectOnce {
-            viewModel.onFetchCarRideDetails(riderId)
+            viewModel.apply {
+                onFetchCarRideDetails(riderId)
+                onUpdateRiderId(riderId)
+            }
 
             onDispose {
                 viewModel.clearState()
