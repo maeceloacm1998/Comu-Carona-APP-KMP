@@ -120,6 +120,7 @@ class RideInProgressDetailsViewModel(
                         },
                         others = {
                             onUpdateLoadingReservation(false)
+                            onDismissBottomSheet()
                             onUpdateShowSnackBar(
                                 showSnackBar = true,
                                 snackBarMessage = errorReservationMessage,
@@ -217,10 +218,6 @@ class RideInProgressDetailsViewModel(
 
     private fun onUpdateError(error: Boolean) {
         viewModelState.update { it.copy(isError = error) }
-    }
-
-    private fun onUpdateIsEnableButton(isEnableButton: Boolean) {
-        viewModelState.update { it.copy(isEnableButton = isEnableButton) }
     }
 
 }
