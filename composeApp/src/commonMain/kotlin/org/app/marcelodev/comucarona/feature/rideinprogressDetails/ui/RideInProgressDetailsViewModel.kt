@@ -47,6 +47,8 @@ class RideInProgressDetailsViewModel(
     private val shareLinkUseCase: ShareLinkUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ScreenModel, ViewModel(), KoinComponent {
+    private val errorReservationMessage: String =
+        "Ocorreu um problema ao tentar cancelar sua reserva. Tente novamente mais tarde! 😎✌️"
     private val viewModelState = MutableStateFlow(RideInProgressDetailsViewModelState())
 
     val uiState = viewModelState
@@ -120,7 +122,7 @@ class RideInProgressDetailsViewModel(
                             onUpdateLoadingReservation(false)
                             onUpdateShowSnackBar(
                                 showSnackBar = true,
-                                snackBarMessage = throwable.message ?: "",
+                                snackBarMessage = errorReservationMessage,
                                 snackbarType = ERROR
                             )
                         }
