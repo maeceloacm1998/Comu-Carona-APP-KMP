@@ -13,7 +13,7 @@
 
     <string name="register_account_stage_of_birth_date_title">Qual a sua idade?</string>
     <string name="register_account_stage_of_birth_date_message">Saber sua idade é importânte para o motorista da carona ter mais detalhes sobre você!</string>
-    <string name="register_account_stage_of_birth_date_hint">Ex: 02/04/1998</string>
+    <string name="register_account_stage_of_birth_date_hint">Ex: 02/04/1998 (opicional)</string>
     <string name="register_account_stage_of_birth_date_error_message">A data está no formato incorreto, colocar a data no formato dd/MM/YYYY 🙈</string>
     <string name="register_account_stage_of_birth_date_button_title">Próximo</string>
 

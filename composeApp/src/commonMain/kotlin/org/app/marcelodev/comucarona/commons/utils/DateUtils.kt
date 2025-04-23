@@ -1,6 +1,8 @@
 package org.app.marcelodev.comucarona.commons.utils
 
 object DateUtils {
+    const val MAX_DIGITS_OF_BIRTH_DATE = 10
+
     /**
      * Valida se uma data está no formato dd/MM/yyyy e se os valores estão dentro dos limites.
      * @param date String contendo a data no formato dd/MM/yyyy

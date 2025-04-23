@@ -27,6 +27,8 @@ import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
 import kotlinx.coroutines.launch
+import org.app.marcelodev.comucarona.commons.utils.StringUtils.BIRTH_DATE_LENGTH
+import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatBirthDate
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.components.button.CCButtonBack
 import org.app.marcelodev.comucarona.components.horizontalline.HorizontalLine
@@ -119,12 +121,14 @@ fun ProfileDetailsScreen(
                     modifier = Modifier
                         .fillMaxWidth(),
                     placeholder = stringResource(Res.string.register_account_stage_of_birth_date_hint),
-                    value = uiState.profileDetailsInformation.birthDate,
+                    value = uiState.profileDetailsInformation.birthDate.formatBirthDate(),
                     onValueChange = { text ->
                         onEvent(OnUpdateBirthDate(birthDate = text))
                     },
                     keyboardType = KeyboardType.Text,
-                    isErrorMessage = false,
+                    isErrorMessage = uiState.birthDateErro,
+                    errorMessage = stringResource(Res.string.register_account_stage_of_birth_date_error_message),
+                    maxLength = BIRTH_DATE_LENGTH,
                     onImeAction = {}
                 )
 
@@ -178,6 +182,7 @@ fun ProfileDetailsScreenPreview() {
             ),
             snackbarType = SnackbarCustomType.ERROR,
             isChangeFields = false,
+            birthDateErro = false,
             isSuccessUpdate = false,
             isLoadingImage = false,
             isLoadingUpdate = false,

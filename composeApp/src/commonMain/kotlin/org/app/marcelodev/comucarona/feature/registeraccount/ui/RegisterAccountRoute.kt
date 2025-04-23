@@ -15,7 +15,6 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import org.app.marcelodev.comucarona.commons.utils.AnimatedUtils.animatedTransitionPage
 import org.app.marcelodev.comucarona.components.snackbar.CCSnackbar
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.BIRTH_DATE
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.FULL_NAME
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHONE_NUMBER
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
@@ -66,11 +65,6 @@ class RegisterAccountRoute: Screen {
             ) { targetState ->
                 when (targetState) {
                     FULL_NAME -> StageOfFullNameScreen(
-                        uiState = uiState,
-                        event = event
-                    )
-
-                    BIRTH_DATE -> StageOfBirthDateScreen(
                         uiState = uiState,
                         event = event
                     )

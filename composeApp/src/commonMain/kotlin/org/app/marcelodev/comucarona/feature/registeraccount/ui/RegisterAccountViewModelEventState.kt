@@ -30,13 +30,6 @@ sealed class RegisterAccountViewModelEventState {
  data class OnUpdateFullName(val fullName: String) : RegisterAccountViewModelEventState()
 
  /**
-  * Represents the event when the birth date is updated.
-  *
-  * @param birthDate The new birth date.
-  */
- data class OnUpdateBirthDate(val birthDate: String) : RegisterAccountViewModelEventState()
-
- /**
   * Represents the event when the phone number is updated.
   *
   * @param phoneNumber The new phone number.

@@ -30,17 +30,14 @@ import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
 import kotlinx.coroutines.launch
-import org.app.marcelodev.comucarona.commons.utils.StringUtils.BIRTH_DATE_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.FULL_NAME_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.PHONE_NUMBER_LENGTH
-import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatBirthDate
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatPhoneNumber
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.components.button.CCButtonBack
 import org.app.marcelodev.comucarona.components.permissions.RequestGalleryPermission
 import org.app.marcelodev.comucarona.components.photoselect.PhotoPlatformFileComponent
 import org.app.marcelodev.comucarona.components.textfield.CCTextField
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.BIRTH_DATE
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.FULL_NAME
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHONE_NUMBER
 import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
@@ -111,82 +108,6 @@ fun StageOfFullNameScreen(
             isEnable = uiState.fullName.length >= FULL_NAME_LENGTH,
             onButtonListener = {
                 event(OnNextStep(FULL_NAME))
-            }
-        )
-    }
-}
-
-@Composable
-fun StageOfBirthDateScreen(
-    uiState: RegisterAccountViewModelUiState.Register,
-    event: (RegisterAccountViewModelEventState) -> Unit
-) {
-    val focusRequesters = FocusRequester()
-    val keyboardController = LocalSoftwareKeyboardController.current
-
-    LaunchedEffect(Unit) {
-        focusRequesters.requestFocus()
-        keyboardController?.show()
-    }
-
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(White)
-            .padding(20.dp)
-    ) {
-
-        Spacer(modifier = Modifier.height(20.dp))
-
-        CCButtonBack(onClick = {
-            event(OnRemoveNewStep(BIRTH_DATE))
-        })
-
-        Spacer(modifier = Modifier.height(27.dp))
-
-        Text(
-            text = stringResource(Res.string.register_account_stage_of_birth_date_title),
-            style = MaterialTheme.typography.titleLarge,
-            color = SoftBlack
-        )
-
-        Spacer(modifier = Modifier.height(7.dp))
-
-        Text(
-            text = stringResource(Res.string.register_account_stage_of_birth_date_message),
-            style = MaterialTheme.typography.bodyLarge,
-            color = TextFieldColor
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        CCTextField(
-            modifier = Modifier
-                .fillMaxWidth()
-                .focusRequester(focusRequesters),
-            placeholder = stringResource(Res.string.register_account_stage_of_birth_date_hint),
-            value = uiState.birthDate.formatBirthDate(),
-            onValueChange = { text ->
-                event(OnUpdateBirthDate(text))
-            },
-            maxLength = BIRTH_DATE_LENGTH,
-            keyboardType = KeyboardType.Number,
-            isErrorMessage = uiState.birthDateErro,
-            errorMessage = stringResource(Res.string.register_account_stage_of_birth_date_error_message),
-            onImeAction = {
-                event(OnNextStep(BIRTH_DATE))
-            }
-        )
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        CCButton(
-            modifier = Modifier.fillMaxWidth(),
-            title = stringResource(Res.string.register_account_stage_of_birth_date_button_title),
-            isEnable = uiState.birthDate.formatBirthDate().length == BIRTH_DATE_LENGTH && !uiState.birthDateErro,
-            onButtonListener = {
-                event(OnNextStep(BIRTH_DATE))
             }
         )
     }
@@ -343,26 +264,6 @@ fun StageOfFullNameScreenPreview() {
         uiState = RegisterAccountViewModelUiState.Register(
             steps = FULL_NAME,
             fullName = "John Doe",
-            birthDate = "01/01/2000",
-            birthDateErro = false,
-            phoneNumber = "31999999999",
-            photoUrl = null,
-            isLoading = false,
-            isError = false,
-            isSuccess = false
-        ),
-        event = { }
-    )
-}
-
-@Preview
-@Composable
-fun StageOfBirthDateScreenPreview() {
-    StageOfBirthDateScreen(
-        uiState = RegisterAccountViewModelUiState.Register(
-            steps = BIRTH_DATE,
-            fullName = "John Doe",
-            birthDate = "01/01/2000",
             birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,
@@ -381,7 +282,6 @@ fun StageOfPhoneNumberScreenPreview() {
         uiState = RegisterAccountViewModelUiState.Register(
             steps = PHONE_NUMBER,
             fullName = "John Doe",
-            birthDate = "01/01/2000",
             birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,
@@ -400,7 +300,6 @@ fun StageOfPhotoScreenPreview() {
         uiState = RegisterAccountViewModelUiState.Register(
             steps = PHOTO,
             fullName = "John Doe",
-            birthDate = "01/01/2000",
             birthDateErro = false,
             phoneNumber = "31999999999",
             photoUrl = null,

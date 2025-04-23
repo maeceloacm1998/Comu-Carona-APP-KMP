@@ -14,6 +14,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
+import org.app.marcelodev.comucarona.commons.utils.DateUtils.MAX_DIGITS_OF_BIRTH_DATE
+import org.app.marcelodev.comucarona.commons.utils.DateUtils.isValidBirthDate
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
 import org.app.marcelodev.comucarona.feature.home.steps.initial.domain.GetUserInformationUseCase
@@ -192,11 +194,19 @@ class ProfileDetailsViewModel(
     }
 
     private fun onUpdateBirthDate(birthDate: String) {
-        viewModelState.update {
-            it.copy(
-                profileDetailsInformation = it.profileDetailsInformation?.copy(birthDate = birthDate)
+        viewModelState.update { currentState ->
+            val isValid = if (birthDate.length == MAX_DIGITS_OF_BIRTH_DATE) {
+                isValidBirthDate(birthDate)
+            } else {
+                false
+            }
+
+            currentState.copy(
+                profileDetailsInformation = currentState.profileDetailsInformation?.copy(birthDate = birthDate),
+                birthDateErro = !isValid,
             )
         }
+
         onUpdateIsChangeFields(true)
     }
 

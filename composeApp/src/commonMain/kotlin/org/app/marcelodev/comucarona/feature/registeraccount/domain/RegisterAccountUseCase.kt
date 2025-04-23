@@ -13,7 +13,6 @@ class RegisterAccountUseCase(
 
     suspend operator fun invoke(
         fullName: String,
-        birthDate: String,
         phoneNumber: String,
         photoBityArray: ByteArray,
     ): Result<Unit> {
@@ -21,8 +20,8 @@ class RegisterAccountUseCase(
             val username = DeviceUtils.create().getUniqueDeviceId().lowercase()
             val request = RegisterAccountRequest(
                 fullName = fullName,
-                birthDate = birthDate,
                 phoneNumber = phoneNumber,
+                birthDate = "",
                 photoUrl = "http://URL"
             )
 

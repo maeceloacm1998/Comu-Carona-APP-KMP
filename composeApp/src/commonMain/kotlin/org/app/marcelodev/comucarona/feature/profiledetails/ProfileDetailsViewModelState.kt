@@ -12,6 +12,7 @@ sealed interface ProfileDetailsViewModelUiState{
     data class HasProfileDetails(
         val profileDetailsInformation: RegisterAccountRequest?,
         val isChangeFields: Boolean,
+        val birthDateErro: Boolean,
         override val snackbarType: SnackbarCustomType,
         override val isLoadingImage: Boolean,
         override val isLoadingUpdate: Boolean,
@@ -23,6 +24,7 @@ data class ProfileDetailsViewModelState(
     val profileDetailsInformation: RegisterAccountRequest? = null,
     val snackbarType: SnackbarCustomType = SnackbarCustomType.SUCCESS,
     val isChangeFields: Boolean = false,
+    val birthDateErro: Boolean = false,
     val isLoadingImage: Boolean = false,
     val isLoadingUpdate: Boolean = false,
     val isSuccessUpdate: Boolean = false
@@ -32,6 +34,7 @@ data class ProfileDetailsViewModelState(
             profileDetailsInformation = profileDetailsInformation,
             snackbarType = snackbarType,
             isChangeFields = isChangeFields,
+            birthDateErro = birthDateErro,
             isLoadingImage = isLoadingImage,
             isLoadingUpdate = isLoadingUpdate,
             isSuccessUpdate = isSuccessUpdate

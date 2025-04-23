@@ -18,7 +18,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
-import org.app.marcelodev.comucarona.commons.utils.DateUtils
 import org.app.marcelodev.comucarona.commons.utils.DateUtils.isValidBirthDate
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.feature.home.HomeRoutePatern
@@ -50,7 +49,6 @@ class RegisterAccountViewModel(
             is OnNextStep -> onNextStep(event.step)
             is OnRemoveNewStep -> onRemoveNewStep(event.step)
             is OnUpdateFullName -> onUpdateFullName(event.fullName)
-            is OnUpdateBirthDate -> onUpdateBirthDate(event.birthDate)
             is OnUpdatePhoneNumber -> onUpdatePhoneNumber(event.phoneNumber)
             is OnUpdatePhoto -> onUpdatePhoto(event.photo)
         }
@@ -80,7 +78,6 @@ class RegisterAccountViewModel(
         viewModelScope.launch {
             registerAccountUseCase(
                 fullName = state.fullName,
-                birthDate = state.birthDate,
                 phoneNumber = state.phoneNumber,
                 photoBityArray = state.photoUrl!!.readBytes()
             ).onSuccess {
@@ -127,7 +124,6 @@ class RegisterAccountViewModel(
             }
 
             currentState.copy(
-                birthDate = birthDate,
                 birthDateErro = !isValid,
             )
         }

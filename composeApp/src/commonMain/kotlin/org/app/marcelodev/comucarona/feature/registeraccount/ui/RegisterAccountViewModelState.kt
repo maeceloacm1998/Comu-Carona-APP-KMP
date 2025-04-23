@@ -14,7 +14,6 @@ sealed interface RegisterAccountViewModelUiState {
     data class Register(
         val steps: RegisterAccountSteps,
         val fullName: String,
-        val birthDate: String,
         val birthDateErro: Boolean,
         val phoneNumber: String,
         val photoUrl: PlatformFile?,
@@ -30,7 +29,6 @@ sealed interface RegisterAccountViewModelUiState {
 data class RegisterAccountViewModelState(
     val steps: RegisterAccountSteps = RegisterAccountSteps.FULL_NAME,
     val fullName: String = "",
-    val birthDate: String = "",
     val birthDateErro: Boolean = false,
     val phoneNumber: String = "",
     val photoUrl: PlatformFile? = null,
@@ -45,7 +43,6 @@ data class RegisterAccountViewModelState(
     fun toUiState(): RegisterAccountViewModelUiState = RegisterAccountViewModelUiState.Register(
         steps = steps,
         fullName = fullName,
-        birthDate = birthDate,
         birthDateErro = birthDateErro,
         phoneNumber = phoneNumber,
         photoUrl = photoUrl,
