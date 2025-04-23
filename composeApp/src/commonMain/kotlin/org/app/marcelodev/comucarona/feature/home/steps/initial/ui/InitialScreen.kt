@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.style.TextAlign
@@ -161,13 +162,12 @@ fun BannerCreateCarRide(
         modifier = Modifier
             .padding(horizontal = 20.dp, vertical = 30.dp)
             .fillMaxWidth()
-            .height(135.dp)
             .clickable {
                 onEvent(OnNavigateToCreateCarRide)
             },
         painter = painterResource(Res.drawable.ic_create_car_ride),
         contentDescription = "",
-        contentScale = FillBounds,
+        contentScale = Crop,
     )
 }
 
