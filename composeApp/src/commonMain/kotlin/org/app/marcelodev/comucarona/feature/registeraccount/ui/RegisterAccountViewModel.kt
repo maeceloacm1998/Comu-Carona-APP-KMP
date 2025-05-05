@@ -29,7 +29,7 @@ class RegisterAccountViewModel(
     private val navigator: Navigator,
     private val snackbarHostState: SnackbarHostState,
     private val registerAccountUseCase: RegisterAccountUseCase,
-    private val updatePhotoUseCase: UploadPhotoUseCase,
+    private val photoUseCase: UploadPhotoUseCase,
     private val logoutUseCase: LogoutUseCase
 ) : ScreenModel, ViewModel(), KoinComponent {
     private val snackbarMessageError = "Aconteceu um erro ao registrar o usuário, tenta novamente."
@@ -79,11 +79,12 @@ class RegisterAccountViewModel(
             registerAccountUseCase(
                 fullName = state.fullName,
                 phoneNumber = state.phoneNumber,
-                photoBityArray = state.photoUrl!!.readBytes()
             ).onSuccess {
-                onGoToHome()
-                onUpdateLoading(false)
-                onUpdateSuccess(true)
+                if(state.photoUrl != null) {
+                    onFetchUploadPhoto(state.photoUrl.readBytes())
+                } else {
+                    handleStatusSuccessful()
+                }
             }.onFailure { throwable ->
                 throwable.handleHttpException(
                     onUnauthorized = {
@@ -97,6 +98,29 @@ class RegisterAccountViewModel(
                 )
             }
         }
+    }
+
+    private suspend fun onFetchUploadPhoto(photoBityArray: ByteArray) {
+        photoUseCase(photoBityArray).onSuccess {
+            handleStatusSuccessful()
+        }.onFailure { throwable ->
+            throwable.handleHttpException(
+                onUnauthorized = {
+                    logoutUseCase(navigator = navigator)
+                },
+                others = {
+                    println("Error ${throwable.message}")
+                    onUpdateLoading(false)
+                    showSnackbarMessage(snackbarMessageError)
+                }
+            )
+        }
+    }
+
+    private fun handleStatusSuccessful() {
+        onGoToHome()
+        onUpdateLoading(false)
+        onUpdateSuccess(true)
     }
 
     private fun onGoToHome() {

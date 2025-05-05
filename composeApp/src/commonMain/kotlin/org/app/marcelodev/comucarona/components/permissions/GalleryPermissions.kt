@@ -48,13 +48,7 @@ fun RequestGalleryPermission() {
         if (isGranted.value) {
             Text("Adicione uma foto")
         } else {
-            Text("Permission is required to access the gallery. Please grant the permission.")
-
-            Button(onClick = {
-                onPermissionResult()
-            }) {
-                Text("Request Permission")
-            }
+            Text("Permissaão não authorizada.")
         }
     }
 }

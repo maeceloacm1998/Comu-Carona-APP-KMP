@@ -25,7 +25,12 @@
     <string name="register_account_stage_of_photo_title">Estamos no final</string>
     <string name="register_account_stage_of_photo_message">Por último, adicione uma foto sua para que o motorista da carona possa te reconhecer. 😁</string>
     <string name="register_account_stage_of_photo_circular_button_title">Adicionar foto</string>
-    <string name="register_account_stage_of_photo_button_title">Finalizar</string>
+    <string name="register_account_stage_of_photo_button_title">Salvar foto</string>
+    <string name="register_account_stage_of_photo_button_next_step_title">Pular etapa</string>    
+
+    <string name="register_account_stage_of_permission_photo_title">A foto é um recurso\nimportante para o\nfuncionamento do app !</string>
+    <string name="register_account_stage_of_permission_photo_message">No próximo passo, é essencial que você coloque uma foto do seu rosto para fácil identificação.</string>
+    <string name="register_account_stage_of_permission_photo_button_title">Próximo</string>
 
     <string name="initial_available_car_ride_title">Caronas disponíveis</string>
     <string name="initial_not_available_car_ride_title">Nenhuma corrida disponível</string>

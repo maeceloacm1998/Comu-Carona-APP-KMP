@@ -21,8 +21,7 @@ object RegisterAccountModule {
         factory {
             RegisterAccountUseCase(
                 authPreferences = get(),
-                registerAccountRepository = get(),
-                photoUseCase = get()
+                registerAccountRepository = get()
             )
         }
 
@@ -31,7 +30,7 @@ object RegisterAccountModule {
                 navigator = param.get(),
                 snackbarHostState = param.get(),
                 registerAccountUseCase = get(),
-                updatePhotoUseCase = get(),
+                photoUseCase = get(),
                 logoutUseCase = get(),
             )
         }

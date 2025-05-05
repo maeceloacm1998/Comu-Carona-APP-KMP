@@ -15,9 +15,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import org.app.marcelodev.comucarona.commons.utils.AnimatedUtils.animatedTransitionPage
 import org.app.marcelodev.comucarona.components.snackbar.CCSnackbar
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.FULL_NAME
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHONE_NUMBER
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
+import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.*
 import org.koin.core.parameter.parametersOf
 
 class RegisterAccountRoute: Screen {
@@ -73,6 +71,8 @@ class RegisterAccountRoute: Screen {
                         uiState = uiState,
                         event = event
                     )
+
+                    PERMISSION -> StageOfInformationAboutPhotoPermission(event)
 
                     PHOTO -> StageOfPhotoScreen(
                         uiState = uiState,

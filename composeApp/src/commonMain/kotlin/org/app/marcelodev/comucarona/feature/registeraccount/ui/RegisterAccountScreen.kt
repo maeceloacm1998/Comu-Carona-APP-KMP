@@ -1,5 +1,6 @@
 package org.app.marcelodev.comucarona.feature.registeraccount.ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -38,11 +40,10 @@ import org.app.marcelodev.comucarona.components.button.CCButtonBack
 import org.app.marcelodev.comucarona.components.permissions.RequestGalleryPermission
 import org.app.marcelodev.comucarona.components.photoselect.PhotoPlatformFileComponent
 import org.app.marcelodev.comucarona.components.textfield.CCTextField
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.FULL_NAME
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHONE_NUMBER
-import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.PHOTO
+import org.app.marcelodev.comucarona.feature.registeraccount.data.models.RegisterAccountSteps.*
 import org.app.marcelodev.comucarona.theme.SoftBlack
 import org.app.marcelodev.comucarona.theme.TextFieldColor
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -188,6 +189,61 @@ fun StageOfPhoneNumberScreen(
 }
 
 @Composable
+fun StageOfInformationAboutPhotoPermission(
+    event: (RegisterAccountViewModelEventState) -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(White)
+            .padding(20.dp),
+    ) {
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        CCButtonBack(onClick = {
+            event(OnRemoveNewStep(PHOTO))
+        })
+
+        Spacer(modifier = Modifier.height(27.dp))
+
+        Text(
+            text = stringResource(Res.string.register_account_stage_of_permission_photo_title),
+            style = MaterialTheme.typography.titleLarge,
+            color = SoftBlack
+        )
+
+        Spacer(modifier = Modifier.height(7.dp))
+
+        Text(
+            text = stringResource(Res.string.register_account_stage_of_permission_photo_message),
+            style = MaterialTheme.typography.bodyLarge,
+            color = TextFieldColor
+        )
+
+        Image(
+            modifier = Modifier
+                .padding(horizontal = 20.dp, vertical = 30.dp)
+                .fillMaxWidth(),
+            painter = painterResource(Res.drawable.permission),
+            contentDescription = "",
+            contentScale = Crop,
+        )
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+
+        CCButton(
+            modifier = Modifier.fillMaxWidth(),
+            title = stringResource(Res.string.register_account_stage_of_permission_photo_button_title),
+            onButtonListener = {
+                event(OnNextStep(PERMISSION))
+            }
+        )
+    }
+}
+
+@Composable
 fun StageOfPhotoScreen(
     uiState: RegisterAccountViewModelUiState.Register,
     event: (RegisterAccountViewModelEventState) -> Unit
@@ -254,6 +310,18 @@ fun StageOfPhotoScreen(
                 event(OnNextStep(PHOTO))
             }
         )
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        CCButton(
+            modifier = Modifier.fillMaxWidth(),
+            title = stringResource(Res.string.register_account_stage_of_photo_button_next_step_title),
+            isLoading = uiState.isLoading,
+            isSuccess = uiState.isSuccess,
+            onButtonListener = {
+                event(OnNextStep(PHOTO))
+            }
+        )
     }
 }
 
@@ -291,6 +359,12 @@ fun StageOfPhoneNumberScreenPreview() {
         ),
         event = { }
     )
+}
+
+@Preview
+@Composable
+fun StageOfInformationAboutPhotoPermissionPreview() {
+    StageOfInformationAboutPhotoPermission(event = {})
 }
 
 @Preview
