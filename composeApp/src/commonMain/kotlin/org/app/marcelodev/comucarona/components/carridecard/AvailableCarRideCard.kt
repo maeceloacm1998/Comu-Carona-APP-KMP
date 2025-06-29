@@ -7,13 +7,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import org.app.marcelodev.comucarona.components.horizontalline.HorizontalLine
 import org.app.marcelodev.comucarona.components.tag.CCTag
 import org.app.marcelodev.comucarona.feature.home.steps.rideinprogress.data.models.RideInProgressFilterOptions
+import org.app.marcelodev.comucarona.theme.TextFieldColor
 import org.app.marcelodev.comucarona.theme.TextFieldLineColor
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
@@ -27,6 +31,7 @@ fun AvailableCarRideCard(
     riderPhotoUrl: String,
     riderUserName: String,
     riderDescription: String,
+    riderHoursUntilExpiration: String = "",
     status: List<RideInProgressFilterOptions> = emptyList(),
     onClick: () -> Unit = {}
 ) {
@@ -57,6 +62,15 @@ fun AvailableCarRideCard(
                             color = items.color
                         )
                     }
+
+                   if(riderHoursUntilExpiration.isBlank()) {
+                       Text(
+                           text = riderHoursUntilExpiration,
+                           style = MaterialTheme.typography.labelSmall,
+                           color = TextFieldColor,
+                           fontWeight = Bold,
+                       )
+                   }
                 }
             }
 
@@ -97,6 +111,7 @@ fun AvailableCarRideCardPreview() {
         destinationHour = "19:00",
         riderPhotoUrl = "https://firebasestorage.googleapis.com/v0/b/comu-carona.firebasestorage.app/o/uploads%2Fupload2233688854578175299.tmp?alt=media&token=486be14c-5708-4c8d-a1e6-650867480c0a",
         riderUserName = "João",
-        riderDescription = "Descrição"
+        riderDescription = "Descrição",
+        riderHoursUntilExpiration = "Termina em: 20h"
     )
 }

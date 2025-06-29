@@ -12,5 +12,6 @@ data class AvailableCarRide(
     @SerialName("destinationHour") val destinationHour: String,
     @SerialName("riderPhotoUrl") val riderPhotoUrl: String,
     @SerialName("riderUserName") val riderUserName: String,
-    @SerialName("riderDescription") val riderDescription: String
+    @SerialName("riderDescription") val riderDescription: String,
+    @SerialName("hoursUntilExpiration") val hoursUntilExpiration: String
 )

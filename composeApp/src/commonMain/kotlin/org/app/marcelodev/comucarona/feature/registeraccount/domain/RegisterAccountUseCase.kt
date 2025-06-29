@@ -21,7 +21,7 @@ class RegisterAccountUseCase(
                 fullName = fullName,
                 phoneNumber = phoneNumber,
                 birthDate = "",
-                photoUrl = "http://URL"
+                photoUrl = null
             )
 
             val registerUserResponse = registerAccountRepository.registerAccount(

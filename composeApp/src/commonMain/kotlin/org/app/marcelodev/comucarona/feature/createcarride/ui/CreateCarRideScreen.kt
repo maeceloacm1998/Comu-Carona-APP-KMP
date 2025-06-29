@@ -760,6 +760,7 @@ fun LastCarRideBottomSheetPreview() {
                 riderPhotoUrl = "dsadas",
                 riderDescription = "Teste description",
                 riderUserName = "Marcelo teste",
+                hoursUntilExpiration = "Termina em: 23h"
             )
         ),
         event = {}

@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -29,7 +28,6 @@ import comucarona.composeapp.generated.resources.*
 import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.initial_available_car_ride_title
 import comucarona.composeapp.generated.resources.initial_not_available_car_ride_title
-import comucarona.composeapp.generated.resources.initial_username_title
 import org.app.marcelodev.comucarona.components.carridecard.AvailableCarRideCard
 import org.app.marcelodev.comucarona.components.contenterror.CCErrorContent
 import org.app.marcelodev.comucarona.components.horizontalline.HorizontalLine
@@ -106,6 +104,7 @@ fun InitialScreen(
                             riderPhotoUrl = availableCarRide.riderPhotoUrl,
                             riderUserName = availableCarRide.riderUserName,
                             riderDescription = availableCarRide.riderDescription,
+                            riderHoursUntilExpiration = availableCarRide.hoursUntilExpiration,
                             onClick = {
                                 onEvent(
                                     OnNavigateToRideDetails(id = availableCarRide.id)
@@ -185,7 +184,8 @@ fun InitialScreenPreview() {
                     destinationAddress = "Rua Teste, 456",
                     riderPhotoUrl = "https://firebasestorage.googleapis.com/v0/b/comu-carona.firebasestorage.app/o/uploads%2Fupload2233688854578175299.tmp?alt=media&token=486be14c-5708-4c8d-a1e6-650867480c0a",
                     riderUserName = "Teste",
-                    riderDescription = "Descrição"
+                    riderDescription = "Descrição",
+                    hoursUntilExpiration = "Termina em: 23h"
                 )
             ),
             userName = "Teste",
