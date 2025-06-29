@@ -295,6 +295,9 @@ fun StageOfPhotoScreen(
                     }
                 }
             )
+
+            Spacer(modifier = Modifier.padding(vertical= 10.dp))
+
             RequestGalleryPermission()
         }
 
@@ -316,6 +319,7 @@ fun StageOfPhotoScreen(
         CCButton(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(Res.string.register_account_stage_of_photo_button_next_step_title),
+            isEnable = uiState.photoUrl == null,
             isLoading = uiState.isLoading,
             isSuccess = uiState.isSuccess,
             onButtonListener = {
