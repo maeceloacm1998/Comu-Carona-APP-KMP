@@ -48,7 +48,7 @@ fun RequestGalleryPermission() {
         if (isGranted.value) {
             Text("Adicione uma foto")
         } else {
-            Text("Permissaão não authorizada.")
+            Text("Permissaão não autorizada.")
         }
     }
 }
