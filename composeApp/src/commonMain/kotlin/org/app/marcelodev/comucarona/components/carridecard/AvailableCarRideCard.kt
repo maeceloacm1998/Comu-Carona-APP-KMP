@@ -1,10 +1,7 @@
 package org.app.marcelodev.comucarona.components.carridecard
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -49,34 +46,40 @@ fun AvailableCarRideCard(
         onClick = onClick,
     ) {
         Column {
-            if(status.isNotEmpty()) {
-                Row(
-                    modifier = Modifier
-                        .padding(top = 12.dp)
-                ) {
-                    status.map { items ->
-                        CCTag(
-                            modifier = Modifier
-                                .padding(start = 10.dp),
-                            title = items.title,
-                            color = items.color
-                        )
-                    }
-
-                   if(riderHoursUntilExpiration.isBlank()) {
-                       Text(
-                           text = riderHoursUntilExpiration,
-                           style = MaterialTheme.typography.labelSmall,
-                           color = TextFieldColor,
-                           fontWeight = Bold,
-                       )
-                   }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .padding(top = 10.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                if(status.isEmpty()) {
+                    Box(
+                        modifier = Modifier.padding(10.dp)
+                    )
                 }
+                status.map { items ->
+                    CCTag(
+                        modifier = Modifier
+                            .padding(start = 10.dp),
+                        title = items.title,
+                        color = items.color
+                    )
+                }
+
+                Text(
+                    modifier = Modifier
+                        .padding(start = 10.dp),
+                    text = riderHoursUntilExpiration,
+                    style = MaterialTheme.typography.labelSmall,
+                    color = TextFieldColor,
+                    fontWeight = Bold,
+                )
             }
 
             AddressBox(
                 modifier = Modifier
-                    .padding(horizontal = 10.dp, vertical = 15.dp),
+                    .padding(horizontal = 10.dp),
                 waitingHour = waitingHour,
                 destinationHour = destinationHour,
                 waitingAddress = waitingAddress,
