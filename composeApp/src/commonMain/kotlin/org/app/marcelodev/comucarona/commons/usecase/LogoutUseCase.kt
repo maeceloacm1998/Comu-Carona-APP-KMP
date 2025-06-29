@@ -11,9 +11,12 @@ class LogoutUseCase(
     operator fun invoke(
         navigator: Navigator
     ) {
-        authPreferences.clearTokens()
+        authPreferences.apply {
+            photoUrl = null
+            userName = null
+            clearTokens()
+        }
 
-        // Adicionar Rota de checkCode
         NavigationUtils.replaceAllScreens(navigator, CheckCodeRoute())
     }
 }
