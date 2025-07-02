@@ -92,7 +92,7 @@
     <string name="my_ride_in_progress_details_complete_button_title">Ir para a home</string>
     <string name="my_ride_in_progress_details_reservations_title">Passageiros</string>
     <string name="my_ride_in_progress_details_reservations_empty_title">Nenhum passageiro reservou a carona 😔</string>
-    <string name="my_ride_in_progress_details_alert_finish_car_ride">Essa carona vai ser concluida automaticamente após 24 horas da sua criação.</string>
+    <string name="my_ride_in_progress_details_alert_finish_car_ride">Finalize a carona ao chegar no destino. Essa carona vai ser cancelada automaticamente após 24 horas da sua criação.</string>
 
     <string name="ride_in_progress_details_cancel_button_title">Sair dessa carona</string>
     <string name="ride_in_progress_details_cancel_bottom_sheet_title">Deseja cancelar sua reserva?</string>
