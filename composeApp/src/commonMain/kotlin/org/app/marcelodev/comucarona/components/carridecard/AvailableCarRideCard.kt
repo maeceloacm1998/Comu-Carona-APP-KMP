@@ -50,16 +50,16 @@ fun AvailableCarRideCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                horizontalArrangement = if(riderHoursUntilExpiration.isEmpty()) {
+                horizontalArrangement = if(riderHoursUntilExpiration.isBlank()) {
                     Arrangement.Start
                 } else {
-                    Arrangement.SpaceAround
+                    Arrangement.SpaceBetween
                 }
             ) {
                 // Criado para quando não tiver nenhum status, ele respeitar o SPACE_BETWEEN
                 if(status.isEmpty()) {
                     Box(
-                        modifier = Modifier.padding(10.dp)
+                        modifier = Modifier.padding(2.dp)
                     )
                 }
 
@@ -73,8 +73,7 @@ fun AvailableCarRideCard(
                 }
 
                 Text(
-                    modifier = Modifier
-                        .padding(horizontal = 10.dp),
+                    modifier = Modifier.padding(end = 10.dp),
                     text = riderHoursUntilExpiration,
                     style = MaterialTheme.typography.labelSmall,
                     color = TextFieldColor,
