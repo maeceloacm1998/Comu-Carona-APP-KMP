@@ -49,15 +49,20 @@ fun AvailableCarRideCard(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
                     .padding(top = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = if(riderHoursUntilExpiration.isEmpty()) {
+                    Arrangement.Start
+                } else {
+                    Arrangement.SpaceAround
+                }
             ) {
+                // Criado para quando não tiver nenhum status, ele respeitar o SPACE_BETWEEN
                 if(status.isEmpty()) {
                     Box(
                         modifier = Modifier.padding(10.dp)
                     )
                 }
+
                 status.map { items ->
                     CCTag(
                         modifier = Modifier
@@ -69,7 +74,7 @@ fun AvailableCarRideCard(
 
                 Text(
                     modifier = Modifier
-                        .padding(start = 10.dp),
+                        .padding(horizontal = 10.dp),
                     text = riderHoursUntilExpiration,
                     style = MaterialTheme.typography.labelSmall,
                     color = TextFieldColor,
