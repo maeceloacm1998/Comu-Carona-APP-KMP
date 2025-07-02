@@ -79,10 +79,11 @@ class RegisterAccountViewModel(
             registerAccountUseCase(
                 fullName = state.fullName,
                 phoneNumber = state.phoneNumber,
-            ).onSuccess {
+            ).onSuccess { registerResponse ->
                 if(state.photoUrl != null) {
                     onFetchUploadPhoto(state.photoUrl.readBytes())
                 } else {
+                    photoUseCase(registerResponse.photoUrl)
                     handleStatusSuccessful()
                 }
             }.onFailure { throwable ->

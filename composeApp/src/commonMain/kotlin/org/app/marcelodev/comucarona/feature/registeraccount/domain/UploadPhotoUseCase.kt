@@ -26,4 +26,8 @@ class UploadPhotoUseCase(
             Result.failure(e)
         }
     }
+
+    operator fun invoke(image: String) {
+        authPreferences.photoUrl = image
+    }
 }
