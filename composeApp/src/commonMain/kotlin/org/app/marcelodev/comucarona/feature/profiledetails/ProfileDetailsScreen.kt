@@ -86,7 +86,7 @@ fun ProfileDetailsScreen(
                     horizontalAlignment = CenterHorizontally
                 ) {
                     CCShimmerImage(
-                        imageUrl = uiState.profileDetailsInformation.photoUrl,
+                        imageUrl = uiState.profileDetailsInformation.photoUrl.orEmpty(),
                         contentScale = FillBounds,
                         imageSize = 100,
                         onClick = {

@@ -74,7 +74,7 @@ fun ProfileScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 10.dp),
-                riderPhotoUrl = profile.photoUrl,
+                riderPhotoUrl = profile.photoUrl.orEmpty(),
                 riderUserName = profile.fullName,
                 riderDescription = "Participa de alvo da mocidade",
                 showArrow = false

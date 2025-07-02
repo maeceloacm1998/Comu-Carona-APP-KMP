@@ -36,6 +36,7 @@ import comucarona.composeapp.generated.resources.Res
 import comucarona.composeapp.generated.resources.car_ride_details_address_title_empty
 import comucarona.composeapp.generated.resources.car_ride_details_date_title_empty
 import comucarona.composeapp.generated.resources.car_ride_details_hour_title_empty
+import org.app.marcelodev.comucarona.components.alert.CCAlert
 import org.app.marcelodev.comucarona.components.bottomsheet.CCBottomSheet
 import org.app.marcelodev.comucarona.components.button.CCButton
 import org.app.marcelodev.comucarona.components.button.CCButtonBack
@@ -43,7 +44,6 @@ import org.app.marcelodev.comucarona.components.carridecard.AddressBox
 import org.app.marcelodev.comucarona.components.carridecard.UserSelectionBox
 import org.app.marcelodev.comucarona.components.horizontalline.HorizontalLine
 import org.app.marcelodev.comucarona.components.snackbar.CCSnackbar
-import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType.SUCCESS
 import org.app.marcelodev.comucarona.feature.carridedetails.data.models.BottomSheetCarRideUser
 import org.app.marcelodev.comucarona.feature.carridedetails.ui.UserDetailsBottomSheet
@@ -66,7 +66,6 @@ fun MyRideInProgressDetailsScreen(
     val isShowCancelButton: Boolean = uiState.carRideDetailsResponse?.isShowCancleButton ?: false
     val isShowShareButton: Boolean = !uiState.carRideDetailsResponse?.shareDeeplink.isNullOrBlank()
     val finishCarRide: Boolean = uiState.carRideDetailsResponse?.finishRide ?: false
-
 
     Scaffold(
         snackbarHost = {
@@ -97,10 +96,10 @@ fun MyRideInProgressDetailsScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     CCButtonBack(onClick = {
-                        onEvent(MyRideInProgressDetailsViewModelEventState.OnBack)
+                        onEvent(OnBack)
                     })
 
-                    if(isShowShareButton) {
+                    if (isShowShareButton) {
                         IconButton(
                             onClick = { onEvent(OnOpenShare) }
                         ) {
@@ -114,6 +113,12 @@ fun MyRideInProgressDetailsScreen(
                 }
 
                 Spacer(modifier = Modifier.height(20.dp))
+
+                CCAlert(
+                    message = stringResource(Res.string.my_ride_in_progress_details_alert_finish_car_ride),
+                )
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 Text(
                     text = uiState.carRideDetailsResponse?.dateTitle
@@ -161,7 +166,7 @@ fun MyRideInProgressDetailsScreen(
                     modifier = Modifier.fillMaxWidth().padding(bottom = 25.dp),
                 )
 
-                if(uiState.carRideDetailsResponse?.reservations.isNullOrEmpty()) {
+                if (uiState.carRideDetailsResponse?.reservations.isNullOrEmpty()) {
                     Text(
                         text = stringResource(Res.string.my_ride_in_progress_details_reservations_empty_title),
                         style = MaterialTheme.typography.bodySmall,
@@ -190,7 +195,7 @@ fun MyRideInProgressDetailsScreen(
                 }
             }
 
-            if(isShowCancelButton || isShowFinishButton) {
+            if (isShowCancelButton || isShowFinishButton) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -207,7 +212,7 @@ fun MyRideInProgressDetailsScreen(
                             isSuccess = finishCarRide,
                             isEnable = uiState.isEnableButton,
                             onButtonListener = {
-                                if(!finishCarRide) {
+                                if (!finishCarRide) {
                                     onEvent(OnFinishCarRide)
                                 }
                             }
