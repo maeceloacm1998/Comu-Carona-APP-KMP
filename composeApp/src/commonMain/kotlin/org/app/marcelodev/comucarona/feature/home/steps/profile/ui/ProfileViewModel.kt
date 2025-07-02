@@ -56,7 +56,6 @@ class ProfileViewModel(
                 navigator = it,
                 screen = ProfileDetailsRoute(
                     userName = profileInformation.fullName,
-                    birthDate = profileInformation.birthDate,
                     phoneNumber = profileInformation.phoneNumber,
                 )
             )

@@ -1,6 +1,5 @@
 package org.app.marcelodev.comucarona.feature.profiledetails
 
-import coil3.Uri
 import io.github.vinceglb.filekit.PlatformFile
 
 
@@ -17,13 +16,6 @@ sealed class ProfileDetailsViewModelEventState {
      * @param fullName The new full name.
      */
     data class OnUpdateFullName(val fullName: String) : ProfileDetailsViewModelEventState()
-
-    /**
-     * Represents the event when the birth date is updated.
-     *
-     * @param birthDate The new birth date.
-     */
-    data class OnUpdateBirthDate(val birthDate: String) : ProfileDetailsViewModelEventState()
 
     /**
      * Represents the event when the phone number is updated.

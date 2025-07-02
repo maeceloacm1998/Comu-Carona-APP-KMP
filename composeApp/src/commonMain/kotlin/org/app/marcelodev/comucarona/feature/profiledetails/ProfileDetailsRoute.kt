@@ -14,7 +14,6 @@ import org.koin.core.parameter.parametersOf
 
 class ProfileDetailsRoute(
     val userName: String,
-    val birthDate: String,
     val phoneNumber: String
 ) : Screen {
     @Composable
@@ -23,7 +22,7 @@ class ProfileDetailsRoute(
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = koinScreenModel<ProfileDetailsViewModel>(
             parameters = {
-                parametersOf(navigator, snackbarHostState, userName, birthDate, phoneNumber)
+                parametersOf(navigator, snackbarHostState, userName, phoneNumber)
             }
         )
 

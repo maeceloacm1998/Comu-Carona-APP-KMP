@@ -14,8 +14,6 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.app.marcelodev.comucarona.commons.usecase.LogoutUseCase
-import org.app.marcelodev.comucarona.commons.utils.DateUtils.MAX_DIGITS_OF_BIRTH_DATE
-import org.app.marcelodev.comucarona.commons.utils.DateUtils.isValidBirthDate
 import org.app.marcelodev.comucarona.commons.utils.NavigationUtils
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType
 import org.app.marcelodev.comucarona.feature.home.steps.initial.domain.GetUserInformationUseCase
@@ -29,7 +27,6 @@ import org.koin.core.component.KoinComponent
 class ProfileDetailsViewModel(
     private val navigator: Navigator,
     private val userName: String,
-    private val birthDate: String,
     private val phoneNumber: String,
     private val snackbarHostState: SnackbarHostState,
     private val photoUseCase: UploadPhotoUseCase,
@@ -57,7 +54,6 @@ class ProfileDetailsViewModel(
             is OnBack -> NavigationUtils.removeLastScreen(navigator)
             is OnUpdatePhoto -> onUpdatePhoto(event.uri)
             is OnUpdateFullName -> onUpdateFullName(event.fullName)
-            is OnUpdateBirthDate -> onUpdateBirthDate(event.birthDate)
             is OnUpdatePhoneNumber -> onUpdatePhoneNumber(event.phoneNumber)
             is OnUpdateProfile -> onUpdateProfile()
         }
@@ -103,7 +99,6 @@ class ProfileDetailsViewModel(
             val profileInformation = checkNotNull(viewModelState.value.profileDetailsInformation)
             updateProfileUseCase(
                 userName = profileInformation.fullName,
-                birthDate = profileInformation.birthDate,
                 phoneNumber = profileInformation.phoneNumber,
             ).onSuccess {
                 onUpdateLoadingUpdate(false)
@@ -163,7 +158,6 @@ class ProfileDetailsViewModel(
             it.copy(
                 profileDetailsInformation = RegisterAccountRequest(
                     fullName = userName,
-                    birthDate = birthDate,
                     phoneNumber = phoneNumber,
                     photoUrl = ""
                 )
@@ -193,22 +187,6 @@ class ProfileDetailsViewModel(
         onUpdateIsChangeFields(true)
     }
 
-    private fun onUpdateBirthDate(birthDate: String) {
-        viewModelState.update { currentState ->
-            val isValid = if (birthDate.length == MAX_DIGITS_OF_BIRTH_DATE) {
-                isValidBirthDate(birthDate)
-            } else {
-                false
-            }
-
-            currentState.copy(
-                profileDetailsInformation = currentState.profileDetailsInformation?.copy(birthDate = birthDate),
-                birthDateErro = !isValid,
-            )
-        }
-
-        onUpdateIsChangeFields(true)
-    }
 
     private fun onUpdatePhoneNumber(phoneNumber: String) {
         viewModelState.update {

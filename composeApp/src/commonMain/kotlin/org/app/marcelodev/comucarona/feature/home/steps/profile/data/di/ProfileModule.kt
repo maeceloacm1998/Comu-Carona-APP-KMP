@@ -41,7 +41,6 @@ object ProfileModule {
                 navigator = param.get(),
                 snackbarHostState = param.get(),
                 userName = param.get(),
-                birthDate = param.get(),
                 phoneNumber = param.get(),
                 getUserInformationUseCase = get(),
                 logoutUseCase = get(),

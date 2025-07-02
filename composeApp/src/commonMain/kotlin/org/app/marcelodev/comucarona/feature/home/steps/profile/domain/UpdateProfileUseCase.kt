@@ -8,12 +8,10 @@ class UpdateProfileUseCase(
 ) {
     suspend operator fun invoke(
         userName: String,
-        birthDate: String,
         phoneNumber: String
     ): Result<RegisterAccountRequest> {
         val newRegisterUpdate = RegisterAccountRequest(
             fullName = userName,
-            birthDate = birthDate,
             phoneNumber = phoneNumber,
             photoUrl = ""
         )

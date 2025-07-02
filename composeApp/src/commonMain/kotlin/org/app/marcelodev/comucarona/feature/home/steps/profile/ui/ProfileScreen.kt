@@ -139,7 +139,6 @@ fun ProfileScreenPreview() {
                 fullName = "John Doe",
                 photoUrl = "https://randomuser.me/api/portraits",
                 phoneNumber = "(31) 99999-9999",
-                birthDate = "02/05/2025"
             ),
             isLoading = false,
             isError = false

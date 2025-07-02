@@ -20,7 +20,6 @@ class RegisterAccountUseCase(
             val request = RegisterAccountRequest(
                 fullName = fullName,
                 phoneNumber = phoneNumber,
-                birthDate = "",
                 photoUrl = null
             )
 
