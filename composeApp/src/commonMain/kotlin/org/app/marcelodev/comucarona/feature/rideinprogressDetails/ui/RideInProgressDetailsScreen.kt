@@ -1,5 +1,6 @@
 package org.app.marcelodev.comucarona.feature.rideinprogressDetails.ui
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -52,6 +53,7 @@ import org.app.marcelodev.comucarona.components.snackbar.CCSnackbar
 import org.app.marcelodev.comucarona.components.snackbar.SnackbarCustomType.ERROR
 import org.app.marcelodev.comucarona.feature.carridedetails.ui.UserDetailsBottomSheet
 import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.CancelBottomSheet
+import org.app.marcelodev.comucarona.feature.myrideinprogressdetails.ui.MyRideInProgressDetailsViewModelEventState
 import org.app.marcelodev.comucarona.theme.Error
 import org.app.marcelodev.comucarona.theme.SoftBlack
 import org.app.marcelodev.comucarona.theme.TextFieldLightColor
@@ -66,6 +68,7 @@ fun RideInProgressDetailsScreen(
     snackbarHostState: SnackbarHostState
 ) {
     val isShowShareButton: Boolean = !uiState.carRideDetailsResponse?.shareDeeplink.isNullOrBlank()
+    val isShowCancelButton: Boolean = uiState.carRideDetailsResponse?.isShowCancleButton ?: false
 
     Scaffold(
         snackbarHost = {
@@ -189,24 +192,26 @@ fun RideInProgressDetailsScreen(
                 }
             }
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(White)
-                    .padding(horizontal = 20.dp)
-            ) {
-                HorizontalLine(Modifier.padding(bottom = 10.dp))
+            AnimatedVisibility(isShowCancelButton) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(White)
+                        .padding(horizontal = 20.dp)
+                ) {
+                    HorizontalLine(Modifier.padding(bottom = 10.dp))
 
-                CCButton(
-                    Modifier.padding(bottom = 20.dp),
-                    title = stringResource(Res.string.ride_in_progress_details_cancel_button_title),
-                    isLoading = uiState.isLoadingReservation,
-                    isSuccess = uiState.isSuccessReservation,
-                    isEnable = uiState.isEnableButton,
-                    titleColor = Error,
-                    containerColor = Transparent,
-                    onButtonListener = { onEvent(OnOpenCancelBottomSheet) }
-                )
+                    CCButton(
+                        Modifier.padding(bottom = 20.dp),
+                        title = stringResource(Res.string.ride_in_progress_details_cancel_button_title),
+                        isLoading = uiState.isLoadingReservation,
+                        isSuccess = uiState.isSuccessReservation,
+                        isEnable = uiState.isEnableButton,
+                        titleColor = Error,
+                        containerColor = Transparent,
+                        onButtonListener = { onEvent(OnOpenCancelBottomSheet) }
+                    )
+                }
             }
         }
 
