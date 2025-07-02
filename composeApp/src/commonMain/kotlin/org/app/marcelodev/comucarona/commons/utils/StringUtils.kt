@@ -3,7 +3,8 @@ package org.app.marcelodev.comucarona.commons.utils
 object StringUtils {
     const val PHONE_NUMBER_LENGTH = 14
     const val BIRTH_DATE_LENGTH = 10
-    const val FULL_NAME_LENGTH = 5
+    const val MIN_FULL_NAME_LENGTH = 5
+    const val MAX_FULL_NAME_LENGTH = 20
     const val CAR_PLATE_LENGTH = 7
 
     /**

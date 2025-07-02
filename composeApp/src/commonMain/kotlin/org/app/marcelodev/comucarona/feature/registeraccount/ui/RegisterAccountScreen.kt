@@ -32,7 +32,8 @@ import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.openFilePicker
 import kotlinx.coroutines.launch
-import org.app.marcelodev.comucarona.commons.utils.StringUtils.FULL_NAME_LENGTH
+import org.app.marcelodev.comucarona.commons.utils.StringUtils.MAX_FULL_NAME_LENGTH
+import org.app.marcelodev.comucarona.commons.utils.StringUtils.MIN_FULL_NAME_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.PHONE_NUMBER_LENGTH
 import org.app.marcelodev.comucarona.commons.utils.StringUtils.formatPhoneNumber
 import org.app.marcelodev.comucarona.components.button.CCButton
@@ -91,6 +92,7 @@ fun StageOfFullNameScreen(
                 .focusRequester(focusRequesters),
             placeholder = stringResource(Res.string.register_account_stage_of_full_name_hint),
             value = uiState.fullName,
+            maxLength = MAX_FULL_NAME_LENGTH,
             onValueChange = { text ->
                 event(OnUpdateFullName(text))
             },
@@ -106,7 +108,7 @@ fun StageOfFullNameScreen(
         CCButton(
             modifier = Modifier.fillMaxWidth(),
             title = stringResource(Res.string.register_account_stage_of_full_name_button_title),
-            isEnable = uiState.fullName.length >= FULL_NAME_LENGTH,
+            isEnable = uiState.fullName.length >= MIN_FULL_NAME_LENGTH,
             onButtonListener = {
                 event(OnNextStep(FULL_NAME))
             }
