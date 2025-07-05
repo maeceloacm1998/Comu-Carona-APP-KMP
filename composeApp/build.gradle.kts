@@ -109,8 +109,8 @@ android {
         applicationId = "org.app.marcelodev.comucarona"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.1.0"
+        versionCode = 4
+        versionName = "1.1.1"
     }
     packaging {
         resources {
